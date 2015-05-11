@@ -8,11 +8,11 @@ This library contains a collection of Modelica models whose size can be scaled b
 
 ## Current release
 
-1.0.0-dev.
+1.0.0
 
 ## License
 
-The libray is released under Modelica License 2.
+The library is released under Modelica License 2.
 
 ## Development and contribution
 The library was developed by Politecnico di Milano
