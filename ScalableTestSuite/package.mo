@@ -2,8 +2,6 @@ within ;
 package ScalableTestSuite "A library of scalable Modelica test models"
 
 
-
-
   annotation(version = "1.0.0",
              uses(Modelica(version = "3.2.1")),
              Documentation(info=

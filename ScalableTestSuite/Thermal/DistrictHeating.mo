@@ -133,10 +133,6 @@ package DistrictHeating
       y := Modelica.Math.tanh(2*(x-xmin)/(xmax-xmin)-1)*(xmax-xmin)/2 + (xmax+xmin)/2;
     end sat;
 
-
-
-
-
     annotation ();
   end Models;
 

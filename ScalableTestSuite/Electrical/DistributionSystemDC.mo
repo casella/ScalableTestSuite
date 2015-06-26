@@ -13,6 +13,7 @@ package DistributionSystemDC
         "Resistance of a secondary distribution segment";
       parameter Modelica.SIunits.Resistance R_d1 = R_l/(M^2*N^2*alpha)
         "Resistance of a primary distribution segment";
+      parameter Modelica.SIunits.Voltage V_ref = 600 "Reference source voltage";
 
       Modelica.Electrical.Analog.Basic.Resistor primary[N](each R = R_d1)
         "Primary distribution line segments";
@@ -23,7 +24,7 @@ package DistributionSystemDC
       Modelica.Electrical.Analog.Basic.Ground ground[N,M] "Load ground";
       Modelica.Electrical.Analog.Basic.Ground sourceGround "Source ground";
 
-      Modelica.Electrical.Analog.Sources.RampVoltage V_source(V = 600, duration = 1)
+      Modelica.Electrical.Analog.Sources.RampVoltage V_source(V = V_ref, duration = 1)
         "Voltage source";
     equation
       connect(primary[1].p, V_source.p);
@@ -52,7 +53,7 @@ package DistributionSystemDC
     end DistributionSystemModelica;
 
     model DistributionSystemModelicaIndividual
-      parameter Integer N = 80
+      parameter Integer N = 10
         "Number of segments of the primary distribution line";
       parameter Integer M = N
         "Number of segments of each secondary distribution line";
@@ -69,6 +70,7 @@ package DistributionSystemDC
         print("  parameter Modelica.SIunits.Resistance R_l = "+String(R_l)+ " \"Resistance of a single load\";");
         print("  parameter Modelica.SIunits.Resistance R_d2 = R_l/(M^2*alpha) \"Resistance of a secondary distribution segment\";");
         print("  parameter Modelica.SIunits.Resistance R_d1 = R_l/(M^2*N^2*alpha) \"Resistance of a primary distribution segment\";");
+        print("  parameter Modelica.SIunits.Voltage V_ref = 600 \"Reference source voltage\";");
         print("");
         for i in 1:N loop
           print("  Modelica.Electrical.Analog.Basic.Resistor primary_"+String(i)+"(R = R_d1) \"Primary distribution line segment\";");
@@ -79,7 +81,7 @@ package DistributionSystemDC
           end for;
         end for;
         print("  Modelica.Electrical.Analog.Basic.Ground sourceGround \"Source ground\";");
-        print("  Modelica.Electrical.Analog.Sources.RampVoltage V_source(V = 600, duration = 1) \"Voltage source\";");
+        print("  Modelica.Electrical.Analog.Sources.RampVoltage V_source(V = V_ref, duration = 1) \"Voltage source\";");
         print("equation");
         print("  connect(primary_1.p, V_source.p);");
         print("  connect(sourceGround.p, V_source.n);");
@@ -146,6 +148,107 @@ equation
 */
 
     end DistributionSystemModelicaIndividual;
+
+    model DistributionSystemModelicaActiveLoads
+      parameter Integer N = 4
+        "Number of segments of the primary distribution line";
+      parameter Integer M = N
+        "Number of segments of each secondary distribution line";
+      parameter Real alpha = 2 "Distribution line oversizing factor";
+      parameter Modelica.SIunits.Resistance R_l = 1
+        "Resistance of a single load";
+      parameter Modelica.SIunits.Resistance R_d2 = R_l/(M^2*alpha)
+        "Resistance of a secondary distribution segment";
+      parameter Modelica.SIunits.Resistance R_d1 = R_l/(M^2*N^2*alpha)
+        "Resistance of a primary distribution segment";
+      parameter Modelica.SIunits.Voltage V_ref = 600 "Reference source voltage";
+
+      Modelica.Electrical.Analog.Basic.Resistor primary[N](each R = R_d1)
+        "Primary distribution line segments";
+      Modelica.Electrical.Analog.Basic.Resistor secondary[N,M](each R = R_d2)
+        "Secondary distribution line segments";
+      Modelica.Electrical.Analog.Basic.Resistor load[N,M](each R = R_l)
+        "Individual load resistors";
+      ActiveLoad activeLoad[N](each I_max = V_ref/(M*R_l));
+      Modelica.Electrical.Analog.Basic.Ground ground[N,M] "Load ground";
+      Modelica.Electrical.Analog.Basic.Ground sourceGround "Source ground";
+
+      Modelica.Electrical.Analog.Sources.RampVoltage V_source(V = V_ref, duration = 1)
+        "Voltage source";
+    equation
+      connect(primary[1].p, V_source.p);
+      connect(sourceGround.p, V_source.n);
+      for i in 1:N-1 loop
+        connect(primary[i].n, primary[i+1].p);
+      end for;
+      for i in 1:N loop
+        connect(primary[i].n, secondary[i,1].p);
+        connect(activeLoad[i].p, secondary[i,M].n);
+        for j in 1:M-1 loop
+          connect(secondary[i,j].n, secondary[i,j+1].p);
+        end for;
+        for j in 1:M loop
+          connect(secondary[i,j].n, load[i,j].p);
+          connect(load[i,j].n, ground[i,j].p);
+        end for;
+      end for;
+
+      annotation (Documentation(info="<html>
+  <p>This model represnts a DC current distribution system, whose complexity depends on two parameters 
+  N and M. A voltage source is connected to primary resistive distribution line which is split into
+  N segments, each with a resistance R_d1. At the end of each segment, a secondary distribution
+  line is attached with M elements each of resistance R_d2. At the end of each secondary segment,
+  a load resistor of resistance R_l is connected, which is grounded on the other side.</p>
+</html>"));
+    end DistributionSystemModelicaActiveLoads;
+
+    model ActiveLoad
+      "Model of an active load, with ramp-shaped current consumption"
+      parameter Modelica.SIunits.Current I_max;
+      parameter Modelica.SIunits.Time T = 0.1;
+
+      Modelica.Electrical.Analog.Basic.Ground ground
+        annotation (Placement(transformation(extent={{54,-26},{74,-6}})));
+      Modelica.Electrical.Analog.Sources.SignalCurrent currentGenerator annotation (
+         Placement(transformation(
+            extent={{10,-10},{-10,10}},
+            rotation=90,
+            origin={64,20})));
+      Modelica.Blocks.Continuous.FirstOrder firstOrder1(
+        T=T,
+        initType=Modelica.Blocks.Types.Init.InitialOutput,
+        y_start=0,
+        k=1)       annotation (Placement(transformation(extent={{16,10},{36,30}})));
+      Modelica.Electrical.Analog.Interfaces.PositivePin p
+        annotation (Placement(transformation(extent={{-10,90},{10,110}})));
+      Modelica.Blocks.Sources.Ramp ramp(
+        height=I_max,
+        duration=1,
+        offset=0,
+        startTime=1)
+        annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
+      Modelica.Blocks.Continuous.FirstOrder firstOrder2(
+        T=T,
+        initType=Modelica.Blocks.Types.Init.InitialOutput,
+        y_start=0,
+        k=1)       annotation (Placement(transformation(extent={{-18,10},{2,30}})));
+    equation
+      connect(currentGenerator.n, ground.p)
+        annotation (Line(points={{64,10},{64,-6},{64,-6}}, color={0,0,255}));
+      connect(currentGenerator.p, p) annotation (Line(points={{64,30},{64,30},{64,48},
+              {2,48},{0,48},{0,100}}, color={0,0,255}));
+      connect(firstOrder1.y, currentGenerator.i)
+        annotation (Line(points={{37,20},{57,20}}, color={0,0,127}));
+      connect(firstOrder2.y, firstOrder1.u)
+        annotation (Line(points={{3,20},{14,20}},         color={0,0,127}));
+      connect(ramp.y, firstOrder2.u)
+        annotation (Line(points={{-49,20},{-20,20}}, color={0,0,127}));
+      annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+                -100},{100,100}})), Icon(coordinateSystem(preserveAspectRatio=false,
+              extent={{-100,-100},{100,100}}), graphics={
+                                             Rectangle(extent={{-100,100},{100,-100}},
+                lineColor={28,108,200})}));
+    end ActiveLoad;
   end Models;
 
   package Verification
@@ -211,6 +314,7 @@ equation
         "Resistance of a secondary distribution segment";
       parameter Modelica.SIunits.Resistance R_d1 = R_l/(M^2*N^2*alpha)
         "Resistance of a primary distribution segment";
+      parameter Modelica.SIunits.Voltage V_ref = 600 "Reference source voltage";
 
       Modelica.Electrical.Analog.Basic.Resistor primary_1(R = R_d1)
         "Primary distribution line segment";
@@ -833,7 +937,7 @@ equation
       Modelica.Electrical.Analog.Basic.Ground ground_10_10
         "Individual load ground";
       Modelica.Electrical.Analog.Basic.Ground sourceGround "Source ground";
-      Modelica.Electrical.Analog.Sources.RampVoltage V_source(V = 600, duration = 1)
+      Modelica.Electrical.Analog.Sources.RampVoltage V_source(V = V_ref, duration = 1)
         "Voltage source";
     equation
       connect(primary_1.p, V_source.p);
@@ -1162,6 +1266,7 @@ equation
         "Resistance of a secondary distribution segment";
       parameter Modelica.SIunits.Resistance R_d1 = R_l/(M^2*N^2*alpha)
         "Resistance of a primary distribution segment";
+      parameter Modelica.SIunits.Voltage V_ref = 600 "Reference source voltage";
 
       Modelica.Electrical.Analog.Basic.Resistor primary_1(R = R_d1)
         "Primary distribution line segment";
@@ -3604,7 +3709,7 @@ equation
       Modelica.Electrical.Analog.Basic.Ground ground_20_20
         "Individual load ground";
       Modelica.Electrical.Analog.Basic.Ground sourceGround "Source ground";
-      Modelica.Electrical.Analog.Sources.RampVoltage V_source(V = 600, duration = 1)
+      Modelica.Electrical.Analog.Sources.RampVoltage V_source(V = V_ref, duration = 1)
         "Voltage source";
     equation
       connect(primary_1.p, V_source.p);
@@ -4843,6 +4948,7 @@ equation
         "Resistance of a secondary distribution segment";
       parameter Modelica.SIunits.Resistance R_d1 = R_l/(M^2*N^2*alpha)
         "Resistance of a primary distribution segment";
+      parameter Modelica.SIunits.Voltage V_ref = 600 "Reference source voltage";
 
       Modelica.Electrical.Analog.Basic.Resistor primary_1(R = R_d1)
         "Primary distribution line segment";
@@ -14525,7 +14631,7 @@ equation
       Modelica.Electrical.Analog.Basic.Ground ground_40_40
         "Individual load ground";
       Modelica.Electrical.Analog.Basic.Ground sourceGround "Source ground";
-      Modelica.Electrical.Analog.Sources.RampVoltage V_source(V = 600, duration = 1)
+      Modelica.Electrical.Analog.Sources.RampVoltage V_source(V = V_ref, duration = 1)
         "Voltage source";
     equation
       connect(primary_1.p, V_source.p);
@@ -19384,6 +19490,7 @@ equation
         "Resistance of a secondary distribution segment";
       parameter Modelica.SIunits.Resistance R_d1 = R_l/(M^2*N^2*alpha)
         "Resistance of a primary distribution segment";
+      parameter Modelica.SIunits.Voltage V_ref = 600 "Reference source voltage";
 
       Modelica.Electrical.Analog.Basic.Resistor primary_1(R = R_d1)
         "Primary distribution line segment";
@@ -57946,7 +58053,7 @@ equation
       Modelica.Electrical.Analog.Basic.Ground ground_80_80
         "Individual load ground";
       Modelica.Electrical.Analog.Basic.Ground sourceGround "Source ground";
-      Modelica.Electrical.Analog.Sources.RampVoltage V_source(V = 600, duration = 1)
+      Modelica.Electrical.Analog.Sources.RampVoltage V_source(V = V_ref, duration = 1)
         "Voltage source";
     equation
       connect(primary_1.p, V_source.p);
@@ -77232,5 +77339,55 @@ equation
       connect(load_80_80.n, ground_80_80.p);
       annotation(experiment(StopTime = 1, Interval = 1e-3));
     end DistributionSystemModelicaIndividual_N_80_M_80;
+
+    model DistributionSystemModelicaActiveLoads_N_10_M_10
+      extends Models.DistributionSystemModelicaActiveLoads(N = 10, M = 10);
+      annotation(experiment(StopTime = 3, Interval = 1e-3));
+    end DistributionSystemModelicaActiveLoads_N_10_M_10;
+
+    model DistributionSystemModelicaActiveLoads_N_14_M_14
+      extends Models.DistributionSystemModelicaActiveLoads(N = 14, M = 14);
+      annotation(experiment(StopTime = 3, Interval = 1e-3));
+    end DistributionSystemModelicaActiveLoads_N_14_M_14;
+
+    model DistributionSystemModelicaActiveLoads_N_20_M_20
+      extends Models.DistributionSystemModelicaActiveLoads(N = 20, M = 20);
+      annotation(experiment(StopTime = 3, Interval = 1e-3));
+    end DistributionSystemModelicaActiveLoads_N_20_M_20;
+
+    model DistributionSystemModelicaActiveLoads_N_28_M_28
+      extends Models.DistributionSystemModelicaActiveLoads(N = 28, M = 28);
+      annotation(experiment(StopTime = 3, Interval = 1e-3));
+    end DistributionSystemModelicaActiveLoads_N_28_M_28;
+
+    model DistributionSystemModelicaActiveLoads_N_40_M_40
+      extends Models.DistributionSystemModelicaActiveLoads(N = 40, M = 40);
+      annotation(experiment(StopTime = 3, Interval = 1e-3));
+    end DistributionSystemModelicaActiveLoads_N_40_M_40;
+
+    model DistributionSystemModelicaActiveLoads_N_56_M_56
+      extends Models.DistributionSystemModelicaActiveLoads(N = 56, M = 56);
+      annotation(experiment(StopTime = 3, Interval = 1e-3));
+    end DistributionSystemModelicaActiveLoads_N_56_M_56;
+
+    model DistributionSystemModelicaActiveLoads_N_80_M_80
+      extends Models.DistributionSystemModelicaActiveLoads(N = 80, M = 80);
+      annotation(experiment(StopTime = 3, Interval = 1e-3));
+    end DistributionSystemModelicaActiveLoads_N_80_M_80;
+
+    model DistributionSystemModelicaActiveLoads_N_80_M_20
+      extends Models.DistributionSystemModelicaActiveLoads(N = 80, M = 20);
+      annotation(experiment(StopTime = 3, Interval = 1e-3));
+    end DistributionSystemModelicaActiveLoads_N_80_M_20;
+
+    model DistributionSystemModelicaActiveLoads_N_160_M_10
+      extends Models.DistributionSystemModelicaActiveLoads(N = 160, M = 10);
+      annotation(experiment(StopTime = 3, Interval = 1e-3));
+    end DistributionSystemModelicaActiveLoads_N_160_M_10;
+
+    model DistributionSystemModelicaActiveLoads_N_320_M_5
+      extends Models.DistributionSystemModelicaActiveLoads(N = 320, M = 5);
+      annotation(experiment(StopTime = 3, Interval = 1e-3));
+    end DistributionSystemModelicaActiveLoads_N_320_M_5;
   end ScaledExperiments;
 end DistributionSystemDC;
