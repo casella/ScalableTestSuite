@@ -120,7 +120,7 @@ package Advection "1D advection models"
         "Exact outlet temperature from analytical solution";
     equation
       Tout_ex = 300 + dT*(0.5*tanh((time-t0-L/u)/dt)+0.5);
-      annotation (experiment(StopTime=15, NumberOfIntervals=5000, Tolerance = 1e-6),
+      annotation (experiment(StopTime=15, Interval=4e-3, Tolerance = 1e-6),
           Documentation(info="<html>
 <p>At constant fluid speed u, the exact analytical solution of the PDEs is</p>
 <p><img src=\"modelica://ScalableTestSuite/Resources/Images/SimpleAdvection/as_advection.png\"/></p>
@@ -130,7 +130,8 @@ package Advection "1D advection models"
     model SteamPipe
       extends Models.SteamPipe(w_in_pipe = 2, N = 100);
       Medium.SpecificEnthalpy h_out_pipe_th = delay(h_in_pipe, tau);
-      annotation (Documentation(info="<html>
+      annotation (experiment(StopTime=15, Interval=4e-3, Tolerance = 1e-6),
+                  Documentation(info="<html>
 <p>After the initial transient has settled down, the step change of the specific enthalpy at the inlet is propagated to the outlet at a velocity roughly equal to that of the fluid. The outlet specific enthalpy is approximately equal to the inlet enthalpy delayed by the ratio tau between the total mass and the mass flow rate. There is a significant effect of numerical diffusion even for large values of N.</p>
 </html>"),
         experiment(

@@ -103,8 +103,6 @@ package DistributionSystemDC
       end when;
 
       /*
-  
-  ;
   parameter Integer M = N 
     "Number of segments of each secondary distribution line";
   parameter Real alpha = 2 "Distribution line oversizing factor";
@@ -140,12 +138,11 @@ equation
       connect(load[i,j].n, ground[i,j].p);
     end for;
   end for;
-
-  annotation (Documentation(info="<html>
+*/
+      annotation (Documentation(info="<html>
 <p>This model generates Modelica code of models equivalent to DistributionSystemModelica which don&apos;t use arrays and for loops, but rather declare each model and each connection individually.</p>
 <p>This model can be used to check the overhead of instantiating large numbesr of individual models compared to arrays, and also to check the ability of compilers to factor out the code of instances of the same component.</p>
 </html>"));
-*/
 
     end DistributionSystemModelicaIndividual;
 
@@ -194,11 +191,7 @@ equation
       end for;
 
       annotation (Documentation(info="<html>
-  <p>This model represnts a DC current distribution system, whose complexity depends on two parameters 
-  N and M. A voltage source is connected to primary resistive distribution line which is split into
-  N segments, each with a resistance R_d1. At the end of each segment, a secondary distribution
-  line is attached with M elements each of resistance R_d2. At the end of each secondary segment,
-  a load resistor of resistance R_l is connected, which is grounded on the other side.</p>
+<p>This model is similar to DistributionSystemModelica, save that represnts a DC current distribution system, whose complexity depends on two parameters N and M. A voltage source is connected to primary resistive distribution line which is split into N segments, each with a resistance R_d1. At the end of each segment, a secondary distribution line is attached with M elements each of resistance R_d2. At the end of each secondary segment, a load resistor of resistance R_l is connected, which is grounded on the other side.</p>
 </html>"));
     end DistributionSystemModelicaActiveLoads;
 

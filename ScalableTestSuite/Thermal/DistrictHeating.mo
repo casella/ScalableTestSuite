@@ -55,10 +55,7 @@ package DistrictHeating
         der(x[i]) = a*hist(x[i], Tu0 - Tu[i], Teps);
         u[i] = sat(b*x[i], -0.5, 0.5)+0.5;
       end for;
-      annotation (experiment(
-          StopTime=864000,
-          NumberOfIntervals=86400,
-          Tolerance=1e-004), Documentation(info="<html>
+      annotation (Documentation(info="<html>
 <p>This model represents a district heating system with N heated units, supplied by a heat distribution system. Each heated unit is described as a lumped-parameter energy balance with one temperature Tu, losing heat to the ambient, whose temperature Ta varies sinusoidally with a period of one day. The heat distribution system is also described by a large lumped thermal capacitance with a single temperature Td.</p>
 <p>The temperature of each unit is controlled by an on-off controller with hysteresis, which determines the conductance between the heating medium and the unit temperature, mimicking the behaviour of a fan-coil heater. The controller dynamics is nonlinear and subject to bifurcations. If the temperature lies outside of the hysteresis interval, the state x of the controller has one stable state, which is then converted to a 0-1 output by a nonlinear output function sat(). Inside the hysteresis interval, there are two stable states with an unstable state in-between. When the temperature gets higher or smaller than the hysteresis threshold, the current stable state collides with the unstable state and disappears, so that the state x undergoes a fast transition to the other equilibrium.</p>
 <p>The unit temperature controller dynamics is extremely stiff, due to the strong nonlinearity of the sat() function and to the wide changes of eigenvalues (including positive values!) during the transition to the new stable state.</p>
@@ -106,10 +103,7 @@ package DistrictHeating
         der(Tu[i]) = (Gh*(Td - Tu[i])*(sat(b*x[i], -0.5, 0.5)+0.5) - Gu*(Tu[i] - (278.15 + 8*sin(2*pi*time/86400))))/Cu[i];
         der(x[i]) = a*hist(x[i], Tu0 - Tu[i], Teps);
       end for;
-      annotation (experiment(
-          StopTime=864000,
-          NumberOfIntervals=86400,
-          Tolerance=1e-004), Documentation(info="<html>
+      annotation (Documentation(info="<html>
 <p>Same model as <a href=\"modelica://ScalableTestSuite.Thermal.DistrictHeating.Models.HeatingSystem\">HeatingSystem</a>, with explicit formulation of the state derivatives.</p>
 </html>"));
     end HeatingSystemExplicit;
@@ -142,7 +136,7 @@ package DistrictHeating
       Real y;
     equation
       y = Models.sat(x,-3, 6);
-      annotation (experiment(StopTime = 1, NumberOfIntervals=5000, Tolerance=1e-004));
+      annotation (experiment(StopTime = 1, Interval=2e-5));
     end TestSat;
 
     model TestHist "Test of the Models.hist function"
@@ -150,8 +144,7 @@ package DistrictHeating
       Real y;
     equation
       y = Models.hist(x, 0);
-      annotation (experiment(__Dymola_NumberOfIntervals=5000, Tolerance=1e-006),
-          __Dymola_experimentSetupOutput);
+      annotation (experiment(StopTime = 1, Interval = 2e-4));
     end TestHist;
 
     model TestHysteresis "Test of the bifurcation-based hysteresis behaviour"
@@ -165,9 +158,7 @@ package DistrictHeating
       y = Models.sat(b*x, -0.5, 0.5) + 0.5;
       annotation (experiment(
           StopTime=20,
-          NumberOfIntervals=5000,
-          Tolerance=1e-004),
-          __Dymola_experimentSetupOutput(equidistant=false));
+          Interval= 4e-3));
     end TestHysteresis;
   end Verification;
 

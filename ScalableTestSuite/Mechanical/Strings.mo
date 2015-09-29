@@ -36,13 +36,14 @@ package Strings "Models of strings suspended in a gravitational field"
         connect(damper[i].flange_a, revolute[i].support);
         connect(damper[i].flange_b, revolute[i].axis);
       end for;
-      annotation(experiment(StopTime = 0.8, Tolerance = 1e-6), Documentation(info = "<html><p>The string is modeled by considering the behavior of a travelling wave on a string. The prescribed transversal displacement at one end creates a wave on the string. From one end of the string model, a pulse is given and a travelling wave is observed along the string and it is modeled by using MultiBody library.</p><p>In order to be able to observe the characteristics of a string, a pulse is given on the horizontal axis and while there is a uniform gravity on the vertical axis, movement of the pulse is observed along the created model. The main idea is to see a movement of the rigid bodies such that reflects a travelling wave when a pulse is applied from one end of the string model.
+      annotation(Documentation(info = "<html><p>The string is modeled by considering the behavior of a travelling wave on a string. The prescribed transversal displacement at one end creates a wave on the string. From one end of the string model, a pulse is given and a travelling wave is observed along the string and it is modeled by using MultiBody library.</p><p>In order to be able to observe the characteristics of a string, a pulse is given on the horizontal axis and while there is a uniform gravity on the vertical axis, movement of the pulse is observed along the created model. The main idea is to see a movement of the rigid bodies such that reflects a travelling wave when a pulse is applied from one end of the string model.
 The main body of the string is created by body boxes and revolute joints coupled with dampers. The travelling wave is determined by the coupling between inertia and tension due to gravity. Moreover, by using necessary components of MSL a pulse is applied to the string.With the world component gravity is applied on the vertical axis. The prismatic joint is coupled with a position component which provides a horizontal movement to the prismatic joint. And, position component is controlled with a pulse input which has 1 period. A string model example is given below.</p><img src=\"modelica://ScalableTestSuite/Resources/Images/String/stringmodel.png\"/><p>An example of a string model is given when N=2 where N corresponds to the number of revolute joints in the model, therefore, there are N+1 body boxes. Position component enables one to filter the input signal in order to eliminate the high frequency components. Hence, in the string model, pulse signal is filtered by the position component in order to provide a slow pulse to the string and by that way the response of the body boxes is observed.</p>
 </html>"));
     end StringModelica;
   end Models;
 
   package Verification
+
   end Verification;
 
   package ScaledExperiments

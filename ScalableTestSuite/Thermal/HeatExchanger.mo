@@ -53,16 +53,16 @@ package HeatExchanger "Models of heat exchangers"
       end for;
       QtotA = sum(QA);
       QtotB = sum(QB);
-      annotation(experiment(StopTime = 20, Tolerance = 1e-6), Documentation(info = "<html><p>Countercurrent heat exchanger model consist of two channels A and B, and a separating heat transfer wall in between.  Fluids A and B are flowing in the channels A and B respectively. Heat exchanger is assumed to be insulated around the outside, therefore, heat transfer occurs just between the fluids A and B. Fluid B is considered as the hot fluid and fluid A is considered to be the cold fluid.</p><img src=\"modelica://ScalableTestSuite/Resources/Images/HeatExchanger/countercurrent.png\"/><p>Heat exchanger mass balance equations for the fluids can be written as:</p><img src=\"modelica://ScalableTestSuite/Resources/Images/HeatExchanger/massbalance.png\"/><p>where ρ is the density of the fluid, A is the cross section and w is the mass flow rate. Density and the cross section are assumed to be constant for the fluids, hence mass flow rate is considered constant along the channels.</p>Heat exchanger energy balance equations are described considering a small portion l=L/(N-1) on the channels where L is the length of each channel, and N is the number of nodes on the channels. Therefore, N-1 corresponds to the number of channel and wall segments. And, there are N-1 heat flow rates and N-1 temperature variables for the wall which are considered for the segments. Discretized energy balance equations for the countercurrent heat exchanger are described as:<img src=\"modelica://ScalableTestSuite/Resources/Images/HeatExchanger/energybalance.png\"/><p>for j=1…N-1 where A_A and A_B are the cross section areas of the channels, ρ_A and ρ_B are the densities, c_pA and c_pB are the specific heat capacities, w_A and w_B are the mass flow rates of the fluids A and B respectively. Moreover, T_A and T_B are the temperature variables of the fluids A and B respectively, entering and exiting the small portion l. And, Q_A is the heat flow rate from wall to channel A, and Q_B is the heat flow rate from channel B to wall. In addition to this, boundary conditions were defined for the first node for T_A and for the node N for T_B.</p><p>The wall between the channels is assumed to be very thin, so its thermal resistance is neglected. Heat transfer occurs from the fluid A in channel A to the wall and from the wall to the fluid B in channel B. Energy balance at the each wall segment:</p><img src=\"modelica://ScalableTestSuite/Resources/Images/HeatExchanger/energywallcounter.png\"/><p>for  j=1…N-1 where γ_A and γ_B are the heat transfer coefficients of fluids A and B respectively, and ω_A and ω_B are the perimeter of the channels A and B respectively. Moreover, c_w  is the specific heat capacity of the wall and T_w  is the temperature variable of the wall segment. Parameters in the CounterCurrentHeatExchangerEquations:</p><table border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
+      annotation(Documentation(info = "<html><p>Countercurrent heat exchanger model consist of two channels A and B, and a separating heat transfer wall in between.  Fluids A and B are flowing in the channels A and B respectively. Heat exchanger is assumed to be insulated around the outside, therefore, heat transfer occurs just between the fluids A and B. Fluid B is considered as the hot fluid and fluid A is considered to be the cold fluid.</p><img src=\"modelica://ScalableTestSuite/Resources/Images/HeatExchanger/countercurrent.png\"/><p>Heat exchanger mass balance equations for the fluids can be written as:</p><img src=\"modelica://ScalableTestSuite/Resources/Images/HeatExchanger/massbalance.png\"/><p>where ρ is the density of the fluid, A is the cross section and w is the mass flow rate. Density and the cross section are assumed to be constant for the fluids, hence mass flow rate is considered constant along the channels.</p>Heat exchanger energy balance equations are described considering a small portion l=L/(N-1) on the channels where L is the length of each channel, and N is the number of nodes on the channels. Therefore, N-1 corresponds to the number of channel and wall segments. And, there are N-1 heat flow rates and N-1 temperature variables for the wall which are considered for the segments. Discretized energy balance equations for the countercurrent heat exchanger are described as:<img src=\"modelica://ScalableTestSuite/Resources/Images/HeatExchanger/energybalance.png\"/><p>for j=1…N-1 where A_A and A_B are the cross section areas of the channels, ρ_A and ρ_B are the densities, c_pA and c_pB are the specific heat capacities, w_A and w_B are the mass flow rates of the fluids A and B respectively. Moreover, T_A and T_B are the temperature variables of the fluids A and B respectively, entering and exiting the small portion l. And, Q_A is the heat flow rate from wall to channel A, and Q_B is the heat flow rate from channel B to wall. In addition to this, boundary conditions were defined for the first node for T_A and for the node N for T_B.</p><p>The wall between the channels is assumed to be very thin, so its thermal resistance is neglected. Heat transfer occurs from the fluid A in channel A to the wall and from the wall to the fluid B in channel B. Energy balance at the each wall segment:</p><img src=\"modelica://ScalableTestSuite/Resources/Images/HeatExchanger/energywallcounter.png\"/><p>for  j=1…N-1 where γ_A and γ_B are the heat transfer coefficients of fluids A and B respectively, and ω_A and ω_B are the perimeter of the channels A and B respectively. Moreover, c_w  is the specific heat capacity of the wall and T_w  is the temperature variable of the wall segment. Parameters in the CounterCurrentHeatExchangerEquations:</p><table border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
     <tr>
       <th>Parameters</th>
       <th>Comment</th>
     </tr>
-		<tr>
+                <tr>
       <td valign=\"top\">L</td>
       <td valign=\"top\">length</td>
     </tr>
-		<tr>
+                <tr>
       <td valign=\"top\">N</td>
       <td valign=\"top\">number of nodes</td>
     </tr>
@@ -78,39 +78,39 @@ package HeatExchanger "Models of heat exchangers"
       <td valign=\"top\">areaB</td>
       <td valign=\"top\">cross sectional area of B</td>
     </tr>
-		<tr>
+                <tr>
       <td valign=\"top\">rhoA</td>
       <td valign=\"top\">density of A</td>
     </tr>
-		<tr>
+                <tr>
       <td valign=\"top\">rhoB</td>
       <td valign=\"top\">density of B</td>
     </tr>
-		<tr>
+                <tr>
       <td valign=\"top\">cpA</td>
       <td valign=\"top\">specific heat capacity of A</td>
     </tr>
-		<tr>
+                <tr>
       <td valign=\"top\">cpB</td>
       <td valign=\"top\">specific heat capacity of B</td>
     </tr>
-		<tr>
+                <tr>
       <td valign=\"top\">cpW</td>
       <td valign=\"top\">specific heat capacity of the wall</td>
     </tr>
-		<tr>
+                <tr>
       <td valign=\"top\">gammaA</td>
       <td valign=\"top\">heat transfer coefficient of A</td>
     </tr>
-		<tr>
+                <tr>
       <td valign=\"top\">gammaB</td>
       <td valign=\"top\">heat transfer coefficient of B</td>
     </tr>
-		<tr>
+                <tr>
       <td valign=\"top\">omega</td>
       <td valign=\"top\">perimeter</td>
     </tr>
-		<tr>
+                <tr>
       <td valign=\"top\">l</td>
       <td valign=\"top\">length of each wall segment</td>
     </tr>
@@ -170,18 +170,18 @@ package HeatExchanger "Models of heat exchangers"
       end for;
       QtotA = sum(QA);
       QtotB = sum(QB);
-      annotation(experiment(StopTime = 20, Tolerance = 1e-6), Documentation(info = "<html><p>Cocurrent heat exchanger model consist of two channels A and B, and a separating heat transfer wall in between.  Fluids A and B are flowing in the channels A and B respectively. Heat exchanger is assumed to be insulated around the outside, therefore, heat transfer occurs just between the fluids A and B. Fluid B is considered as the hot fluid and fluid A is considered to be the cold fluid.</p><img src=\"modelica://ScalableTestSuite/Resources/Images/HeatExchanger/cocurrent.png\"/><p>Heat exchanger mass balance equations for the fluids can be written as:</p><img src=\"modelica://ScalableTestSuite/Resources/Images/HeatExchanger/massbalance.png\"/><p>where ρ is the density of the fluid, A is the cross section and w is the mass flow rate. Density and the cross section are assumed to be constant for the fluids, hence mass flow rate is considered constant along the channels.</p>Heat exchanger energy balance equations are described considering a small portion l=L/(N-1) on the channels where L is the length of each channel, and N is the number of nodes on the channels. Therefore, N-1 corresponds to the number of channel and wall segments. And, there are N-1 heat flow rates and N-1 temperature variables for the wall which are considered for the segments. <p>Energy balance equations for cocurrent heat exchanger is very similar to the equations of countercurrent heat exchanger. The difference occurs because of the flow direction of the fluid B, therefore, in cocurrent heat exchanger boundary condition of T_B is described for the first node. And, boundary condition of T_A remained again for the first node.</p> <img src=\"modelica://ScalableTestSuite/Resources/Images/HeatExchanger/energybalancecocurrent.png\"/><p>for j=1…N-1.
+      annotation(Documentation(info = "<html><p>Cocurrent heat exchanger model consist of two channels A and B, and a separating heat transfer wall in between.  Fluids A and B are flowing in the channels A and B respectively. Heat exchanger is assumed to be insulated around the outside, therefore, heat transfer occurs just between the fluids A and B. Fluid B is considered as the hot fluid and fluid A is considered to be the cold fluid.</p><img src=\"modelica://ScalableTestSuite/Resources/Images/HeatExchanger/cocurrent.png\"/><p>Heat exchanger mass balance equations for the fluids can be written as:</p><img src=\"modelica://ScalableTestSuite/Resources/Images/HeatExchanger/massbalance.png\"/><p>where ρ is the density of the fluid, A is the cross section and w is the mass flow rate. Density and the cross section are assumed to be constant for the fluids, hence mass flow rate is considered constant along the channels.</p>Heat exchanger energy balance equations are described considering a small portion l=L/(N-1) on the channels where L is the length of each channel, and N is the number of nodes on the channels. Therefore, N-1 corresponds to the number of channel and wall segments. And, there are N-1 heat flow rates and N-1 temperature variables for the wall which are considered for the segments. <p>Energy balance equations for cocurrent heat exchanger is very similar to the equations of countercurrent heat exchanger. The difference occurs because of the flow direction of the fluid B, therefore, in cocurrent heat exchanger boundary condition of T_B is described for the first node. And, boundary condition of T_A remained again for the first node.</p> <img src=\"modelica://ScalableTestSuite/Resources/Images/HeatExchanger/energybalancecocurrent.png\"/><p>for j=1…N-1.
 Energy balance at the each wall segment is modified in terms of temperature variables of fluid B:
 </p><img src=\"modelica://ScalableTestSuite/Resources/Images/HeatExchanger/energywallcocurrent.png\"/><p>for j=1…N-1.</p><p>Parameters in the CounterCurrentHeatExchangerEquations:</p><table border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
     <tr>
       <th>Parameters</th>
       <th>Comment</th>
     </tr>
-		<tr>
+                <tr>
       <td valign=\"top\">L</td>
       <td valign=\"top\">length of the channels</td>
     </tr>
-		<tr>
+                <tr>
       <td valign=\"top\">N</td>
       <td valign=\"top\">number of nodes</td>
     </tr>
@@ -197,39 +197,39 @@ Energy balance at the each wall segment is modified in terms of temperature vari
       <td valign=\"top\">areaB</td>
       <td valign=\"top\">cross sectional area of channel B</td>
     </tr>
-		<tr>
+                <tr>
       <td valign=\"top\">rhoA</td>
       <td valign=\"top\">density of fluid A</td>
     </tr>
-		<tr>
+                <tr>
       <td valign=\"top\">rhoB</td>
       <td valign=\"top\">density of fluid B</td>
     </tr>
-		<tr>
+                <tr>
       <td valign=\"top\">cpA</td>
       <td valign=\"top\">specific heat capacity of fluid A</td>
     </tr>
-		<tr>
+                <tr>
       <td valign=\"top\">cpB</td>
       <td valign=\"top\">specific heat capacity of fluid B</td>
     </tr>
-		<tr>
+                <tr>
       <td valign=\"top\">cpW</td>
       <td valign=\"top\">specific heat capacity of the wall</td>
     </tr>
-		<tr>
+                <tr>
       <td valign=\"top\">gammaA</td>
       <td valign=\"top\">heat transfer coefficient of fluid A</td>
     </tr>
-		<tr>
+                <tr>
       <td valign=\"top\">gammaB</td>
       <td valign=\"top\">heat transfer coefficient of fluid B</td>
     </tr>
-		<tr>
+                <tr>
       <td valign=\"top\">omega</td>
       <td valign=\"top\">perimeter</td>
     </tr>
-		<tr>
+                <tr>
       <td valign=\"top\">l</td>
       <td valign=\"top\">length of each wall segment</td>
     </tr>
