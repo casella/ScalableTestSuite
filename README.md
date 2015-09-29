@@ -20,6 +20,6 @@ Contributors:
 - Kaan Sezginer
 - Francesco Casella
 
-You may report any issues with using the [Issues](../../issues) button.
+You may report any issues with using the [Issues](https://github.com/casella/ScalableTestSuite/issues) button.
 
-Contributions in shape of [Pull Requests](../../pulls) are always welcome.
+Contributions in shape of [Pull Requests](https://github.com/casella/ScalableTestSuite/pulls) are always welcome.

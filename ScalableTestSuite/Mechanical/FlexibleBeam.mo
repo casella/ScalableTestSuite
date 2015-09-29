@@ -19,7 +19,7 @@ package FlexibleBeam "Models of flexible beams"
       final parameter SIunits.RotationalSpringConstant SpringCoeff = E * J / l
         "spring coefficient";
       parameter SIunits.PerUnit F "force component at y-axis";
-      Modelica.Mechanics.MultiBody.Joints.Revolute revolute[N](each useAxisFlange = true)
+      Modelica.Mechanics.MultiBody.Joints.Revolute revolute[N](each useAxisFlange = true, phi(each fixed = true), w(each fixed = true))
         "N revolute joint";
       Modelica.Mechanics.Rotational.Components.SpringDamper springdamper[N](each c = SpringCoeff, each d = DampCoeff)
         "N spring damper to connect to N revolute";
