@@ -131,5 +131,4 @@ The main body of the string is created by body boxes and revolute joints coupled
     </tr>
 </table></p></html>"));
   end ScaledExperiments;
-  annotation(Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2, 2})), Diagram(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2, 2})));
 end Strings;

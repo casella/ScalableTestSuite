@@ -10,8 +10,8 @@ package TransmissionLine "Models of transmission lines"
         "current flows through pin p of the transmission line";
       SIunits.Current ipin_n
         "current flows through pin n of the transmission line";
-      Analog.Interfaces.Pin pin_p annotation(Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-      Analog.Interfaces.Pin pin_n annotation(Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+      Analog.Interfaces.Pin pin_p annotation(Placement(transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}})));
+      Analog.Interfaces.Pin pin_n annotation(Placement(transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}})));
       Analog.Interfaces.Pin pin_ground "pin of the ground";
       Analog.Basic.Ground ground "ground of the transmission line";
       parameter Integer N = 1 "number of segments";
@@ -43,7 +43,7 @@ package TransmissionLine "Models of transmission lines"
       end for;
       connect(L[N].n, pin_n);
       connect(pin_ground, ground.p);
-      annotation(Diagram(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2, 2})), Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2, 2}), graphics={  Rectangle(origin = {-0.17, -0.18}, fillColor = {0, 0, 255},
+      annotation( Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, grid = {2, 2}), graphics={  Rectangle(origin = {-0.17, -0.18}, fillColor = {0, 0, 255},
                 fillPattern =                                                                                                   FillPattern.HorizontalCylinder, extent = {{-99.82, 99.82}, {99.82, -99.82}}), Text(origin = {0.76, 7.01}, lineColor = {170, 0, 0}, fillColor = {0, 170, 0}, extent = {{-72.61, 47.88}, {72.61, -47.88}}, textString = "Transmission Line")}), Documentation(info = "<html><p>In the figure, it is given an example of the transmission line that is implemented which consists of a resistor, an inductor and a capacitor within each segment. Moreover, transmission line is implemented by connecting each segment together. In the figure, resistor1, inductor1 and capacitor1 describes the first segment and it is connected to second segment which has the same components as the first segment and so on. It transmits the electrical signal from a source to a load.</p><img src=\"modelica://ScalableTestSuite/Resources/Images/TransmissionLine/TransmissionLine.png\"/><table border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
     <tr>
       <th>Parameters</th>
@@ -168,13 +168,13 @@ package TransmissionLine "Models of transmission lines"
         "time delay of the transmission line";
       final parameter SIunits.Velocity v = 1 / (l * c) ^ (1 / 2)
         "velocity of the signal";
-      Modelica.Electrical.Analog.Sources.SignalVoltage signalvoltage annotation(Placement(visible = true, transformation(origin = {-34, 54}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
-      Modelica.Electrical.Analog.Basic.Ground ground1 annotation(Placement(visible = true, transformation(origin = {-56, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-      Modelica.Blocks.Continuous.SecondOrder lowpassfilter(w = w, D = 1) annotation(Placement(visible = true, transformation(origin = {-50, 14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-      Modelica.Blocks.Sources.Step step annotation(Placement(visible = true, transformation(origin = {-84, 14}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-      Models.TransmissionLine transmissionline(N = N, r = r, l = l, c = c, length = length) annotation(Placement(visible = true, transformation(origin = {-6, 54}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-      Modelica.Electrical.Analog.Basic.Resistor resistor(R = RL) annotation(Placement(visible = true, transformation(origin = {26, 54}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-      Modelica.Electrical.Analog.Basic.Ground ground2 annotation(Placement(visible = true, transformation(origin = {54, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+      Modelica.Electrical.Analog.Sources.SignalVoltage signalvoltage annotation(Placement(transformation(origin = {-34, 54}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
+      Modelica.Electrical.Analog.Basic.Ground ground1 annotation(Placement(transformation(origin = {-56, 40}, extent = {{-10, -10}, {10, 10}})));
+      Modelica.Blocks.Continuous.SecondOrder lowpassfilter(w = w, D = 1) annotation(Placement(transformation(origin = {-50, 14}, extent = {{-10, -10}, {10, 10}})));
+      Modelica.Blocks.Sources.Step step annotation(Placement(transformation(origin = {-84, 14}, extent = {{-10, -10}, {10, 10}})));
+      Models.TransmissionLine transmissionline(N = N, r = r, l = l, c = c, length = length) annotation(Placement(transformation(origin = {-6, 54}, extent = {{-10, -10}, {10, 10}})));
+      Modelica.Electrical.Analog.Basic.Resistor resistor(R = RL) annotation(Placement(transformation(origin = {26, 54}, extent = {{-10, -10}, {10, 10}})));
+      Modelica.Electrical.Analog.Basic.Ground ground2 annotation(Placement(transformation(origin = {54, 40}, extent = {{-10, -10}, {10, 10}})));
     equation
       connect(resistor.n, ground2.p) annotation(Line(points = {{36, 54}, {54, 54}, {54, 50}}, color = {0, 0, 255}));
       connect(transmissionline.pin_n, resistor.p) annotation(Line(points = {{4, 54}, {16, 54}}, color = {0, 0, 255}));
@@ -265,7 +265,7 @@ package TransmissionLine "Models of transmission lines"
 		<tr>
       <td valign=\"top\">L</td>
       <td valign=\"top\">length of the transmission line</td>
-    </tr>	
+    </tr>
    <tr>
       <td valign=\"top\">res</td>
       <td valign=\"top\">resistance per meter</td>
@@ -469,5 +469,4 @@ package TransmissionLine "Models of transmission lines"
     </tr>
 </table></p></html>"));
   end ScaledExperiments;
-  annotation(Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2, 2})), Diagram(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2, 2})));
 end TransmissionLine;

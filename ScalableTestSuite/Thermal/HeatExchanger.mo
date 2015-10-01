@@ -538,5 +538,4 @@ where U is the average overall heat transfer coefficient, A is the area of the h
     </tr>
 </table></html>"));
   end ScaledExperiments;
-  annotation(Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2, 2})), Diagram(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2, 2})));
 end HeatExchanger;

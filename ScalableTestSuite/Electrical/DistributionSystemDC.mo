@@ -44,7 +44,7 @@ package DistributionSystemDC
       end for;
 
       annotation (Documentation(info="<html>
-  <p>This model represnts a DC current distribution system, whose complexity depends on two parameters 
+  <p>This model represnts a DC current distribution system, whose complexity depends on two parameters
   N and M. A voltage source is connected to primary resistive distribution line which is split into
   N segments, each with a resistance R_d1. At the end of each segment, a secondary distribution
   line is attached with M elements each of resistance R_d2. At the end of each secondary segment,
@@ -103,26 +103,26 @@ package DistributionSystemDC
       end when;
 
       /*
-  parameter Integer M = N 
+  parameter Integer M = N
     "Number of segments of each secondary distribution line";
   parameter Real alpha = 2 "Distribution line oversizing factor";
   parameter Modelica.SIunits.Resistance R_l = 1 "Resistance of a single load";
-  parameter Modelica.SIunits.Resistance R_d2 = R_l/(M^2*alpha) 
+  parameter Modelica.SIunits.Resistance R_d2 = R_l/(M^2*alpha)
     "Resistance of a secondary distribution segment";
-  parameter Modelica.SIunits.Resistance R_d1 = R_l/(M^2*N^2*alpha) 
+  parameter Modelica.SIunits.Resistance R_d1 = R_l/(M^2*N^2*alpha)
     "Resistance of a primary distribution segment";
 
-  Modelica.Electrical.Analog.Basic.Resistor primary[N](each R = R_d1) 
+  Modelica.Electrical.Analog.Basic.Resistor primary[N](each R = R_d1)
     "Primary distribution line segments";
-  Modelica.Electrical.Analog.Basic.Resistor secondary[N,M](each R = R_d2) 
+  Modelica.Electrical.Analog.Basic.Resistor secondary[N,M](each R = R_d2)
     "Secondary distribution line segments";
-  Modelica.Electrical.Analog.Basic.Resistor load[N,M](each R = R_l) 
+  Modelica.Electrical.Analog.Basic.Resistor load[N,M](each R = R_l)
     "Individual load resistors";
   Modelica.Electrical.Analog.Basic.Ground ground[N,M];
   Modelica.Electrical.Analog.Basic.Ground sourceGround;
 
   Modelica.Electrical.Analog.Sources.RampVoltage V_source(V = 600, duration = 1);
-equation 
+equation
   connect(primary[1].p, V_source.p);
   connect(sourceGround.p, V_source.n);
   for i in 1:N-1 loop
@@ -201,8 +201,7 @@ equation
         annotation (Line(points={{3,20},{14,20}},         color={0,0,127}));
       connect(ramp.y, firstOrder2.u)
         annotation (Line(points={{-49,20},{-20,20}}, color={0,0,127}));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-                -100},{100,100}})), Icon(coordinateSystem(preserveAspectRatio=false,
+      annotation ( Icon(coordinateSystem(preserveAspectRatio=false,
               extent={{-100,-100},{100,100}}), graphics={
                                              Rectangle(extent={{-100,100},{100,-100}},
                 lineColor={28,108,200})}));
