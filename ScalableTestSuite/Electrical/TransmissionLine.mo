@@ -90,11 +90,17 @@ package TransmissionLine "Models of transmission lines"
       final parameter SIunits.Velocity v = 1 / (ind * cap) ^ (1 / 2)
         "velocity of the signal";
       SIunits.Voltage Vstep = if time > 0 then 1 else 0 "input step voltage";
-      SIunits.Current cur[N](each start = 0)
+      SIunits.Current cur[N]
         "current values at the nodes of the transmission line";
-      SIunits.Voltage vol[N](each start = 0)
+      SIunits.Voltage vol[N]
         "voltage values at the nodes of the transmission line";
-      Real vvol "derivative of input voltage";
+      Real vvol(start = 0, fixed = true) "derivative of input voltage";
+    initial equation
+      for i in 1:N - 1 loop
+        cur[i] = 0;
+        vol[i] = 0;
+      end for;
+      vol[N] = 0;
     equation
       vvol = der(vol[1]);
       //Vstep = vol[1] + 2 * Rf * Cf * der(vol[1]) + Rf ^ 2 * Cf ^ 2 * der(vvol);
@@ -161,7 +167,7 @@ package TransmissionLine "Models of transmission lines"
       parameter SIunits.Inductance l "inductance per meter";
       parameter SIunits.Capacitance c "capacitance per meter";
       parameter SIunits.Length length "length of the transmission line";
-      parameter SIunits.AngularFrequency w "cut-off frequnecy";
+      parameter SIunits.AngularFrequency w "cut-off frequency";
       final parameter SIunits.Resistance RL = (l / c) ^ (1 / 2)
         "load resistance";
       final parameter SIunits.Time TD = length / v
@@ -170,7 +176,7 @@ package TransmissionLine "Models of transmission lines"
         "velocity of the signal";
       Modelica.Electrical.Analog.Sources.SignalVoltage signalvoltage annotation(Placement(transformation(origin = {-34, 54}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
       Modelica.Electrical.Analog.Basic.Ground ground1 annotation(Placement(transformation(origin = {-56, 40}, extent = {{-10, -10}, {10, 10}})));
-      Modelica.Blocks.Continuous.SecondOrder lowpassfilter(w = w, D = 1) annotation(Placement(transformation(origin = {-50, 14}, extent = {{-10, -10}, {10, 10}})));
+      Modelica.Blocks.Continuous.SecondOrder lowpassfilter(w = w, D = 1, initType = Modelica.Blocks.Types.Init.InitialState) annotation(Placement(transformation(origin = {-50, 14}, extent = {{-10, -10}, {10, 10}})));
       Modelica.Blocks.Sources.Step step annotation(Placement(transformation(origin = {-84, 14}, extent = {{-10, -10}, {10, 10}})));
       Models.TransmissionLine transmissionline(N = N, r = r, l = l, c = c, length = length) annotation(Placement(transformation(origin = {-6, 54}, extent = {{-10, -10}, {10, 10}})));
       Modelica.Electrical.Analog.Basic.Resistor resistor(R = RL) annotation(Placement(transformation(origin = {26, 54}, extent = {{-10, -10}, {10, 10}})));
