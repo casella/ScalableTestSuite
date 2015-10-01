@@ -8,7 +8,7 @@ This library contains a collection of Modelica models whose size can be scaled b
 
 ## Current release
 
-1.1.0
+1.1.2
 
 ## License
 
