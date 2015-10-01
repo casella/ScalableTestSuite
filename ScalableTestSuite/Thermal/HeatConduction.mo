@@ -36,7 +36,7 @@ package HeatConduction "Models of 1-D heat conduction in solids"
                 <tr>
       <td valign=\"top\">N</td>
       <td valign=\"top\">number of nodes</td>
-    </tr>        
+    </tr>
    <tr>
       <td valign=\"top\">T0</td>
       <td valign=\"top\">Initial temperature</td>
@@ -110,7 +110,7 @@ package HeatConduction "Models of 1-D heat conduction in solids"
                 <tr>
       <td valign=\"top\">N</td>
       <td valign=\"top\">number of nodes</td>
-    </tr>        
+    </tr>
     <tr>
       <td valign=\"top\">cp</td>
       <td valign=\"top\">material specific heat capacity</td>
@@ -183,7 +183,7 @@ package HeatConduction "Models of 1-D heat conduction in solids"
                 <tr>
       <td valign=\"top\">N</td>
       <td valign=\"top\">number of nodes</td>
-    </tr>        
+    </tr>
    <tr>
       <td valign=\"top\">T0</td>
       <td valign=\"top\">Initial temperature</td>
@@ -266,7 +266,7 @@ package HeatConduction "Models of 1-D heat conduction in solids"
                 <tr>
       <td valign=\"top\">N</td>
       <td valign=\"top\">number of nodes</td>
-    </tr>        
+    </tr>
     <tr>
       <td valign=\"top\">cp</td>
       <td valign=\"top\">material specific heat capacity</td>
@@ -371,7 +371,7 @@ The following conditions are prescribed for the model:<p><img src=\"modelica://S
 		<tr>
       <td valign=\"top\">T0</td>
       <td valign=\"top\">Initial temperature of the heat capacitors</td>
-    </tr>	
+    </tr>
     <tr>
       <td valign=\"top\">cp</td>
       <td valign=\"top\">material specific heat capacity</td>
@@ -462,7 +462,7 @@ The following conditions are prescribed for the model:<p><img src=\"modelica://S
 		<tr>
       <td valign=\"top\">TN</td>
       <td valign=\"top\">fixed temperature at the last node</td>
-    </tr>	
+    </tr>
     <tr>
       <td valign=\"top\">cp</td>
       <td valign=\"top\">material specific heat capacity</td>
@@ -746,5 +746,4 @@ The following conditions are prescribed for the model:<p><img src=\"modelica://S
     </tr>
 </table></html>"));
   end ScaledExperiments;
-  annotation(Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2, 2})), Diagram(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2, 2})));
 end HeatConduction;
