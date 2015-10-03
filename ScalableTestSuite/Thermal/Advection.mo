@@ -10,7 +10,7 @@ package Advection "1D advection models"
       Modelica.SIunits.Velocity u = 1 "Fluid speed";
       Modelica.SIunits.Temperature Tin = 300 "Inlet temperature";
       Modelica.SIunits.Temperature T[N] "Node temperatures";
-      Modelica.SIunits.Temperature Ttilde[N-1](start = Tstart[2:N], fixed = true)
+      Modelica.SIunits.Temperature Ttilde[N-1](start = Tstart[2:N], each fixed = true)
         "Temperature states";
       Modelica.SIunits.Temperature Tout;
     equation
