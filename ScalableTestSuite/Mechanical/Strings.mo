@@ -12,12 +12,15 @@ package Strings "Models of strings suspended in a gravitational field"
       parameter SIunits.Density D "density of the material";
       inner Modelica.Mechanics.MultiBody.World world(gravityType = Modelica.Mechanics.MultiBody.Types.GravityTypes.UniformGravity, n = {1, 0, 0})
         "uniform gravity on x-axis";
-      Modelica.Mechanics.MultiBody.Joints.Revolute revolute[N](each useAxisFlange = true)
-        "N revolute joints";
+      Modelica.Mechanics.MultiBody.Joints.Revolute revolute[N](
+         each useAxisFlange = true,
+         each phi(fixed=true),
+         each w(fixed=true)) "N revolute joints";
       Modelica.Mechanics.Rotational.Components.Damper damper[N](each d = damping)
         "N dampers";
-      Modelica.Mechanics.MultiBody.Joints.Prismatic prismatic1(useAxisFlange = true, n = {0, 1, 0}, boxWidthDirection = {0, 1, 0})
-        "prismatic joint moves along y-axis";
+      Modelica.Mechanics.MultiBody.Joints.Prismatic prismatic1(
+        useAxisFlange = true, n = {0, 1, 0}, boxWidthDirection = {0, 1, 0},
+        v(fixed = true)) "prismatic joint moves along y-axis";
       Modelica.Blocks.Sources.Pulse pulse1(amplitude = 0.01, period = 0.5, nperiod = 1, startTime = 0.1)
         "pulse input";
       Modelica.Mechanics.MultiBody.Parts.BodyBox bodybox[N + 1](each r = {l, 0, 0}, each length = l, each width = W, each height = H, each density = D)

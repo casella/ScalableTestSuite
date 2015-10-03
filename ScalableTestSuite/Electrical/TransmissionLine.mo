@@ -43,7 +43,7 @@ package TransmissionLine "Models of transmission lines"
       end for;
       connect(L[N].n, pin_n);
       connect(pin_ground, ground.p);
-      annotation( Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, grid = {2, 2}), graphics={  Rectangle(origin = {-0.17, -0.18}, fillColor = {0, 0, 255},
+      annotation (Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, grid = {2, 2}), graphics={  Rectangle(origin = {-0.17, -0.18}, fillColor = {0, 0, 255},
                 fillPattern =                                                                                                   FillPattern.HorizontalCylinder, extent = {{-99.82, 99.82}, {99.82, -99.82}}), Text(origin = {0.76, 7.01}, lineColor = {170, 0, 0}, fillColor = {0, 170, 0}, extent = {{-72.61, 47.88}, {72.61, -47.88}}, textString = "Transmission Line")}), Documentation(info = "<html><p>In the figure, it is given an example of the transmission line that is implemented which consists of a resistor, an inductor and a capacitor within each segment. Moreover, transmission line is implemented by connecting each segment together. In the figure, resistor1, inductor1 and capacitor1 describes the first segment and it is connected to second segment which has the same components as the first segment and so on. It transmits the electrical signal from a source to a load.</p><img src=\"modelica://ScalableTestSuite/Resources/Images/TransmissionLine/TransmissionLine.png\"/><table border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
     <tr>
       <th>Parameters</th>
@@ -104,6 +104,10 @@ package TransmissionLine "Models of transmission lines"
         cap * der(vol[i + 1]) = (cur[i] - cur[i + 1]) / l;
         ind * der(cur[i]) = (-res * cur[i]) - (vol[i + 1] - vol[i]) / l;
       end for;
+    initial equation
+      vol = zeros(N);
+      cur[1:N-1] = zeros(N-1);
+      vvol = 0;
       annotation(Documentation(info = "<html><p>In this model, a transmission line circuit is implemented by equations. Transmission line circuit is represented as in the figure below. The application is the same as the TransmissionLineModelica model.</p><p><img src=\"modelica://ScalableTestSuite/Resources/Images/TransmissionLine/TransmissionLineModelica.png\"/></p><p>Considering the nodes of the discrete transmission line(implemented in Electrical.Models.TransmissionLine), circuit equations are described. In the transmission line, there are N segments, therefore, there will be N+1 nodes and N+1 voltage and current variables.</p><p><img src=\"modelica://ScalableTestSuite/Resources/Images/TransmissionLine/tlmequation.png\"/></p><p>where j= 2,..,N and Rx is the resistance per meter, Cx is the capacitance per meter and Lx is the inductance per meter.</p><p>output voltage is described as:</p><p><img src=\"modelica://ScalableTestSuite/Resources/Images/TransmissionLine/tlmequation1.png\"/></p><p>Moreover, considering the form of the second order low pass filter, equation of the filter to a step input can be defined in the following way:</p><p><img src=\"modelica://ScalableTestSuite/Resources/Images/TransmissionLine/tlmequation2.png\"/></p><p>where Vstep  is the step voltage and v1is the output voltage of the filter. The parameters of the TransmissionLineEquations are:</p><table border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
     <tr>
       <th>Parameters</th>
@@ -170,7 +174,8 @@ package TransmissionLine "Models of transmission lines"
         "velocity of the signal";
       Modelica.Electrical.Analog.Sources.SignalVoltage signalvoltage annotation(Placement(transformation(origin = {-34, 54}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
       Modelica.Electrical.Analog.Basic.Ground ground1 annotation(Placement(transformation(origin = {-56, 40}, extent = {{-10, -10}, {10, 10}})));
-      Modelica.Blocks.Continuous.SecondOrder lowpassfilter(w = w, D = 1) annotation(Placement(transformation(origin = {-50, 14}, extent = {{-10, -10}, {10, 10}})));
+      Modelica.Blocks.Continuous.SecondOrder lowpassfilter(w = w, D = 1,
+        initType=Modelica.Blocks.Types.Init.InitialState)                annotation(Placement(transformation(origin = {-50, 14}, extent = {{-10, -10}, {10, 10}})));
       Modelica.Blocks.Sources.Step step annotation(Placement(transformation(origin = {-84, 14}, extent = {{-10, -10}, {10, 10}})));
       Models.TransmissionLine transmissionline(N = N, r = r, l = l, c = c, length = length) annotation(Placement(transformation(origin = {-6, 54}, extent = {{-10, -10}, {10, 10}})));
       Modelica.Electrical.Analog.Basic.Resistor resistor(R = RL) annotation(Placement(transformation(origin = {26, 54}, extent = {{-10, -10}, {10, 10}})));
