@@ -165,7 +165,7 @@ package TransmissionLine "Models of transmission lines"
       parameter SIunits.Inductance l "inductance per meter";
       parameter SIunits.Capacitance c "capacitance per meter";
       parameter SIunits.Length length "length of the transmission line";
-      parameter SIunits.AngularFrequency w "cut-off frequnecy";
+      parameter SIunits.AngularFrequency w "cut-off frequency";
       final parameter SIunits.Resistance RL = (l / c) ^ (1 / 2)
         "load resistance";
       final parameter SIunits.Time TD = length / v
