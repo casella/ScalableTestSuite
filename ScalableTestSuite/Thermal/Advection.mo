@@ -59,9 +59,11 @@ package Advection "1D advection models"
       SI.MassFlowRate w_in[N] "Inlet flow rate of each volume";
       SI.MassFlowRate w_out[N] "Outlet flow rate of each volume";
       SI.Pressure p[N](each stateSelect=StateSelect.prefer,
-                       each start = p_start) "Pressure states";
+                       each start = p_start, each fixed = true)
+        "Pressure states";
       SI.SpecificEnthalpy h[N](each stateSelect=StateSelect.prefer,
-                               each start = h_start) "Specific enthalpy states";
+                               each start = h_start, each fixed = true)
+        "Specific enthalpy states";
       SI.SpecificEnthalpy h_in[N] "Inlet specific enthalpy of each volume";
       SI.SpecificEnthalpy h_out[N] "Outlet specific enthalpy of each volume";
       SI.Density rho[N] "Volume density";
