@@ -18,7 +18,7 @@ Contributors:
 
 You may report any issues with using the [Issues](https://github.com/casella/ScalableTestSuite/issues) button.
 
-Contributions in shape of [Pull Requests](https://github.com/casella/ScalableTestSuite/pulls) are always welcome.## License
+Contributions in shape of [Pull Requests](https://github.com/casella/ScalableTestSuite/pulls) are always welcome.
 
 ## License
 Copyright (c) 2015, Politecnico di Milano
