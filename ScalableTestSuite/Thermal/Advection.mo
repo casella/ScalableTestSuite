@@ -28,6 +28,28 @@ package Advection "1D advection models"
 </html>"));
     end SimpleAdvection;
 
+    model AdvectionReaction
+      "Model of an advection process with chemical reaction"
+      parameter Integer N = 10 "Number of volumes";
+      parameter Real mu = 1000 "Kinetic coefficient of the reaction";
+      constant Real alpha = 0.5 "Parameter of the reaction model";
+      Real u_in = 1 "Inlet concentration";
+      Real u[N](each start = 0, each fixed = true)
+        "Concentration at each volume outlet";
+    equation
+      der(u[1]) = ((-u[1]) + 1)*N - mu*u[1]*(u[1] - alpha)*(u[1] - 1);
+      for j in 2:N loop
+        der(u[j]) = ((-u[j]) + u[j-1])*N - mu*u[j]*(u[j] - alpha)*(u[j] - 1);
+      end for;
+      annotation (Documentation(info="<html>
+<p>This models solves the problem represented by the following PDE by means of the finite volume method, on a spatial domain of unit length and assuming unit velocity v.</p>
+<p><img src=\"modelica://ScalableTestSuite/Resources/Images/AdvectionReaction/eq_advection_reaction.png\"/></p>
+<p>If &mu; = 0, the model represent the transport of a certain chemical species in a fluid, similar to <a href = \"modelica://ScalableTestSuite.Thermal.Advection.Models.SimpleAdvection\">SimpleAdvection</a>. If mu is increased, a chemical reaction is added with two stable equilibria, one at u = 0 and one at u = 1, with an unstable equilibrium at u = &alpha;.</p>
+<p> The chemical reaction sharpens the concentration wave front, which would be otherwise be smoothed out by the numerical diffusion effect of the finite volume method.</p>
+<p>The boundary condition u_in at the inlet, i.e., u(0,t), is specified by suitable binding equations.</p>
+</html>"));
+    end AdvectionReaction;
+
     model SteamPipe
       "Detailed thermal advection model with thermal expansion effects using IF97 water vapour"
       import SI = Modelica.SIunits;
@@ -129,6 +151,27 @@ package Advection "1D advection models"
 </html>"));
     end SimpleAdvection;
 
+    model AdvectionReaction
+      parameter Integer N = 100 "Number of volumes";
+      Models.AdvectionReaction adv(N = N, mu = 0) "Pure advection model";
+      Models.AdvectionReaction adv_reac(N = N, mu = 100)
+        "Advection-reaction model";
+      Real u_out_th = if time < 1 then 0 else 1
+        "Theoretical outlet concentration of the pure advection model";
+      Real u_out_adv = adv.u[N]
+        "Outlet concentration of the pure advection model";
+      Real u_out_adv_reac = adv_reac.u[N]
+        "Outlet concentration of the advection-reaction model";
+      annotation (experiment(StopTime=1.2, Interval=4e-3, Tolerance = 1e-6),
+          Documentation(info="<html>
+      <p>The exact analytical solution of the pure advection model <tt>adv</tt> is the inlet
+      value delayed by one time unit, <tt>u_out_th</tt>. The numerical solution
+      approximates the sharp dealyed rise of the concentration with a smooth curve, see <tt>u_out_adv</tt>.</p>
+      <p>Adding the chemical reaction, the concentration wavefront sharpens, and it
+      its speed towards the outlet is slightly reduced, see <tt>u_out_adv_reac</tt></p>
+</html>"));
+    end AdvectionReaction;
+
     model SteamPipe
       extends Models.SteamPipe(w_in_pipe = 2, N = 100);
       Medium.SpecificEnthalpy h_out_pipe_th = delay(h_in_pipe, tau);
@@ -196,6 +239,62 @@ package Advection "1D advection models"
       extends SimpleAdvection_N_100(N = 12800);
       annotation (experiment(StopTime=20, NumberOfIntervals=5000, Tolerance = 1e-6));
     end SimpleAdvection_N_12800;
+
+    model AdvectionReaction_N_100
+      extends Models.AdvectionReaction(
+        N = 100,
+        mu = 500);
+      annotation (experiment(StopTime=1, NumberOfIntervals=5000, Tolerance = 1e-6));
+    end AdvectionReaction_N_100;
+
+    model AdvectionReaction_N_200
+      extends Models.AdvectionReaction(
+        N = 200,
+        mu = 1000);
+      annotation (experiment(StopTime=1, NumberOfIntervals=5000, Tolerance = 1e-6));
+    end AdvectionReaction_N_200;
+
+    model AdvectionReaction_N_400
+      extends Models.AdvectionReaction(
+        N = 400,
+        mu = 2000);
+      annotation (experiment(StopTime=1, NumberOfIntervals=5000, Tolerance = 1e-6));
+    end AdvectionReaction_N_400;
+
+    model AdvectionReaction_N_800
+      extends Models.AdvectionReaction(
+        N = 800,
+        mu = 4000);
+      annotation (experiment(StopTime=1, NumberOfIntervals=5000, Tolerance = 1e-6));
+    end AdvectionReaction_N_800;
+
+    model AdvectionReaction_N_1600
+      extends Models.AdvectionReaction(
+        N = 1600,
+        mu = 8000);
+      annotation (experiment(StopTime=1, NumberOfIntervals=5000, Tolerance = 1e-6));
+    end AdvectionReaction_N_1600;
+
+    model AdvectionReaction_N_3200
+      extends Models.AdvectionReaction(
+        N = 3200,
+        mu = 16000);
+      annotation (experiment(StopTime=1, NumberOfIntervals=5000, Tolerance = 1e-6));
+    end AdvectionReaction_N_3200;
+
+    model AdvectionReaction_N_6400
+      extends Models.AdvectionReaction(
+        N = 6400,
+        mu = 32000);
+      annotation (experiment(StopTime=1, NumberOfIntervals=5000, Tolerance = 1e-6));
+    end AdvectionReaction_N_6400;
+
+    model AdvectionReaction_N_12800
+      extends Models.AdvectionReaction(
+        N = 12800,
+        mu = 64000);
+      annotation (experiment(StopTime=1, NumberOfIntervals=5000, Tolerance = 1e-6));
+    end AdvectionReaction_N_12800;
 
     model SteamPipe_N_10
       extends Models.SteamPipe(N = 10);
