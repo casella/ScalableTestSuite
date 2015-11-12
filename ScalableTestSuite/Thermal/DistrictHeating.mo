@@ -165,8 +165,7 @@ package DistrictHeating
     extends Modelica.Icons.ExamplesPackage;
     model HeatingSystem_N_5
       extends Models.HeatingSystem(N = 5);
-      annotation(experiment(StopTime = 864000, Tolerance = 1e-4),
-                 __Dymola_experimentSetupOutput(equidistant=false));
+      annotation(experiment(StopTime = 864000, Tolerance = 1e-4));
     end HeatingSystem_N_5;
 
     model HeatingSystem_N_10
