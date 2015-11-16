@@ -19,7 +19,7 @@ package ConceptualPowerSystem
       parameter SI.PerUnit droop = 0.05 "Primary frequency control droop";
       parameter SI.PerUnit Kp_p = 10 "Proportional gain of pressure controller";
       parameter SI.Time Ti_p = 70 "Integral time of pressure controller";
-      parameter SI.PerUnit Kp_t = -2 "Proportional gain of power controller";
+      parameter SI.PerUnit Kp_t = 2 "Proportional gain of power controller";
       parameter SI.Time Ti_t = 0.3 "Integral time of power controller";
       final parameter SI.AngularVelocity omega_ref = 2*pi*f_ref;
       final parameter SI.MomentOfInertia J = P_nom*T_a/(omega_ref^2);
@@ -31,6 +31,7 @@ package ConceptualPowerSystem
       SI.Angle theta
         "Rotor angle relative to reference rotating at nominal speed";
       SI.AngularVelocity omega "Turbine angular speed";
+      SI.Frequency f "Generator frequency";
       SI.PerUnit delta_f "Normalized frequency error";
       SI.PerUnit p "Boiler pressure in p.u.";
       SI.PerUnit p_0 = 1 "Boiler pressure set point in p.u.";
@@ -73,12 +74,13 @@ package ConceptualPowerSystem
       P_t_0 = p_t_0*P_nom;
 
       // Boiler follows control strategy with primary frequency control
-      delta_f = (omega - omega_ref)/omega_ref;
+      f = omega/(2*pi);
+      delta_f = (f - f_ref)/f_ref;
 
       err_p_t = p_t_0 - p_t - 1/droop*delta_f;
       der(err_p_t_int) = err_p_t;
 
-      err_p = p_0 - p_t;
+      err_p = p_0 - p;
       der(err_p_int) = err_p;
 
       q_ev_0 = p_t_0 + 1/droop*delta_f + Kp_p*(err_p + 1/Ti_p * err_p_int);
@@ -98,37 +100,63 @@ package ConceptualPowerSystem
     model PowerSystem
       parameter Integer N = 1 "Number of nodes on the longitudinal direction";
       parameter SI.Power P_nom = 500e6 "Nominal power of a single generator";
+      parameter SI.AngularVelocity omega_ref = 2*pi*50;
+      constant Real pi = Modelica.Constants.pi;
       SI.Power P_load[N] = ones(N)*P_nom
         "Active power consumed by loads - replace the default binding";
       SI.Power P_ex[N,N] "Power going from generator i to generator j";
+      SI.Power P_diss[N,N] "Power dissipated by the generators i and j";
       SI.Power P_a[N] "Net active power out of generator i";
       SI.Power P_f = 5*P_nom
         "Power factor of a single trunk of transmission line";
+      Real P_d = P_nom/omega_ref "Power dissipation coefficient";
       Generator generator[N](each P_nom = P_nom,
                              P_a = P_a);
     equation
       for i in 1:N loop
-        P_a[i] = sum(P_ex[i,:])+ P_load[i];
+        P_a[i] = sum(P_ex[i,:]) + sum(P_diss[i,:]) + P_load[i];
         for j in 1:N loop
           if i == j then
             P_ex[i,j] = 0;
+            P_diss[i,j] = 0;
           else
-            P_ex[i,j] = P_f/(abs(i-j))*sin(generator.theta[i]-generator.theta[j]);
+            P_ex[i,j] = P_f/(abs(i-j))*sin(generator[i].theta-generator[j].theta);
+            P_diss[i,j] = P_d*(generator[i].omega - generator[j].omega);
           end if;
         end for;
       end for;
-      // equazioni di connessione dei generatori
-      // equazioni dei carichi
     end PowerSystem;
-
-    model PowerSystemConstantLoad
-      extends PowerSystem(generator(each P_t_0 = P_nom),
-                          P_load = P_nom*ones(N));
-    end PowerSystemConstantLoad;
   end Models;
 
   package Verification
 
+    model OneGeneratorConstantLoad
+      "One generator with constant load at equilibrium"
+      extends Models.PowerSystem(generator(each P_t_0=P_nom), P_load=P_nom*ones(N));
+    end OneGeneratorConstantLoad;
+
+    model OneGeneratorStepLoad
+      "One generator with 1% step reduction from equilibrium"
+      extends OneGeneratorConstantLoad(
+        P_load=cat(1, {P_nom*0.99}, P_nom*ones(N - 1)));
+      annotation (experiment(StopTime=500, Tolerance=1e-006),
+          __Dymola_experimentSetupOutput(equidistant=false));
+    end OneGeneratorStepLoad;
+
+    model TwoGeneratorsConstantLoad
+      "One generator with constant load at equilibrium"
+      extends Models.PowerSystem(
+        N = 2,
+        generator(each P_t_0=P_nom), P_load=P_nom*ones(N));
+    end TwoGeneratorsConstantLoad;
+
+    model TwoGeneratorsStepLoad
+      "One generator with 1% step reduction from equilibrium"
+      extends TwoGeneratorsConstantLoad(
+        P_load=cat(1, {P_nom*0.99}, P_nom*ones(N - 1)));
+      annotation (experiment(StopTime=500, Tolerance=1e-006),
+          __Dymola_experimentSetupOutput(equidistant=false));
+    end TwoGeneratorsStepLoad;
   end Verification;
 
   package ScaledExperiments
