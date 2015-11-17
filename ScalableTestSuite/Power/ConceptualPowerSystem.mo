@@ -83,8 +83,8 @@ package ConceptualPowerSystem
       err_p = p_0 - p;
       der(err_p_int) = err_p;
 
-      q_ev_0 = p_t_0 + 1/droop*delta_f + Kp_p*(err_p + 1/Ti_p * err_p_int);
-      y_t_0 =p_t_0 + Kp_t*(err_p_t + 1/Ti_t *err_p_t_int);
+      q_ev_0 = p_0 + Kp_p*(err_p + 1/Ti_p * err_p_int);
+      y_t_0 = p_t_0 - 1/droop*delta_f + Kp_t*(err_p_t + 1/Ti_t *err_p_t_int);
 
     initial equation
       theta = 0;
@@ -109,7 +109,7 @@ package ConceptualPowerSystem
       SI.Power P_a[N] "Net active power out of generator i";
       SI.Power P_f = 5*P_nom
         "Power factor of a single trunk of transmission line";
-      Real P_d = P_nom/omega_ref "Power dissipation coefficient";
+      Real P_d = 0.5*P_nom/omega_ref "Power dissipation coefficient";
       Generator generator[N](each P_nom = P_nom,
                              P_a = P_a);
     equation
