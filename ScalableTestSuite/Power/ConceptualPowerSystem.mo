@@ -125,6 +125,14 @@ package ConceptualPowerSystem
           T_s[i] = (T_s[i-1] + NTU/N*T_source)/(1 + NTU/N);
       end for;
 
+      annotation (Documentation(info="<html>
+<p>The Generator model is a conceptual model of a thermal power plant with a synchronous electrical generator. The goal is not to reproduce the dynamics of any real power plant accurately, but rather to replicate the mathematical structure and the type of dynamic behaviour that is to be found in real-life power plant models.</p>
+<p>In particular, the goal is to represent the slow thermal dynamics and the fast electro-mechanical dynamics at the same time. This is a particularly interesting benchmark for multi-rate integration algorithms, that can exploit these dynamic feature by only refining the integration grid for the electro-mechanical states.</p>
+<p>The thermal part comprises a simplified boiler - turbine model and a thermal model of the superheated steam temperature, assuming uniform thermal source temperature for simplicity. The model is written using normalized variables for simplicity.</p>
+<p>The generator model is described by the classical swing equation, assuming ideal voltage control and neglecting reactive power flows. The actual power flows between generators and loads are computed by the <a href=\"modelica://ScalableTestSuite.Power.ConceptualPowerSystem.Models.PowerSystem\">PowerSystem</a></p>
+<p>The model is completed by classical boiler-follows control strategy with primary and secondary frequency control. The primary frequency control input is computed locally and is proportional to the frequency deviation, while the secondary control input is determined by the the <a href=\"modelica://ScalableTestSuite.Power.ConceptualPowerSystem.Models.PowerSystem\">PowerSystem</a> model and passed via a modifier to the individual generator models. For simplicity, the superheated steam temperature is not controlled and fluctuates depending on the steam flow.</p>
+<p>The initial equations initialize the generator at steady-state, assuming that a load with the nominal power of the plant is consuming the entire production locally.</p>
+</html>"));
     end Generator;
 
     model PowerSystem
@@ -170,6 +178,10 @@ package ConceptualPowerSystem
       T_sfc*der(P_sfc) = (f_ref-f)/f_ref*P_nom*N/droop;
     initial equation
       P_sfc = 0;
+      annotation (Documentation(info="<html>
+<p>This model assembles a power system with a linear topology, obtained by connecting N power generators in a linear network with equal transmission lines, and with a load connected to each generator. For simplicity, the loads are described by prescribed active power consumptions.</p>
+<p>The power transfer between the different generators is computed by the classical swing equation theory. An integral controllers provides secondary frequency control.</p>
+</html>"));
     end PowerSystem;
   end Models;
 
@@ -178,14 +190,20 @@ package ConceptualPowerSystem
     model OneGeneratorConstantLoad
       "One generator with constant load at equilibrium"
       extends Models.PowerSystem(generator(each P_t_0=P_nom), P_load=P_nom*ones(N));
+      annotation (Documentation(info="<html>
+<p>Test case with a single generator and matched load. All normalized variables should remain constant at 1 p.u. value.</p>
+</html>"));
     end OneGeneratorConstantLoad;
 
     model OneGeneratorStepLoad
-      "One generator with 1% step reduction from equilibrium"
+      "One generator with 5% step reduction from equilibrium"
       extends OneGeneratorConstantLoad(
         P_load=cat(1, {P_nom*0.95}, P_nom*ones(N - 1)));
       annotation (experiment(StopTime=500, Tolerance=1e-006),
-          __Dymola_experimentSetupOutput(equidistant=false));
+          __Dymola_experimentSetupOutput(equidistant=false),
+        Documentation(info="<html>
+<p>Test case with a single generator. At time = 0, the load is reduced by 5&percnt;. Primary frequency control limits the frequency deviation to about 0.2 Hz, then the secondary frequency controller brings the frequency back to 50 Hz.</p>
+</html>"));
     end OneGeneratorStepLoad;
 
     model TwoGeneratorsConstantLoad
@@ -193,6 +211,9 @@ package ConceptualPowerSystem
       extends Models.PowerSystem(
         N = 2,
         generator(each P_t_0=P_nom), P_load=P_nom*ones(N));
+      annotation (Documentation(info="<html>
+<p><span style=\"font-family: MS Shell Dlg 2;\">Test case with a two generator connected by a transmission line. Each generator has a local balanced load of 1 p.u. The model is at equilibrium, with zero power transfer along the line.</span></p>
+</html>"));
     end TwoGeneratorsConstantLoad;
 
     model TwoGeneratorsStepLoad
@@ -200,13 +221,19 @@ package ConceptualPowerSystem
       extends TwoGeneratorsConstantLoad(
         P_load=cat(1, {P_nom*0.50}, P_nom*ones(N - 1)));
       annotation (experiment(StopTime=200, Tolerance=1e-006),
-          __Dymola_experimentSetupOutput(equidistant=false));
+          __Dymola_experimentSetupOutput(equidistant=false),
+        Documentation(info="<html>
+<p><span style=\"font-family: MS Shell Dlg 2;\">Test case with a two generator connected by a transmission line. At time = 0 the load attached to the first generator is reduced by 50&percnt;. Fast electro-mechanical oscillations are triggered, along with slower thermal transients, until eventually the whole system re-settles at equilibrium in about 200 s.</span></p>
+</html>"));
     end TwoGeneratorsStepLoad;
 
     model TenGeneratorsStepLoad
       extends TwoGeneratorsStepLoad(N = 10);
       annotation (experiment(StopTime=200, Tolerance=1e-006),
-          __Dymola_experimentSetupOutput(equidistant=false));
+          __Dymola_experimentSetupOutput(equidistant=false),
+        Documentation(info="<html>
+<p><span style=\"font-family: MS Shell Dlg 2;\">Test case with ten generators connected in a linear fashion by transmission lines with the same impedance. At time = 0 the load attached to the first generator is reduced by 50&percnt;. Fast electro-mechanical oscillations are triggered, along with slower thermal transients, until eventually the whole system re-settles at equilibrium in about 200 s.</span></p>
+</html>"));
     end TenGeneratorsStepLoad;
   end Verification;
 
