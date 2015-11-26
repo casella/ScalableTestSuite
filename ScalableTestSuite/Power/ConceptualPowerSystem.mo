@@ -3,18 +3,25 @@ package ConceptualPowerSystem
   "Conceptual model of a power system that reproduces some of its key dynamic features"
   package Models
     model Generator
+      parameter Integer N = 4
+        "Number of finite volumes for the superheater model";
       constant Real pi = Modelica.Constants.pi;
       parameter SI.Power P_nom = 500e6 "Nominal power of the generator";
       parameter SI.Frequency f_ref = 50 "Reference network frequency";
       parameter SI.Time T_a = 5 "Characteristic time of the generator";
       parameter SI.PerUnit alpha = 0.3
         "Fraction of turbine power provided by the high-pressure turbine";
+      parameter SI.PerUnit T_source = 1.5
+        "Normalized temperature of heat source for the superheater";
+      parameter SI.PerUnit NTU = 2 "Number of thermal units in the superheater";
       parameter SI.Time tau_b = 200
         "Characteristic time of energy storage in the boiler";
       parameter SI.Time tau_t = 8
         "Characteristic response time of the low pressure turbine";
       parameter SI.Time tau_q = 3
         "Characteristic time of thermal generation process";
+      parameter SI.Time tau_sh = 100
+        "Characteristic time of the superheater thermal response";
       parameter SI.Time tau_y = 0.3 "Characteristic time of turbine governor";
       parameter SI.PerUnit droop = 0.05 "Primary frequency control droop";
       parameter SI.PerUnit Kp_p = 10 "Proportional gain of pressure controller";
@@ -48,6 +55,11 @@ package ConceptualPowerSystem
         "Turbine power set point in p.u. with frequency control corrections";
       SI.PerUnit p_t_lp "Low-pressure turbine power in p.u.";
 
+      SI.PerUnit T_s[N]
+        "Normalized temperature states for the superheater model";
+      SI.PerUnit T_s_b[N+1]
+        "Normalized temperature at the boundaries of the superheater volumes";
+
       SI.PerUnit err_p_t "Power controller error in p.u.";
       SI.PerUnit err_p_t_int "Integral of power controller error";
 
@@ -69,6 +81,14 @@ package ConceptualPowerSystem
       tau_t*der(p_t_lp) + p_t_lp = (1-alpha)*w_s "LP turbine power";
       p_t = alpha *w_s + p_t_lp "Total turbine power";
 
+      // Non-dimensional steam temperature model
+      T_s_b[1] = p "Boundary condion at inlet";
+      T_s_b[2:end] = T_s "Upwind discretization scheme";
+
+      for i in 1:N loop
+        tau_sh/N * der(T_s[i]) = w_s*(T_s_b[i] - T_s_b[i+1]) + NTU/N*(T_source - T_s_b[i+1]);
+      end for;
+
       // Actuation
       tau_y*der(y_t) = y_t_0 - y_t;
       tau_q*der(q_ev) = q_ev_0 - q_ev;
@@ -80,7 +100,7 @@ package ConceptualPowerSystem
       // Boiler follows control strategy with primary and secondary frequency control
       f = omega/(2*pi);
       delta_f = (f - f_ref)/f_ref;
-      p_t_0_fc = p_t_0 - 1/droop*delta_f;
+      p_t_0_fc = p_t_0 - 1/droop*delta_f + P_sfc/P_nom;
 
       err_p_t = p_t_0_fc - p_t;
       der(err_p_t_int) = err_p_t;
@@ -89,7 +109,7 @@ package ConceptualPowerSystem
       der(err_p_int) = err_p;
 
       q_ev_0 = p_t_0_fc + Kp_p*(err_p + 1/Ti_p * err_p_int);
-      y_t_0 = p_t_0_fc + P_sfc/P_nom + Kp_t*(err_p_t + 1/Ti_t *err_p_t_int);
+      y_t_0 = p_t_0_fc + Kp_t*(err_p_t + 1/Ti_t *err_p_t_int);
 
     initial equation
       theta = 0;
@@ -100,14 +120,20 @@ package ConceptualPowerSystem
       q_ev = 1;
       err_p_t_int = 0;
       err_p_int = 0;
+      T_s[1] = (p + NTU/N*T_source)/(1 + NTU/N);
+      for i in 2:N loop
+          T_s[i] = (T_s[i-1] + NTU/N*T_source)/(1 + NTU/N);
+      end for;
+
     end Generator;
 
     model PowerSystem
-      parameter Integer N = 1 "Number of nodes on the longitudinal direction";
+      parameter Integer N = 1 "Number of generators in the network";
+      parameter Integer M = 4 "Number of volumes in the superheater models";
       parameter SI.Power P_nom = 500e6 "Nominal power of a single generator";
       parameter SI.Frequency f_ref = 50 "Reference network frequency";
       parameter SI.AngularVelocity omega_ref = 2*pi*f_ref;
-      parameter SI.Time T_sfc = 100
+      parameter SI.Time T_sfc = 20
         "Time constant of secondary frequency control";
       parameter Real P_d = 0.5*P_nom/omega_ref "Power dissipation coefficient";
       parameter Real droop = 0.10 "Average network droop";
@@ -119,15 +145,16 @@ package ConceptualPowerSystem
       SI.Power P_ex[N,N] "Power going from generator i to generator j";
       SI.Power P_diss[N,N] "Power dissipated by the generators i and j";
       SI.Power P_a[N] "Net active power out of generator i";
-      SI.Power P_f = 5*P_nom
+      SI.Power P_f = P_nom
         "Power factor of a single trunk of transmission line";
       SI.Power P_sfc "Additional power request for secondary frequency control";
       Generator generator[N](P_a = P_a,
                              each P_nom = P_nom,
-                             each P_sfc = P_sfc/N);
+                             each P_sfc = P_sfc/N,
+                             each N = M);
     equation
       for i in 1:N loop
-        P_a[i] = sum(P_ex[i,:]) + sum(P_diss[i,:]) + P_sfc/N + P_load[i];
+        P_a[i] = sum(P_ex[i,:]) + sum(P_diss[i,:]) + P_load[i];
         for j in 1:N loop
           if i == j then
             P_ex[i,j] = 0;
@@ -140,7 +167,7 @@ package ConceptualPowerSystem
       end for;
 
       f = generator[1].f;
-      T_sfc*der(P_sfc) = -(f_ref-f)/f_ref*P_nom*N/droop;
+      T_sfc*der(P_sfc) = (f_ref-f)/f_ref*P_nom*N/droop;
     initial equation
       P_sfc = 0;
     end PowerSystem;
@@ -169,15 +196,80 @@ package ConceptualPowerSystem
     end TwoGeneratorsConstantLoad;
 
     model TwoGeneratorsStepLoad
-      "One generator with 1% step reduction from equilibrium"
+      "First load has a 50% step reduction from equilibrium"
       extends TwoGeneratorsConstantLoad(
-        P_load=cat(1, {P_nom*0.95}, P_nom*ones(N - 1)));
-      annotation (experiment(StopTime=500, Tolerance=1e-006),
+        P_load=cat(1, {P_nom*0.50}, P_nom*ones(N - 1)));
+      annotation (experiment(StopTime=200, Tolerance=1e-006),
           __Dymola_experimentSetupOutput(equidistant=false));
     end TwoGeneratorsStepLoad;
+
+    model TenGeneratorsStepLoad
+      extends TwoGeneratorsStepLoad(N = 10);
+      annotation (experiment(StopTime=200, Tolerance=1e-006),
+          __Dymola_experimentSetupOutput(equidistant=false));
+    end TenGeneratorsStepLoad;
   end Verification;
 
   package ScaledExperiments
+     model PowerSystemStepLoad_N_2_M_4
+       extends Verification.TwoGeneratorsStepLoad(N = 2, M = 4);
+       annotation (experiment(StopTime=200, Tolerance=1e-006),
+           __Dymola_experimentSetupOutput(equidistant=false));
+     end PowerSystemStepLoad_N_2_M_4;
+
+     model PowerSystemStepLoad_N_4_M_4
+       extends Verification.TwoGeneratorsStepLoad(N = 4, M = 4);
+       annotation (experiment(StopTime=200, Tolerance=1e-006),
+           __Dymola_experimentSetupOutput(equidistant=false));
+     end PowerSystemStepLoad_N_4_M_4;
+
+     model PowerSystemStepLoad_N_8_M_4
+       extends Verification.TwoGeneratorsStepLoad(N = 8, M = 4);
+       annotation (experiment(StopTime=200, Tolerance=1e-006),
+           __Dymola_experimentSetupOutput(equidistant=false));
+     end PowerSystemStepLoad_N_8_M_4;
+
+     model PowerSystemStepLoad_N_16_M_4
+       extends Verification.TwoGeneratorsStepLoad(N = 16, M = 4);
+       annotation (experiment(StopTime=200, Tolerance=1e-006),
+           __Dymola_experimentSetupOutput(equidistant=false));
+     end PowerSystemStepLoad_N_16_M_4;
+
+     model PowerSystemStepLoad_N_32_M_4
+       extends Verification.TwoGeneratorsStepLoad(N = 32, M = 4);
+       annotation (experiment(StopTime=200, Tolerance=1e-006),
+           __Dymola_experimentSetupOutput(equidistant=false));
+     end PowerSystemStepLoad_N_32_M_4;
+
+     model PowerSystemStepLoad_N_64_M_4
+       extends Verification.TwoGeneratorsStepLoad(N = 64, M = 4);
+       annotation (experiment(StopTime=200, Tolerance=1e-006),
+           __Dymola_experimentSetupOutput(equidistant=false));
+     end PowerSystemStepLoad_N_64_M_4;
+
+     model PowerSystemStepLoad_N_4_M_8
+       extends Verification.TwoGeneratorsStepLoad(N = 4, M = 8);
+       annotation (experiment(StopTime=200, Tolerance=1e-006),
+           __Dymola_experimentSetupOutput(equidistant=false));
+     end PowerSystemStepLoad_N_4_M_8;
+
+     model PowerSystemStepLoad_N_4_M_16
+      extends Verification.TwoGeneratorsStepLoad(N=4, M = 16);
+      annotation (experiment(StopTime=200, Tolerance=1e-006),
+           __Dymola_experimentSetupOutput(equidistant=false));
+     end PowerSystemStepLoad_N_4_M_16;
+
+     model PowerSystemStepLoad_N_64_M_8
+       extends Verification.TwoGeneratorsStepLoad(N = 64, M = 8);
+       annotation (experiment(StopTime=200, Tolerance=1e-006),
+           __Dymola_experimentSetupOutput(equidistant=false));
+     end PowerSystemStepLoad_N_64_M_8;
+
+     model PowerSystemStepLoad_N_64_M_16
+      extends Verification.TwoGeneratorsStepLoad(N=64, M=16);
+      annotation (experiment(StopTime=200, Tolerance=1e-006),
+           __Dymola_experimentSetupOutput(equidistant=false));
+     end PowerSystemStepLoad_N_64_M_16;
 
   end ScaledExperiments;
 end ConceptualPowerSystem;
