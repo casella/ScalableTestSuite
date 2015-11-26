@@ -8,7 +8,7 @@ This library contains a collection of Modelica models whose size can be scaled b
 
 ## Current release
 
-1.3.0
+1.4.0
 
 ## Development and contribution
 The library was developed by Politecnico di Milano
