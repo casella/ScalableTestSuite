@@ -30,7 +30,7 @@ package ConceptualPowerSystem
       parameter SI.Time Ti_t = 0.3 "Integral time of power controller";
       final parameter SI.AngularVelocity omega_ref = 2*pi*f_ref;
       final parameter SI.MomentOfInertia J = P_nom*T_a/(omega_ref^2);
-       SI.Power P_a = P_nom
+      SI.Power P_a = P_nom
         "Active electrical power produced by the synchronous generator - replace the default binding";
       SI.Power P_t_0 = P_nom
         "Active power set point - replace the default binding";
@@ -55,7 +55,7 @@ package ConceptualPowerSystem
         "Turbine power set point in p.u. with frequency control corrections";
       SI.PerUnit p_t_lp "Low-pressure turbine power in p.u.";
 
-      SI.PerUnit T_s[N]
+      parameter SI.PerUnit T_s[N](each fixed=false)
         "Normalized temperature states for the superheater model";
       SI.PerUnit T_s_b[N+1]
         "Normalized temperature at the boundaries of the superheater volumes";
@@ -120,9 +120,11 @@ package ConceptualPowerSystem
       q_ev = 1;
       err_p_t_int = 0;
       err_p_int = 0;
-      T_s[1] = (p + NTU/N*T_source)/(1 + NTU/N);
+
+    initial algorithm
+      T_s[1] := (p + NTU/N*T_source)/(1 + NTU/N);
       for i in 2:N loop
-          T_s[i] = (T_s[i-1] + NTU/N*T_source)/(1 + NTU/N);
+          T_s[i] := (T_s[i-1] + NTU/N*T_source)/(1 + NTU/N);
       end for;
 
       annotation (Documentation(info="<html>
