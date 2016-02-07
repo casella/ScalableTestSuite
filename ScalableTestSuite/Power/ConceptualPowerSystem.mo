@@ -23,7 +23,7 @@ package ConceptualPowerSystem
       parameter SI.Time tau_sh = 100
         "Characteristic time of the superheater thermal response";
       parameter SI.Time tau_y = 0.3 "Characteristic time of turbine governor";
-      parameter SI.PerUnit droop = 0.05 "Primary frequency control droop";
+      parameter SI.PerUnit droop = 0.1 "Primary frequency control droop";
       parameter SI.PerUnit Kp_p = 10 "Proportional gain of pressure controller";
       parameter SI.Time Ti_p = 70 "Integral time of pressure controller";
       parameter SI.PerUnit Kp_t = 2 "Proportional gain of power controller";
@@ -216,10 +216,9 @@ package ConceptualPowerSystem
 </html>"));
     end TwoGeneratorsConstantLoad;
 
-    model TwoGeneratorsStepLoad
-      "First load has a 50% step reduction from equilibrium"
+    model TwoGeneratorsStepLoad "First load disconnects"
       extends TwoGeneratorsConstantLoad(
-        P_load=cat(1, {P_nom*0.50}, P_nom*ones(N - 1)));
+        P_load=cat(1, {0.0}, P_nom*ones(N - 1)));
       annotation (experiment(StopTime=200, Tolerance=1e-006),
           __Dymola_experimentSetupOutput(equidistant=false),
         Documentation(info="<html>
@@ -279,6 +278,13 @@ package ConceptualPowerSystem
        annotation (experiment(StopTime=200, Tolerance=1e-006),
            __Dymola_experimentSetupOutput(equidistant=false));
      end PowerSystemStepLoad_N_4_M_8;
+
+
+     model PowerSystemStepLoad_N_8_M_8
+       extends Verification.TwoGeneratorsStepLoad(N = 8, M = 8);
+       annotation (experiment(StopTime=200, Tolerance=1e-006),
+           __Dymola_experimentSetupOutput(equidistant=false));
+     end PowerSystemStepLoad_N_8_M_8;
 
      model PowerSystemStepLoad_N_4_M_16
       extends Verification.TwoGeneratorsStepLoad(N=4, M = 16);
