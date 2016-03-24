@@ -107,7 +107,7 @@ package BreakerCircuits "Models of DC circuits with breakers"
 
     model BreakerNetwork "Network with N breakers"
       parameter Integer N = 3;
-      parameter Modelica.SIunits.Current Imax[N](fixed = false);
+      parameter Modelica.SIunits.Current Imax[N](each fixed = false);
       Modelica.Electrical.Analog.Sources.SignalCurrent source;
       Modelica.Electrical.Analog.Basic.Conductor G[N+1](each G=1);
       Models.Breaker B[N](name={String(i) for i in 1:N}, Imax=Imax);
@@ -148,7 +148,7 @@ package BreakerCircuits "Models of DC circuits with breakers"
 
     model BreakerNetworkDelayed "Network with N delayed breakers"
       parameter Integer N = 3;
-      parameter Modelica.SIunits.Current Imax[N](fixed = false);
+      parameter Modelica.SIunits.Current Imax[N](each fixed = false);
       Modelica.Electrical.Analog.Sources.SignalCurrent source;
       Modelica.Electrical.Analog.Basic.Conductor G[N+1](each G=1);
       Models.BreakerDelayed B[N](name={String(i) for i in 1:N}, Imax=Imax);
