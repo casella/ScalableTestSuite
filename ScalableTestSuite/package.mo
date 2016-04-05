@@ -1,15 +1,10 @@
 within ;
 package ScalableTestSuite "A library of scalable Modelica test models"
-
-
-
-
-
-annotation(version = "1.5.1",
+annotation(version = "1.6.0",
              uses(Modelica(version = "3.2.1")),
              Documentation(info="<html>
 <p>This library contains a collection of Modelica models whose size can be scaled by means of integer parameter(s). This is useful to test the ability of Modelica tools to compile and simulate models of  increasing size efficiently.</p>
-<p>The library contains examples with a physical motivation, which are also verified against known analytical solutions wherever possible.</p>
+<p>The library contains examples with a physical motivation, which are also verified against known analytical solutions wherever possible, as well as elementary models to stress some specific features of the Modelica tools.</p>
 <p>In some cases, when feasible, two mathematically equivalent models are provided, one built by raw equations and the other one built using the Modelica Standard Library. This makes it possible to evaluate how efficiently the Modelica tool can handle the overhead of a modular description both in terms of compilation time, which might be higher due to additional processing, and of simulation time, which should be the same.</p>
 <p>This work was originally inspired by discussion at the <a href=\"http://www.eoolt.org/2014/index.php\">2014 EOOLT Workshop in Berlin</a>. Version 1.0.0 is the outcome of Kaan Sezginer&apos;s<a href=\"modelica://ScalableTestSuite/Resources/Docs/2015_04_SEZGINER_Thesis.pdf\"> master&apos;s thesis</a> work at Politecnico di Milano, under the supervision of prof. Francesco Casella. It is expected that the library grows and becomes a reference for the community.</p>
 <p>The master branch of the library is hosted on <a href=\"https://github.com/casella/ScalableTestSuite\">GitHub</a>. Please contact , please contact<a href=\"mailto:francesco.casella@polimi.it\"> Francesco Casella</a> or directly submit a pull request
@@ -19,7 +14,7 @@ if you want to contribute to the library.
 <li>Kaan Sezginer</li>
 <li>Francesco Casella</li>
 </ul>
-<p>Copyright  &copy; 2015 Politecnico di Milano</p>
+<p>Copyright  &copy; 2015-2016 Politecnico di Milano</p>
 <p>All rights reserved.</p>
 
 <p>Redistribution and use in source and binary forms, with or without modification,
