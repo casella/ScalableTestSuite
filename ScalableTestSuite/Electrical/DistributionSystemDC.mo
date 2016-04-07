@@ -256,7 +256,7 @@ equation
 
     model DistributionSystemModelica_N_160_M_160
       extends Models.DistributionSystemModelica(N = 160, M = 160);
-      annotation(experiment(StopTime = 1, Interval = 1e-3));
+      //annotation(experiment(StopTime = 1, Interval = 1e-3));
     end DistributionSystemModelica_N_160_M_160;
 
     model DistributionSystemModelicaIndividual_N_10_M_10
