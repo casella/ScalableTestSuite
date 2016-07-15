@@ -13,7 +13,7 @@ doi:[10.3384/ecp15118459][1]
 
 ## Current release
 
-1.6.2
+1.7.0
 
 ## Development and contribution
 The library was developed by Politecnico di Milano
@@ -23,7 +23,7 @@ Contributors:
 
 You may report any issues with using the [Issues](https://github.com/casella/ScalableTestSuite/issues) button.
 
-Contributions in shape of [Pull Requests](https://github.com/casella/ScalableTestSuite/pulls) are always welcome.
+Contributions as [Pull Requests](https://github.com/casella/ScalableTestSuite/pulls) are always welcome.
 
 ## License
 Licensed under [BSD 3-Clause License](https://github.com/casella/ScalableTestSuite/blob/master/LICENSE.md).
