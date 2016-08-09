@@ -116,11 +116,6 @@ package Advection "1D advection models"
       w_out_pipe = w_out[N];
       h_in_pipe = h_in[1];
       h_out_pipe = h[N];
-    initial equation
-      for i in 1:N loop
-        p[i]=p_start;
-        h[i]=h_start;
-      end for;
 
       annotation (Documentation(info="<html>
 <p>This models shows the mass, energy, and momentum balance equations for 1D flow of steam in a pipe, using the finite volume method. The pressure loss is assumed to be linear with the flow rate for simplicity. The inertial term and the kinetic term are neglected in the momentum balance equations, hence the pressure wave dynamics is not represented. The pipe is adiabatic, with zero energy storage in the walls. The industry-standard IF97 model is used to compute the steam properties.</p>
