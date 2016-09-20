@@ -239,7 +239,7 @@ package DistributionSystemAC
     end DistributionSystemLinear;
 
     model DistributionSystemLinearIndividual
-      parameter Integer N = 10
+      parameter Integer N = 2
         "Number of segments of the primary distribution line";
       parameter Integer M = N
         "Number of segments of each secondary distribution line";
@@ -247,48 +247,49 @@ package DistributionSystemAC
       parameter Real beta = 2 "Ratio between line inductance and line resistance";
       parameter Modelica.SIunits.Resistance R_l = 100
         "Resistance of a single load";
-      function print = Modelica.Utilities.Streams.print;
+      import Streams = Modelica.Utilities.Streams;
     algorithm
       when initial() then
-        print("model DistributionSystemLinearIndividual_N_"+String(N)+"_M_"+String(M));
-        print("  parameter Integer N = "+String(N)+"\" Number of segments of the primary distribution line\";");
-        print("  parameter Integer M = "+String(M)+"\" Number of segments of each secondary distribution line\";");
-        print("  parameter Real alpha = "+String(alpha)+" \"Distribution line oversizing factor\";");
-        print("  parameter Real beta = "+String(beta)+" \"Ratio between line inductance and line resistance\";");
-        print("  parameter Modelica.SIunits.Resistance R_l = "+String(R_l)+ " \"Resistance of a single load\";");
-        print("  parameter Modelica.SIunits.Resistance R_d2 = R_l/(M^2*alpha) \"Resistance of a secondary distribution segment\";");
-        print("  parameter Modelica.SIunits.Resistance R_d1 = R_l/(M^2*N^2*alpha) \"Resistance of a primary distribution segment\";");
-        print("  parameter Modelica.SIunits.Voltage V_ref = 600 \"Reference source voltage\";");
-        print("");
+        Streams.print("model DistributionSystemLinearIndividual_N_"+String(N)+"_M_"+String(M));
+        Streams.print("  parameter Integer N = "+String(N)+"\" Number of segments of the primary distribution line\";");
+        Streams.print("  parameter Integer M = "+String(M)+"\" Number of segments of each secondary distribution line\";");
+        Streams.print("  parameter Real alpha = "+String(alpha)+" \"Distribution line oversizing factor\";");
+        Streams.print("  parameter Real beta = "+String(beta)+" \"Ratio between line inductance and line resistance\";");
+        Streams.print("  parameter Modelica.SIunits.Resistance R_l = "+String(R_l)+ " \"Resistance of a single load\";");
+        Streams.print("  parameter Modelica.SIunits.Resistance R_d2 = R_l/(M^2*alpha) \"Resistance of a secondary distribution segment\";");
+        Streams.print("  parameter Modelica.SIunits.Resistance R_d1 = R_l/(M^2*N^2*alpha) \"Resistance of a primary distribution segment\";");
+        Streams.print("  parameter Modelica.SIunits.Voltage V_ref = 600 \"Reference source voltage\";");
+        Streams.print("");
         for i in 1:N loop
-          print("  Internals.Impedance primary_"+String(i)+"(Z(re = R_d1, im = R_d1 * beta)) \"Primary distribution line segment\";");
+          Streams.print("  Internals.Impedance primary_"+String(i)+"(Z(re = R_d1, im = R_d1 * beta)) \"Primary distribution line segment\";");
           for j in 1:M loop
-            print("  Internals.Impedance secondary_"+String(i)+"_"+String(j)+"(Z(re = R_d2, im = R_d2 * beta)) \"Secondary distribution line segment\";");
-            print("  Internals.LinearControlledLoad load_"+String(i)+"_"+String(j)+"(V_nom = V_ref, P_nom = V_ref^2/R_l) \"Individual load resistor\";");
+            Streams.print("  Internals.Impedance secondary_"+String(i)+"_"+String(j)+"(Z(re = R_d2, im = R_d2 * beta)) \"Secondary distribution line segment\";");
+            Streams.print("  Internals.LinearControlledLoad load_"+String(i)+"_"+String(j)+"(V_nom = V_ref, P_nom = V_ref^2/R_l) \"Individual load resistor\";");
           end for;
         end for;
-        print("  Internals.Ground sourceGround \"Source ground\";");
-        print("  Internals.VoltageSource V_source(V = V_ref) \"Voltage source\";");
-        print("equation");
-        print("  connect(primary_1.p, V_source.p);");
-        print("  connect(sourceGround.p, V_source.n);");
+        Streams.print("  Internals.Ground sourceGround \"Source ground\";");
+        Streams.print("  Internals.VoltageSource V_source(V = V_ref) \"Voltage source\";");
+        Streams.print("equation");
+        Streams.print("  connect(primary_1.p, V_source.p);");
+        Streams.print("  connect(sourceGround.p, V_source.n);");
         for i in 1:N-1 loop
-          print("  connect(primary_"+String(i)+".n, primary_"+String(i+1)+".p);");
+          Streams.print("  connect(primary_"+String(i)+".n, primary_"+String(i+1)+".p);");
         end for;
         for i in 1:N loop
-          print("  connect(primary_"+String(i)+".n, secondary_"+String(i)+"_1.p);");
+          Streams.print("  connect(primary_"+String(i)+".n, secondary_"+String(i)+"_1.p);");
           for j in 1:M-1 loop
-            print("  connect(secondary_"+String(i)+"_"+String(j)+".n, secondary_"+String(i)+"_"+String(j+1)+".p);");
+            Streams.print("  connect(secondary_"+String(i)+"_"+String(j)+".n, secondary_"+String(i)+"_"+String(j+1)+".p);");
           end for;
           for j in 1:M loop
-            print("  connect(secondary_"+String(i)+"_"+String(j)+".n, load_"+String(i)+"_"+String(j)+".p);");
+            Streams.print("  connect(secondary_"+String(i)+"_"+String(j)+".n, load_"+String(i)+"_"+String(j)+".p);");
           end for;
         end for;
-        print("  annotation(experiment(StopTime = 1, Interval = 1e-3));");
-        print("end DistributionSystemLinearIndividual_N_"+String(N)+"_M_"+String(M)+";");
+        Streams.print("  annotation(experiment(StopTime = 1, Interval = 1e-3));");
+        Streams.print("end DistributionSystemLinearIndividual_N_"+String(N)+"_M_"+String(M)+";");
       end when;
     
-      annotation (Documentation(info="<html>
+      annotation(experiment(StopTime = 1, Interval = 1e-3),
+                 Documentation(info="<html>
     <p>This model generates Modelica code of models equivalent to DistributionSystemLinear which don&apos;t use arrays and for loops, but rather declare each model and each connection individually.</p>
     <p>This model can be used to check the overhead of instantiating large numbesr of individual models compared to arrays, and also to check the ability of compilers to factor out the code of instances of the same component.</p>
     </html>"));
