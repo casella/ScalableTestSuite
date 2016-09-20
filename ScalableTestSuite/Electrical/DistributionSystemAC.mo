@@ -229,11 +229,11 @@ package DistributionSystemAC
       end for;
       annotation(Documentation(info = "<html>
     <p>This model represnts an AC current distribution system, whose complexity depends on two parameters
-    N and M. A constant voltage source is connected to a primary resistive distribution line which is split into
+    N and M.</p><p>A constant voltage source is connected to a primary resistive distribution line which is split into
     N segments, each with an impedance R_d1 + j*beta*R_d1. At the end of each segment, a secondary distribution
     line is attached with M elements each of impedance R_d2 + j*beta*R_d2. At the end of each secondary segment,
     a linear load connected, which is internally grounded on the other side.</p>
-    <p>Each load measures the absorbed active power and adapts its internal resistance to match the required active
+    <p>Each load measures its absorbed active power and adapts its internal resistance to match the required active
     power set point.
     </html>"));
     end DistributionSystemLinear;
