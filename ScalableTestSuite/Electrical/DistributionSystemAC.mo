@@ -237,6 +237,9 @@ package DistributionSystemAC
     power set point.
     </html>"));
     end DistributionSystemLinear;
+
+    model DistributionSystemLinearIndividual
+    end DistributionSystemLinearIndividual;
   end Models;
 
   package Verification
@@ -273,5 +276,49 @@ package DistributionSystemAC
   end Verification;
                             
   package ScaledExperiments
-  end ScaledExperiments;
+    extends Modelica.Icons.ExamplesPackage;
+    model DistributionSystemLinear_N_10_M_10
+      extends Models.DistributionSystemLinear(N = 10, M = 10);
+      annotation(experiment(StopTime = 1, Interval = 1e-3));
+    end DistributionSystemLinear_N_10_M_10;
+  
+    model DistributionSystemLinear_N_14_M_14
+      extends Models.DistributionSystemLinear(N = 14, M = 14);
+      annotation(experiment(StopTime = 1, Interval = 1e-3));
+    end DistributionSystemLinear_N_14_M_14;
+  
+    model DistributionSystemLinear_N_20_M_20
+      extends Models.DistributionSystemLinear(N = 20, M = 20);
+      annotation(experiment(StopTime = 1, Interval = 1e-3));
+    end DistributionSystemLinear_N_20_M_20;
+  
+    model DistributionSystemLinear_N_28_M_28
+      extends Models.DistributionSystemLinear(N = 28, M = 28);
+      annotation(experiment(StopTime = 1, Interval = 1e-3));
+    end DistributionSystemLinear_N_28_M_28;
+  
+    model DistributionSystemLinear_N_40_M_40
+      extends Models.DistributionSystemLinear(N = 40, M = 40);
+      annotation(experiment(StopTime = 1, Interval = 1e-3));
+    end DistributionSystemLinear_N_40_M_40;
+  
+    model DistributionSystemLinear_N_56_M_56
+      extends Models.DistributionSystemLinear(N = 56, M = 56);
+      annotation(experiment(StopTime = 1, Interval = 1e-3));
+    end DistributionSystemLinear_N_56_M_56;
+  
+    model DistributionSystemLinear_N_80_M_80
+      extends Models.DistributionSystemLinear(N = 80, M = 80);
+      //annotation(experiment(StopTime = 1, Interval = 1e-3));
+    end DistributionSystemLinear_N_80_M_80;
+  
+    model DistributionSystemLinear_N_112_M_112
+      extends Models.DistributionSystemLinear(N = 112, M = 112);
+      //annotation(experiment(StopTime = 1, Interval = 1e-3));
+    end DistributionSystemLinear_N_112_M_112;
+  
+    model DistributionSystemLinear_N_160_M_160
+      extends Models.DistributionSystemLinear(N = 160, M = 160);
+      //annotation(experiment(StopTime = 1, Interval = 1e-3));
+    end DistributionSystemLinear_N_160_M_160;end ScaledExperiments;
 end DistributionSystemAC;
