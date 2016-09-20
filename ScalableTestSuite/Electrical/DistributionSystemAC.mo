@@ -403,12 +403,12 @@ package DistributionSystemAC
   
     model DistributionSystemLinear_N_40_M_40
       extends Models.DistributionSystemLinear(N = 40, M = 40);
-      annotation(experiment(StopTime = 1, Interval = 1e-3));
+      // annotation(experiment(StopTime = 1, Interval = 1e-3));
     end DistributionSystemLinear_N_40_M_40;
   
     model DistributionSystemLinear_N_56_M_56
       extends Models.DistributionSystemLinear(N = 56, M = 56);
-      annotation(experiment(StopTime = 1, Interval = 1e-3));
+      // annotation(experiment(StopTime = 1, Interval = 1e-3));
     end DistributionSystemLinear_N_56_M_56;
   
     model DistributionSystemLinear_N_80_M_80
