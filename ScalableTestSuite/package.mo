@@ -1,7 +1,7 @@
 within ;
 package ScalableTestSuite "A library of scalable Modelica test models"
-annotation(version = "1.7.1",
-             uses(Modelica(version = "3.2.1")),
+annotation(version = "1.8.0",
+             uses(Modelica(version = "3.2.2")),
              Documentation(info="<html>
 <p>This library contains a collection of Modelica models whose size can be scaled by means of integer parameter(s). This is useful to test the ability of Modelica tools to compile and simulate models of  increasing size efficiently.</p>
 <p>The library contains examples with a physical motivation, which are also verified against known analytical solutions wherever possible, as well as elementary models to stress some specific features of the Modelica tools.</p>
