@@ -84,6 +84,7 @@ package DistributionSystemAC
       model Impedance "Generic complex impedance model"
         extends PartialImpedance(final Z_ = Z);
         parameter SI.ComplexImpedance Z "Fixed impedance";
+        annotation(__OpenModelica_lateFlatten = true);
       end Impedance;
 
       model VariableResistor "Resistor model with variable resistance"
@@ -121,7 +122,7 @@ package DistributionSystemAC
         connect(powerSetpoint.y, feedback.u1) annotation(Line(points = {{-72, -8}, {-64, -8}, {-64, -8}, {-62, -8}}, color = {0, 0, 127}));
         connect(controller.u, feedback.y) annotation(Line(points = {{-38, -8}, {-45, -8}}, color = {0, 0, 127}));
         connect(R.R, controller.y) annotation(Line(points = {{-6, -8}, {-15, -8}}, color = {0, 0, 127}));
-        annotation(Icon(graphics = {Rectangle(origin = {-1, 0}, extent = {{-99, 100}, {101, -100}}), Line(origin = {0, 75}, points = {{0, 15}, {0, -15}}), Rectangle(origin = {-1, 4}, extent = {{-19, 56}, {21, -24}}), Line(origin = {0, -50}, points = {{0, 30}, {0, -10}, {0, -10}}), Line(origin = {-1, -60}, points = {{-19, 0}, {21, 0}}), Line(origin = {0, -68}, points = {{-10, 0}, {10, 0}}), Line(origin = {0, -76}, points = {{-4, 0}, {4, 0}})}, coordinateSystem(initialScale = 0.1)));
+        annotation(Icon(graphics = {Rectangle(origin = {-1, 0}, extent = {{-99, 100}, {101, -100}}), Line(origin = {0, 75}, points = {{0, 15}, {0, -15}}), Rectangle(origin = {-1, 4}, extent = {{-19, 56}, {21, -24}}), Line(origin = {0, -50}, points = {{0, 30}, {0, -10}, {0, -10}}), Line(origin = {-1, -60}, points = {{-19, 0}, {21, 0}}), Line(origin = {0, -68}, points = {{-10, 0}, {10, 0}}), Line(origin = {0, -76}, points = {{-4, 0}, {4, 0}})}, coordinateSystem(initialScale = 0.1)), __OpenModelica_lateFlatten = true);
       end LinearControlledLoad;
 
       model NoninearControlledLoad
