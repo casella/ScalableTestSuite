@@ -40,7 +40,7 @@ package DistributionSystemAC
         v = p.v - n.v;
         p.i + n.i = Complex(0, 0);
         i = p.i;
-        annotation(Icon(graphics = {Line(origin = {-75, 0}, points = {{-15, 0}, {13, 0}}), Line(origin = {75, 0}, points = {{15, 0}, {-15, 0}}), Rectangle(origin = {-1, 0}, extent = {{-61, 20}, {61, -20}})}, coordinateSystem(initialScale = 0.1)));
+        annotation(Icon(coordinateSystem(initialScale = 0.1)));
       end OnePort;
 
       model VoltageSource "Fixed Real voltage source"
@@ -48,19 +48,28 @@ package DistributionSystemAC
         parameter SI.Voltage V "Fixed (real) source voltage";
       equation
         v = Complex(V, 0) "Enforce prescribed voltage";
-        annotation(Icon(graphics = {Line(origin = {1, -1}, points = {{-1, 91}, {-1, -89}}), Ellipse(origin = {0, 1}, extent = {{-40, 39}, {40, -41}}, endAngle = 360)}));
+        annotation(Icon(graphics = {Line(origin = {1, -1}, points = {{-91, 1}, {89, 1}}), Ellipse(origin = {0, 1}, extent = {{-40, 39}, {40, -41}}, endAngle = 360)}, coordinateSystem(initialScale = 0.1)));
       end VoltageSource;
 
       model ActivePowerSensor
         extends Modelica.Icons.RotationalSensor;
-        extends OnePort;
+  PositivePin s "Connect to the power source" annotation(Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  PositivePin p "Connect to the load positive pin" annotation(Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+      NegativePin n "Connect to the load negative pin" annotation(Placement(visible = true, transformation(origin = {0, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+      
+        SI.ComplexVoltage v "Voltage across load";
+        SI.ComplexCurrent i "Current through load";
         Modelica.Blocks.Interfaces.RealOutput P annotation(Placement(visible = true, transformation(origin = {4, -88}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, -100}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
         SI.ComplexPower S "Complex power flow through the component";
       equation
-        v = Complex(0, 0) "Ideal sensor with zero impedance";
-        S = v*Modelica.ComplexMath.conj(i);
+        s.v = p.v "Ideal sensor with zero impedance";
+        v = p.v - n.v "Load voltage drop";
+        s.i + p.i = Complex(0, 0) "Current going to load";
+        n.i = Complex(0, 0) "No current into n pin";
+        i = s.i "Current through load";
+        S = v * Modelica.ComplexMath.conj(i) "Complex power";
         P = S.re;
-        annotation(Icon(graphics = {Line(origin = {-79, 0}, points = {{-11, 0}, {9, 0}, {9, 0}}), Line(origin = {80, 1}, points = {{-10, -1}, {10, -1}}), Line(origin = {0, -80}, points = {{0, 10}, {0, -10}, {0, -10}})}));
+        annotation(Icon(graphics = {Line(origin = {-79, 0}, points = {{-11, 0}, {9, 0}, {9, 0}}), Line(origin = {80, 1}, points = {{-10, -1}, {10, -1}}), Line(origin = {0, -80}, points = {{0, 10}, {0, -10}, {0, -10}}), Line(origin = {0, 80}, points = {{0, 10}, {0, -8}, {0, -10}})}, coordinateSystem(initialScale = 0.1)), uses(ScalableTestSuite(version = "1.7.1")));
       end ActivePowerSensor;
 
       partial model PartialImpedance "Generic complex impedance model"
@@ -68,7 +77,7 @@ package DistributionSystemAC
         SI.ComplexImpedance Z_ "Impedance - internal variable";
       equation
         v = Z_ * i;
-        annotation(Icon(graphics = {Line(origin = {-75, 0}, points = {{-15, 0}, {13, 0}}), Line(origin = {75, 0}, points = {{15, 0}, {-15, 0}}), Rectangle(origin = {-1, 0}, extent = {{-61, 20}, {61, -20}})}, coordinateSystem(initialScale = 0.1)));
+        annotation(Icon(graphics = {Line(origin = {-75, 0}, points = {{-15, 0}, {15, 0}}), Line(origin = {75, 0}, points = {{15, 0}, {-15, 0}}), Rectangle(origin = {-1, 0}, extent = {{-59, 20}, {61, -20}})}, coordinateSystem(initialScale = 0.1)));
       end PartialImpedance;
 
       model Impedance "Generic complex impedance model"
@@ -93,25 +102,26 @@ package DistributionSystemAC
 
       model LinearControlledLoad
         parameter SI.Voltage V_nom = 600 "Nominal voltage";
-        parameter SI.Power P_nom "Nominal power";
+        parameter SI.Power P_nom = 3600 "Nominal power";
         parameter SI.Time T = 1 "Time constant of power controller";
         final parameter SI.Resistance R_nom = V_nom^2/P_nom;
         PositivePin p annotation(Placement(visible = true, transformation(origin = {0, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
       VariableResistor R annotation(Placement(visible = true, transformation(origin = {-3.55271e-15, -8}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
-    Ground ground1 annotation(Placement(visible = true, transformation(origin = {-3.55271e-15, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-    ActivePowerSensor sensor annotation(Placement(visible = true, transformation(origin = {0, 66}, extent = {{-14, -14}, {14, 14}}, rotation = -90)));
-    Modelica.Blocks.Continuous.Integrator controller(initType = Modelica.Blocks.Types.Init.SteadyState, k = -(V_nom/R_nom)^2/T, y_start = R_nom)  annotation(Placement(visible = true, transformation(origin = {-26, -8}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  ScalableTestSuite.Electrical.DistributionSystemAC.Models.Internals.Ground ground1 annotation(Placement(visible = true, transformation(origin = {-3.55271e-15, -78}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  ScalableTestSuite.Electrical.DistributionSystemAC.Models.Internals.ActivePowerSensor sensor annotation(Placement(visible = true, transformation(origin = {0, 60}, extent = {{-14, -14}, {14, 14}}, rotation = -90)));
+    Modelica.Blocks.Continuous.Integrator controller(initType = Modelica.Blocks.Types.Init.InitialOutput, k = -(V_nom/R_nom)^2/T, y_start = R_nom)  annotation(Placement(visible = true, transformation(origin = {-26, -8}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
     Modelica.Blocks.Math.Feedback feedback annotation(Placement(visible = true, transformation(origin = {-54, -8}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
     Modelica.Blocks.Sources.RealExpression powerSetpoint(y = P_nom) annotation(Placement(visible = true, transformation(origin = {-84, -8}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
       equation
+        connect(sensor.s, p) annotation(Line(points = {{0, 74}, {0, 74}, {0, 100}, {0, 100}}, color = {0, 0, 255}));
+        connect(sensor.p, R.p) annotation(Line(points = {{0, 46}, {0, 12}}, color = {0, 0, 255}));
+        connect(sensor.n, R.n) annotation(Line(points = {{14, 60}, {40, 60}, {40, -28}, {0, -28}}, color = {0, 0, 255}));
+        connect(feedback.u2, sensor.P) annotation(Line(points = {{-54, 0}, {-54, 60}, {-14, 60}}, color = {0, 0, 127}));
+        connect(ground1.p, R.n) annotation(Line(points = {{0, -78}, {0, -78}, {0, -28}, {0, -28}}, color = {0, 0, 255}));
         connect(powerSetpoint.y, feedback.u1) annotation(Line(points = {{-72, -8}, {-64, -8}, {-64, -8}, {-62, -8}}, color = {0, 0, 127}));
         connect(controller.u, feedback.y) annotation(Line(points = {{-38, -8}, {-45, -8}}, color = {0, 0, 127}));
-        connect(feedback.u2, sensor.P) annotation(Line(points = {{-54, 0}, {-54, 66}, {-14, 66}}, color = {0, 0, 127}));
         connect(R.R, controller.y) annotation(Line(points = {{-6, -8}, {-15, -8}}, color = {0, 0, 127}));
-        connect(R.n, ground1.p) annotation(Line(points = {{0, -28}, {0, -28}, {0, -60}, {0, -60}}, color = {0, 0, 255}));
-        connect(sensor.n, R.p) annotation(Line(points = {{0, 52}, {0, 52}, {0, 12}, {0, 12}}, color = {0, 0, 255}));
-        connect(p, sensor.p) annotation(Line(points = {{0, 100}, {0, 100}, {0, 80}, {0, 80}}, color = {0, 0, 255}));
-        annotation(Icon(graphics = {Rectangle(origin = {-1, 0}, extent = {{-99, 100}, {101, -100}}), Line(origin = {0, 75}, points = {{0, 15}, {0, -15}}), Rectangle(origin = {-1, 4}, extent = {{-19, 56}, {19, -40}}), Line(origin = {0, -50}, points = {{0, 14}, {0, -10}, {0, -10}}), Line(origin = {-1, -60}, points = {{-19, 0}, {21, 0}}), Line(origin = {0, -68}, points = {{-10, 0}, {10, 0}}), Line(origin = {0, -76}, points = {{-4, 0}, {4, 0}})}));
+        annotation(Icon(graphics = {Rectangle(origin = {-1, 0}, extent = {{-99, 100}, {101, -100}}), Line(origin = {0, 75}, points = {{0, 15}, {0, -15}}), Rectangle(origin = {-1, 4}, extent = {{-19, 56}, {21, -24}}), Line(origin = {0, -50}, points = {{0, 30}, {0, -10}, {0, -10}}), Line(origin = {-1, -60}, points = {{-19, 0}, {21, 0}}), Line(origin = {0, -68}, points = {{-10, 0}, {10, 0}}), Line(origin = {0, -76}, points = {{-4, 0}, {4, 0}})}, coordinateSystem(initialScale = 0.1)));
       end LinearControlledLoad;
 
       model NoninearControlledLoad
@@ -125,6 +135,7 @@ package DistributionSystemAC
         Modelica.Blocks.Math.Feedback feedback annotation(Placement(visible = true, transformation(origin = {-54, -8}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
         Modelica.Blocks.Sources.RealExpression powerSetpoint(y = P_nom) annotation(Placement(visible = true, transformation(origin = {-84, -8}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
       equation
+        connect(sensor.n, load.n) annotation(Line(points = {{14, 66}, {40, 66}, {40, -28}, {0, -28}, {0, -28}}, color = {0, 0, 255}));
         connect(powerSetpoint.y, feedback.u1) annotation(Line(points = {{-72, -8}, {-64, -8}, {-64, -8}, {-62, -8}}, color = {0, 0, 127}));
         connect(controller.u, feedback.y) annotation(Line(points = {{-38, -8}, {-45, -8}}, color = {0, 0, 127}));
         connect(feedback.u2, sensor.P) annotation(Line(points = {{-54, 0}, {-54, 66}, {-14, 66}}, color = {0, 0, 127}));
@@ -132,7 +143,7 @@ package DistributionSystemAC
         connect(load.n, ground1.p) annotation(Line(points = {{0, -28}, {0, -28}, {0, -60}, {0, -60}}, color = {0, 0, 255}));
         connect(sensor.n, load.p) annotation(Line(points = {{0, 52}, {0, 52}, {0, 12}, {0, 12}}, color = {0, 0, 255}));
         connect(p, sensor.p) annotation(Line(points = {{0, 100}, {0, 100}, {0, 80}, {0, 80}}, color = {0, 0, 255}));
-        annotation(Icon(graphics = {Rectangle(origin = {-1, 0}, extent = {{-99, 100}, {101, -100}}), Line(origin = {0, 75}, points = {{0, 15}, {0, -15}}), Rectangle(origin = {-1, 4}, extent = {{-19, 56}, {19, -40}}), Line(origin = {0, -50}, points = {{0, 14}, {0, -10}, {0, -10}}), Line(origin = {-1, -60}, points = {{-19, 0}, {21, 0}}), Line(origin = {0, -68}, points = {{-10, 0}, {10, 0}}), Line(origin = {0, -76}, points = {{-4, 0}, {4, 0}})}));
+        annotation(Icon(graphics = {Rectangle(origin = {-1, 0}, extent = {{-99, 100}, {101, -100}}), Line(origin = {0, 75}, points = {{0, 15}, {0, -15}}), Rectangle(origin = {-1, 4}, extent = {{-19, 56}, {21, -24}}), Line(origin = {0, -50}, points = {{0, 30}, {0, -10}, {0, -10}}), Line(origin = {-1, -60}, points = {{-19, 0}, {21, 0}}), Line(origin = {0, -68}, points = {{-10, 0}, {10, 0}}), Line(origin = {0, -76}, points = {{-4, 0}, {4, 0}})}, coordinateSystem(initialScale = 0.1)));
       end NoninearControlledLoad;
     end Internals;
 
@@ -230,9 +241,33 @@ package DistributionSystemAC
 
   package Verification
     model DistributionSystemLinear_N_2_M_2
-      extends Models.DistributionSystemLinear(N = 2, M = 2);
+      extends Models.DistributionSystemLinear(N = 1, M = 1);
       annotation(experiment(StopTime = 10));
     end DistributionSystemLinear_N_2_M_2;
+
+    model LinearControlledLoad
+      Models.Internals.LinearControlledLoad linearControlledLoad annotation(Placement(visible = true, transformation(origin = {0, 8.88178e-16}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Models.Internals.VoltageSource voltageSource(V = 600)  annotation(Placement(visible = true, transformation(origin = {-50, 3.55271e-15}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
+  Models.Internals.Ground ground annotation(Placement(visible = true, transformation(origin = {-50, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+      equation
+      connect(voltageSource.p, linearControlledLoad.p) annotation(Line(points = {{-50, 20}, {-50, 40}, {0, 40}, {0, 20}}, color = {0, 0, 255}));
+      connect(ground.p, voltageSource.n) annotation(Line(points = {{-50, -40}, {-50, -40}, {-50, -20}, {-50, -20}}, color = {0, 0, 255}));
+    end LinearControlledLoad;
+
+    model VariableResistor "Checks the behaviour of the variable resistor and power flow sensor"
+  Models.Internals.Ground ground1 annotation(Placement(visible = true, transformation(origin = {1.77636e-15, -56}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Models.Internals.VariableResistor variableResistor1 annotation(Placement(visible = true, transformation(origin = {3.55271e-15, -16}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
+  Models.Internals.VoltageSource voltageSource1(V = 600) annotation(Placement(visible = true, transformation(origin = {40, 4}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
+  Modelica.Blocks.Sources.RealExpression resistance(y = 300.0) annotation(Placement(visible = true, transformation(origin = {-52, -16}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Models.Internals.ActivePowerSensor activePowerSensor1 annotation(Placement(visible = true, transformation(origin = {7.10543e-15, 44}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
+      equation
+      connect(activePowerSensor1.n, variableResistor1.n) annotation(Line(points = {{20, 44}, {22, 44}, {22, 44}, {24, 44}, {24, 44}, {28, 44}, {28, -36}, {1.49012e-07, -36}, {1.49012e-07, -36}, {1.49012e-07, -36}, {1.49012e-07, -36}}, color = {0, 0, 255}));
+      connect(voltageSource1.p, activePowerSensor1.s) annotation(Line(points = {{40, 24}, {40, 24}, {40, 24}, {40, 24}, {40, 24}, {40, 24}, {40, 64}, {0, 64}, {0, 64}, {0, 64}, {0, 64}}, color = {0, 0, 255}));
+      connect(variableResistor1.p, activePowerSensor1.p) annotation(Line(points = {{3.55271e-15, 4}, {3.55271e-15, 24}}, color = {0, 0, 255}));
+      connect(resistance.y, variableResistor1.R) annotation(Line(points = {{-41, -16}, {-6, -16}}, color = {0, 0, 127}));
+      connect(voltageSource1.n, ground1.p) annotation(Line(points = {{40, -16}, {40, -36}, {40, -36}, {40, -56}, {20, -56}, {20, -56}, {10, -56}, {10, -56}, {0, -56}}, color = {0, 0, 255}));
+      connect(variableResistor1.n, ground1.p) annotation(Line(points = {{3.55271e-15, -36}, {3.55271e-15, -56}}, color = {0, 0, 255}));
+    end VariableResistor;
   end Verification;
                             
   package ScaledExperiments
