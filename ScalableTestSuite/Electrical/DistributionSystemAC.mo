@@ -102,14 +102,14 @@ package DistributionSystemAC
 
       model LinearControlledLoad
         parameter SI.Voltage V_nom = 600 "Nominal voltage";
-        parameter SI.Power P_nom = 3600 "Nominal power";
-        parameter SI.Time T = 1 "Time constant of power controller";
+        parameter SI.Power P_nom "Nominal power";
+        parameter SI.Time T = 0.1 "Time constant of power controller";
         final parameter SI.Resistance R_nom = V_nom^2/P_nom;
         PositivePin p annotation(Placement(visible = true, transformation(origin = {0, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
       VariableResistor R annotation(Placement(visible = true, transformation(origin = {-3.55271e-15, -8}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
   ScalableTestSuite.Electrical.DistributionSystemAC.Models.Internals.Ground ground1 annotation(Placement(visible = true, transformation(origin = {-3.55271e-15, -78}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   ScalableTestSuite.Electrical.DistributionSystemAC.Models.Internals.ActivePowerSensor sensor annotation(Placement(visible = true, transformation(origin = {0, 60}, extent = {{-14, -14}, {14, 14}}, rotation = -90)));
-    Modelica.Blocks.Continuous.Integrator controller(initType = Modelica.Blocks.Types.Init.InitialOutput, k = -(V_nom/R_nom)^2/T, y_start = R_nom)  annotation(Placement(visible = true, transformation(origin = {-26, -8}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Modelica.Blocks.Continuous.Integrator controller(initType = Modelica.Blocks.Types.Init.InitialOutput, k = -R_nom / P_nom /T, y_start = R_nom)  annotation(Placement(visible = true, transformation(origin = {-26, -8}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
     Modelica.Blocks.Math.Feedback feedback annotation(Placement(visible = true, transformation(origin = {-54, -8}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
     Modelica.Blocks.Sources.RealExpression powerSetpoint(y = P_nom) annotation(Placement(visible = true, transformation(origin = {-84, -8}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
       equation
@@ -152,8 +152,8 @@ package DistributionSystemAC
         "Number of segments of the primary distribution line";
       parameter Integer M = N
         "Number of segments of each secondary distribution line";
-      parameter Real alpha = 2 "Distribution line oversizing factor";
-      parameter Real beta = 5 "Ratio between line inductance and line resistance";
+      parameter Real alpha = 10 "Distribution line oversizing factor";
+      parameter Real beta = 2 "Ratio between line inductance and line resistance";
       parameter SI.Resistance R_l = 1
         "Resistance of a single load";
       parameter SI.Resistance R_d2 = R_l/(M^2*alpha)
@@ -201,8 +201,8 @@ package DistributionSystemAC
     model DistributionSystemLinear
       parameter Integer N = 4 "Number of segments of the primary distribution line";
       parameter Integer M = N "Number of segments of each secondary distribution line";
-      parameter Real alpha = 2 "Distribution line oversizing factor";
-      parameter Real beta = 5 "Ratio between line inductance and line resistance";
+      parameter Real alpha = 10 "Distribution line oversizing factor";
+      parameter Real beta = 2 "Ratio between line inductance and line resistance";
       parameter SI.Resistance R_l = 100 "Resistance of a single load";
       parameter SI.Resistance R_d2 = R_l / (M ^ 2 * alpha) "Resistance of a secondary distribution segment";
       parameter SI.Resistance R_d1 = R_l / (M ^ 2 * N ^ 2 * alpha) "Resistance of a primary distribution segment";
@@ -241,32 +241,34 @@ package DistributionSystemAC
 
   package Verification
     model DistributionSystemLinear_N_2_M_2
-      extends Models.DistributionSystemLinear(N = 1, M = 1);
-      annotation(experiment(StopTime = 10));
+      extends Models.DistributionSystemLinear(N = 2, M = 2);
+      annotation(experiment(StopTime = 20));
     end DistributionSystemLinear_N_2_M_2;
 
     model LinearControlledLoad
-      Models.Internals.LinearControlledLoad linearControlledLoad annotation(Placement(visible = true, transformation(origin = {0, 8.88178e-16}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Models.Internals.VoltageSource voltageSource(V = 600)  annotation(Placement(visible = true, transformation(origin = {-50, 3.55271e-15}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
+      Models.Internals.LinearControlledLoad linearControlledLoad(P_nom = 3600)  annotation(Placement(visible = true, transformation(origin = {0, 8.88178e-16}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Models.Internals.VoltageSource voltageSource(V = 650)  annotation(Placement(visible = true, transformation(origin = {-50, 3.55271e-15}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
   Models.Internals.Ground ground annotation(Placement(visible = true, transformation(origin = {-50, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
       equation
       connect(voltageSource.p, linearControlledLoad.p) annotation(Line(points = {{-50, 20}, {-50, 40}, {0, 40}, {0, 20}}, color = {0, 0, 255}));
       connect(ground.p, voltageSource.n) annotation(Line(points = {{-50, -40}, {-50, -40}, {-50, -20}, {-50, -20}}, color = {0, 0, 255}));
+      annotation(Documentation(info="<html>Test of the Linear Controlled Load Model. The applied voltage is slightly higher than the nominal one, so the controller reacts by adapting the resistance to restore the nominal power consumption</html>"));
     end LinearControlledLoad;
 
     model VariableResistor "Checks the behaviour of the variable resistor and power flow sensor"
-  Models.Internals.Ground ground1 annotation(Placement(visible = true, transformation(origin = {1.77636e-15, -56}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Models.Internals.VariableResistor variableResistor1 annotation(Placement(visible = true, transformation(origin = {3.55271e-15, -16}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
-  Models.Internals.VoltageSource voltageSource1(V = 600) annotation(Placement(visible = true, transformation(origin = {40, 4}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
+  Models.Internals.Ground ground annotation(Placement(visible = true, transformation(origin = {1.77636e-15, -56}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Models.Internals.VariableResistor resistor annotation(Placement(visible = true, transformation(origin = {3.55271e-15, -16}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
+  Models.Internals.VoltageSource voltageSource(V = 600) annotation(Placement(visible = true, transformation(origin = {40, 4}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
   Modelica.Blocks.Sources.RealExpression resistance(y = 300.0) annotation(Placement(visible = true, transformation(origin = {-52, -16}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Models.Internals.ActivePowerSensor activePowerSensor1 annotation(Placement(visible = true, transformation(origin = {7.10543e-15, 44}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
+  Models.Internals.ActivePowerSensor sensor annotation(Placement(visible = true, transformation(origin = {7.10543e-15, 44}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
       equation
-      connect(activePowerSensor1.n, variableResistor1.n) annotation(Line(points = {{20, 44}, {22, 44}, {22, 44}, {24, 44}, {24, 44}, {28, 44}, {28, -36}, {1.49012e-07, -36}, {1.49012e-07, -36}, {1.49012e-07, -36}, {1.49012e-07, -36}}, color = {0, 0, 255}));
-      connect(voltageSource1.p, activePowerSensor1.s) annotation(Line(points = {{40, 24}, {40, 24}, {40, 24}, {40, 24}, {40, 24}, {40, 24}, {40, 64}, {0, 64}, {0, 64}, {0, 64}, {0, 64}}, color = {0, 0, 255}));
-      connect(variableResistor1.p, activePowerSensor1.p) annotation(Line(points = {{3.55271e-15, 4}, {3.55271e-15, 24}}, color = {0, 0, 255}));
-      connect(resistance.y, variableResistor1.R) annotation(Line(points = {{-41, -16}, {-6, -16}}, color = {0, 0, 127}));
-      connect(voltageSource1.n, ground1.p) annotation(Line(points = {{40, -16}, {40, -36}, {40, -36}, {40, -56}, {20, -56}, {20, -56}, {10, -56}, {10, -56}, {0, -56}}, color = {0, 0, 255}));
-      connect(variableResistor1.n, ground1.p) annotation(Line(points = {{3.55271e-15, -36}, {3.55271e-15, -56}}, color = {0, 0, 255}));
+      connect(sensor.n, resistor.n) annotation(Line(points = {{20, 44}, {22, 44}, {22, 44}, {24, 44}, {24, 44}, {28, 44}, {28, -36}, {1.49012e-07, -36}, {1.49012e-07, -36}, {1.49012e-07, -36}, {1.49012e-07, -36}}, color = {0, 0, 255}));
+      connect(voltageSource.p, sensor.s) annotation(Line(points = {{40, 24}, {40, 24}, {40, 24}, {40, 24}, {40, 24}, {40, 24}, {40, 64}, {0, 64}, {0, 64}, {0, 64}, {0, 64}}, color = {0, 0, 255}));
+      connect(resistor.p, sensor.p) annotation(Line(points = {{3.55271e-15, 4}, {3.55271e-15, 24}}, color = {0, 0, 255}));
+      connect(resistance.y, resistor.R) annotation(Line(points = {{-41, -16}, {-6, -16}}, color = {0, 0, 127}));
+      connect(voltageSource.n, ground.p) annotation(Line(points = {{40, -16}, {40, -36}, {40, -36}, {40, -56}, {20, -56}, {20, -56}, {10, -56}, {10, -56}, {0, -56}}, color = {0, 0, 255}));
+      connect(resistor.n, ground.p) annotation(Line(points = {{3.55271e-15, -36}, {3.55271e-15, -56}}, color = {0, 0, 255}));
+      annotation(Documentation(info="<html>Test of the Variable Resistor model. A voltage of 600 V is applied to a resistor of 300 Ohms. The current is 2 A and the power is 1200 W.</html>"));
     end VariableResistor;
   end Verification;
                             
