@@ -239,6 +239,96 @@ package DistributionSystemAC
     end DistributionSystemLinear;
 
     model DistributionSystemLinearIndividual
+      parameter Integer N = 10
+        "Number of segments of the primary distribution line";
+      parameter Integer M = N
+        "Number of segments of each secondary distribution line";
+      parameter Real alpha = 10 "Distribution line oversizing factor";
+      parameter Real beta = 2 "Ratio between line inductance and line resistance";
+      parameter Modelica.SIunits.Resistance R_l = 100
+        "Resistance of a single load";
+      function print = Modelica.Utilities.Streams.print;
+    algorithm
+      when initial() then
+        print("model DistributionSystemLinearIndividual_N_"+String(N)+"_M_"+String(M));
+        print("  parameter Integer N = "+String(N)+"\" Number of segments of the primary distribution line\";");
+        print("  parameter Integer M = "+String(M)+"\" Number of segments of each secondary distribution line\";");
+        print("  parameter Real alpha = "+String(alpha)+" \"Distribution line oversizing factor\";");
+        print("  parameter Real beta = "+String(beta)+" \"Ratio between line inductance and line resistance\";");
+        print("  parameter Modelica.SIunits.Resistance R_l = "+String(R_l)+ " \"Resistance of a single load\";");
+        print("  parameter Modelica.SIunits.Resistance R_d2 = R_l/(M^2*alpha) \"Resistance of a secondary distribution segment\";");
+        print("  parameter Modelica.SIunits.Resistance R_d1 = R_l/(M^2*N^2*alpha) \"Resistance of a primary distribution segment\";");
+        print("  parameter Modelica.SIunits.Voltage V_ref = 600 \"Reference source voltage\";");
+        print("");
+        for i in 1:N loop
+          print("  Internals.Impedance primary_"+String(i)+"(Z(re = R_d1, im = R_d1 * beta)) \"Primary distribution line segment\";");
+          for j in 1:M loop
+            print("  Internals.Impedance secondary_"+String(i)+"_"+String(j)+"(Z(re = R_d2, im = R_d2 * beta)) \"Secondary distribution line segment\";");
+            print("  Internals.LinearControlledLoad load_"+String(i)+"_"+String(j)+"(V_nom = V_ref, P_nom = V_ref^2/R_l) \"Individual load resistor\";");
+          end for;
+        end for;
+        print("  Internals.Ground sourceGround \"Source ground\";");
+        print("  Internals.VoltageSource V_source(V = V_ref) \"Voltage source\";");
+        print("equation");
+        print("  connect(primary_1.p, V_source.p);");
+        print("  connect(sourceGround.p, V_source.n);");
+        for i in 1:N-1 loop
+          print("  connect(primary_"+String(i)+".n, primary_"+String(i+1)+".p);");
+        end for;
+        for i in 1:N loop
+          print("  connect(primary_"+String(i)+".n, secondary_"+String(i)+"_1.p);");
+          for j in 1:M-1 loop
+            print("  connect(secondary_"+String(i)+"_"+String(j)+".n, secondary_"+String(i)+"_"+String(j+1)+".p);");
+          end for;
+          for j in 1:M loop
+            print("  connect(secondary_"+String(i)+"_"+String(j)+".n, load_"+String(i)+"_"+String(j)+".p);");
+          end for;
+        end for;
+        print("  annotation(experiment(StopTime = 1, Interval = 1e-3));");
+        print("end DistributionSystemLinearIndividual_N_"+String(N)+"_M_"+String(M)+";");
+      end when;
+    
+      /*
+    parameter Integer M = N
+    "Number of segments of each secondary distribution line";
+    parameter Real alpha = 2 "Distribution line oversizing factor";
+    parameter Modelica.SIunits.Resistance R_l = 1 "Resistance of a single load";
+    parameter Modelica.SIunits.Resistance R_d2 = R_l/(M^2*alpha)
+    "Resistance of a secondary distribution segment";
+    parameter Modelica.SIunits.Resistance R_d1 = R_l/(M^2*N^2*alpha)
+    "Resistance of a primary distribution segment";
+    
+    Modelica.Electrical.Analog.Basic.Resistor primary[N](each R = R_d1)
+    "Primary distribution line segments";
+    Modelica.Electrical.Analog.Basic.Resistor secondary[N,M](each R = R_d2)
+    "Secondary distribution line segments";
+    Modelica.Electrical.Analog.Basic.Resistor load[N,M](each R = R_l)
+    "Individual load resistors";
+    Modelica.Electrical.Analog.Basic.Ground ground[N,M];
+    Modelica.Electrical.Analog.Basic.Ground sourceGround;
+    
+    Modelica.Electrical.Analog.Sources.RampVoltage V_source(V = 600, duration = 1);
+    equation
+    connect(primary[1].p, V_source.p);
+    connect(sourceGround.p, V_source.n);
+    for i in 1:N-1 loop
+    connect(primary[i].n, primary[i+1].p);
+    end for;
+    for i in 1:N loop
+    connect(primary[i].n, secondary[i,1].p);
+    for j in 1:M-1 loop
+      connect(secondary[i,j].n, secondary[i,j+1].p);
+    end for;
+    for j in 1:M loop
+      connect(secondary[i,j].n, load[i,j].p);
+      connect(load[i,j].n, ground[i,j].p);
+    end for;
+    end for;
+    */
+      annotation (Documentation(info="<html>
+    <p>This model generates Modelica code of models equivalent to DistributionSystemLinear which don&apos;t use arrays and for loops, but rather declare each model and each connection individually.</p>
+    <p>This model can be used to check the overhead of instantiating large numbesr of individual models compared to arrays, and also to check the ability of compilers to factor out the code of instances of the same component.</p>
+    </html>"));
     end DistributionSystemLinearIndividual;
   end Models;
 
