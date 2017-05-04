@@ -204,7 +204,6 @@ package ConceptualPowerSystem
       extends OneGeneratorConstantLoad(
         P_load=cat(1, {P_nom*0.95}, P_nom*ones(N - 1)));
       annotation (experiment(StopTime=500, Tolerance=1e-006),
-          __Dymola_experimentSetupOutput(equidistant=false),
         Documentation(info="<html>
 <p>Test case with a single generator. At time = 0, the load is reduced by 5&percnt;. Primary frequency control limits the frequency deviation to about 0.2 Hz, then the secondary frequency controller brings the frequency back to 50 Hz.</p>
 </html>"));
@@ -224,7 +223,6 @@ package ConceptualPowerSystem
       extends TwoGeneratorsConstantLoad(
         P_load=cat(1, {0.0}, P_nom*ones(N - 1)));
       annotation (experiment(StopTime=200, Tolerance=1e-006),
-          __Dymola_experimentSetupOutput(equidistant=false),
         Documentation(info="<html>
 <p><span style=\"font-family: MS Shell Dlg 2;\">Test case with a two generator connected by a transmission line. At time = 0 the load attached to the first generator is reduced by 50&percnt;. Fast electro-mechanical oscillations are triggered, along with slower thermal transients, until eventually the whole system re-settles at equilibrium in about 200 s.</span></p>
 </html>"));
@@ -233,7 +231,6 @@ package ConceptualPowerSystem
     model TenGeneratorsStepLoad
       extends TwoGeneratorsStepLoad(N = 10);
       annotation (experiment(StopTime=200, Tolerance=1e-006),
-          __Dymola_experimentSetupOutput(equidistant=false),
         Documentation(info="<html>
 <p><span style=\"font-family: MS Shell Dlg 2;\">Test case with ten generators connected in a linear fashion by transmission lines with the same impedance. At time = 0 the load attached to the first generator is reduced by 50&percnt;. Fast electro-mechanical oscillations are triggered, along with slower thermal transients, until eventually the whole system re-settles at equilibrium in about 200 s.</span></p>
 </html>"));
@@ -243,44 +240,37 @@ package ConceptualPowerSystem
   package ScaledExperiments
      model PowerSystemStepLoad_N_2_M_4
        extends Verification.TwoGeneratorsStepLoad(N = 2, M = 4);
-       annotation (experiment(StopTime=200, Tolerance=1e-006),
-           __Dymola_experimentSetupOutput(equidistant=false));
+       annotation (experiment(StopTime=200, Tolerance=1e-006));
      end PowerSystemStepLoad_N_2_M_4;
 
      model PowerSystemStepLoad_N_4_M_4
        extends Verification.TwoGeneratorsStepLoad(N = 4, M = 4);
-       annotation (experiment(StopTime=200, Tolerance=1e-006),
-           __Dymola_experimentSetupOutput(equidistant=false));
+       annotation (experiment(StopTime=200, Tolerance=1e-006));
      end PowerSystemStepLoad_N_4_M_4;
 
      model PowerSystemStepLoad_N_8_M_4
        extends Verification.TwoGeneratorsStepLoad(N = 8, M = 4);
-       annotation (experiment(StopTime=200, Tolerance=1e-006),
-           __Dymola_experimentSetupOutput(equidistant=false));
+       annotation (experiment(StopTime=200, Tolerance=1e-006));
      end PowerSystemStepLoad_N_8_M_4;
 
      model PowerSystemStepLoad_N_16_M_4
        extends Verification.TwoGeneratorsStepLoad(N = 16, M = 4);
-       annotation (experiment(StopTime=200, Tolerance=1e-006),
-           __Dymola_experimentSetupOutput(equidistant=false));
+       annotation (experiment(StopTime=200, Tolerance=1e-006));
      end PowerSystemStepLoad_N_16_M_4;
 
      model PowerSystemStepLoad_N_32_M_4
        extends Verification.TwoGeneratorsStepLoad(N = 32, M = 4);
-       annotation (experiment(StopTime=200, Tolerance=1e-006),
-           __Dymola_experimentSetupOutput(equidistant=false));
+       annotation (experiment(StopTime=200, Tolerance=1e-006));
      end PowerSystemStepLoad_N_32_M_4;
 
      model PowerSystemStepLoad_N_64_M_4
        extends Verification.TwoGeneratorsStepLoad(N = 64, M = 4);
-       annotation (experiment(StopTime=200, Tolerance=1e-006),
-           __Dymola_experimentSetupOutput(equidistant=false));
+       annotation (experiment(StopTime=200, Tolerance=1e-006));
      end PowerSystemStepLoad_N_64_M_4;
 
      model PowerSystemStepLoad_N_4_M_8
        extends Verification.TwoGeneratorsStepLoad(N = 4, M = 8);
-       annotation (experiment(StopTime=200, Tolerance=1e-006),
-           __Dymola_experimentSetupOutput(equidistant=false));
+       annotation (experiment(StopTime=200, Tolerance=1e-006));
      end PowerSystemStepLoad_N_4_M_8;
 
 
@@ -292,20 +282,17 @@ package ConceptualPowerSystem
 
      model PowerSystemStepLoad_N_4_M_16
       extends Verification.TwoGeneratorsStepLoad(N=4, M = 16);
-      annotation (experiment(StopTime=200, Tolerance=1e-006),
-           __Dymola_experimentSetupOutput(equidistant=false));
+      annotation (experiment(StopTime=200, Tolerance=1e-006));
      end PowerSystemStepLoad_N_4_M_16;
 
      model PowerSystemStepLoad_N_64_M_8
        extends Verification.TwoGeneratorsStepLoad(N = 64, M = 8);
-       annotation (experiment(StopTime=200, Tolerance=1e-006),
-           __Dymola_experimentSetupOutput(equidistant=false));
+       annotation (experiment(StopTime=200, Tolerance=1e-006));
      end PowerSystemStepLoad_N_64_M_8;
 
      model PowerSystemStepLoad_N_64_M_16
       extends Verification.TwoGeneratorsStepLoad(N=64, M=16);
-      annotation (experiment(StopTime=200, Tolerance=1e-006),
-           __Dymola_experimentSetupOutput(equidistant=false));
+      annotation (experiment(StopTime=200, Tolerance=1e-006));
      end PowerSystemStepLoad_N_64_M_16;
 
   end ScaledExperiments;
