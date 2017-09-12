@@ -189,7 +189,7 @@ package DistributionSystemAC
     end DistributionSystemLinear;
 
     model DistributionSystemLinearIndividual
-      impure function print
+      function print
         input String s;
       algorithm
         Modelica.Utilities.Streams.print(s, "code.mo");
