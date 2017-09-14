@@ -44,7 +44,7 @@ package DistributionSystemDC
       end for;
 
       annotation (Documentation(info="<html>
-  <p>This model represnts a DC current distribution system, whose complexity depends on two parameters
+  <p>This model represents a DC current distribution system, whose complexity depends on two parameters
   N and M. A voltage source is connected to primary resistive distribution line which is split into
   N segments, each with a resistance R_d1. At the end of each segment, a secondary distribution
   line is attached with M elements each of resistance R_d2. At the end of each secondary segment,
