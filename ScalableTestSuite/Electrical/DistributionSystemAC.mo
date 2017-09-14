@@ -189,11 +189,7 @@ package DistributionSystemAC
     end DistributionSystemLinear;
 
     model DistributionSystemLinearIndividual
-      function print
-        input String s;
-      algorithm
-        Modelica.Utilities.Streams.print(s, "code.mo");
-      end print;
+      function print = Modelica.Utilities.Streams.print(fileName="code.mo");
 
       function printModel
       protected
