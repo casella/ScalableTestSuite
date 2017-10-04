@@ -13,13 +13,14 @@ doi:[10.3384/ecp15118459][1]
 
 ## Current release
 
-1.8.2
+1.8.3
 
 ## Development and contribution
-The library was developed by Politecnico di Milano
+The library was developed by Politecnico di Milano and ESI 
 Contributors:
 - Kaan Sezginer
 - Francesco Casella
+- Thomas Beutlich
 
 You may report any issues with using the [Issues](https://github.com/casella/ScalableTestSuite/issues) button.
 
