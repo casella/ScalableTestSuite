@@ -8,10 +8,6 @@ package Tables "Models with tables"
       final parameter Real tableY[N] = sin(linspace(20*pi*N/125.0,0,N)) "Table axis Y";
     end TableBase;
 
-
-
-
-
     model TimeTable "Time table"
       extends TableBase;
       Modelica.Blocks.Sources.TimeTable timeTable(
@@ -33,6 +29,7 @@ package Tables "Models with tables"
 <p>Additionally, <em>N</em> time events occur at simulation time.</p></html>"));
     end CombiTimeTable;
   end Models;
+
   package ScaledExperiments
     model TimeTable_N_125
       extends Models.TimeTable(final N=125);
