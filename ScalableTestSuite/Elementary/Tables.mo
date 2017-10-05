@@ -70,7 +70,7 @@ package Tables "Models with tables"
       extends Models.TimeTable(final N=16000);
     annotation(experiment(StopTime = 1));
     end TimeTable_N_16000;
-
+/*
     model TimeTable_N_32000
       extends Models.TimeTable(final N=32000);
     annotation(experiment(StopTime = 1));
@@ -100,7 +100,7 @@ package Tables "Models with tables"
       extends Models.TimeTable(final N=1024000);
     annotation(experiment(StopTime = 1));
     end TimeTable_N_1024000;
-
+*/
     model CombiTimeTable_N_125
       extends Models.CombiTimeTable(final N=125);
     annotation(experiment(StopTime = 1));
@@ -140,7 +140,7 @@ package Tables "Models with tables"
       extends Models.CombiTimeTable(final N=16000);
     annotation(experiment(StopTime = 1));
     end CombiTimeTable_N_16000;
-
+/*
     model CombiTimeTable_N_32000
       extends Models.CombiTimeTable(final N=32000);
     annotation(experiment(StopTime = 1));
@@ -170,6 +170,7 @@ package Tables "Models with tables"
       extends Models.CombiTimeTable(final N=1024000);
     annotation(experiment(StopTime = 1));
     end CombiTimeTable_N_1024000;
+*/
   end ScaledExperiments;
   annotation(Documentation(info = "<html><p>For performance reasons, large tables should preferably be read from file, and thus be all dealt with in external C code.</p></html>"));
 end Tables;
