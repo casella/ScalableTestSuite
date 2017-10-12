@@ -391,42 +391,42 @@ package BreakerCircuits "Models of DC circuits with breakers"
 
     model BreakerNetwork_N_10
       extends Models.BreakerNetwork(N = 10);
-      annotation(experiment(StopTime = 1, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 1, Tolerance = 1e-6, __OpenModelica_simulationFlags(mei = "10")));
     end BreakerNetwork_N_10;
 
     model BreakerNetwork_N_20
       extends Models.BreakerNetwork(N = 20);
-      annotation(experiment(StopTime = 1, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 1, Tolerance = 1e-6, __OpenModelica_simulationFlags(mei = "20")));
     end BreakerNetwork_N_20;
 
     model BreakerNetwork_N_40
       extends Models.BreakerNetwork(N = 40);
-      annotation(experiment(StopTime = 1, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 1, Tolerance = 1e-6, __OpenModelica_simulationFlags(mei = "40")));
     end BreakerNetwork_N_40;
 
     model BreakerNetwork_N_80
       extends Models.BreakerNetwork(N = 80);
-      annotation(experiment(StopTime = 1, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 1, Tolerance = 1e-6, __OpenModelica_simulationFlags(mei = "80")));
     end BreakerNetwork_N_80;
 
     model BreakerNetwork_N_160
       extends Models.BreakerNetwork(N = 160);
-      annotation(experiment(StopTime = 1, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 1, Tolerance = 1e-6, __OpenModelica_simulationFlags(mei = "160")));
     end BreakerNetwork_N_160;
 
     model BreakerNetwork_N_320
       extends Models.BreakerNetwork(N = 320);
-      annotation(experiment(StopTime = 1, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 1, Tolerance = 1e-6, __OpenModelica_simulationFlags(mei = "320")));
     end BreakerNetwork_N_320;
 
     model BreakerNetwork_N_640
       extends Models.BreakerNetwork(N = 640);
-      annotation(experiment(StopTime = 1, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 1, Tolerance = 1e-6, __OpenModelica_simulationFlags(mei = "640")));
     end BreakerNetwork_N_640;
 
     model BreakerNetwork_N_1280
       extends Models.BreakerNetwork(N = 1280);
-      annotation(experiment(StopTime = 1, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 1, Tolerance = 1e-6, __OpenModelica_simulationFlags(mei = "1280")));
     end BreakerNetwork_N_1280;
 
     model BreakerNetworkDelayed_N_10
