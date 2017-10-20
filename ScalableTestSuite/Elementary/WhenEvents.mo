@@ -59,42 +59,51 @@ package WhenEvents "Models large number of when statements and events"
 
     model ManyEvents_N_1000
       extends Models.ManyEvents(N = 1000);
-      annotation(experiment(StopTime = 100, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 100, Tolerance = 1e-6),
+        __OpenModelica_simulationFlags(s = "rungekuttaSsc"));
     end ManyEvents_N_1000;
+
     
     model ManyEvents_N_2000
       extends Models.ManyEvents(N = 2000);
-      annotation(experiment(StopTime = 200, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 200, Tolerance = 1e-6),
+        __OpenModelica_simulationFlags(s = "rungekuttaSsc"));
     end ManyEvents_N_2000;                      
   
     model ManyEvents_N_4000
       extends Models.ManyEvents(N = 4000);
-      annotation(experiment(StopTime = 400, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 400, Tolerance = 1e-6),
+        __OpenModelica_simulationFlags(s = "rungekuttaSsc"));
     end ManyEvents_N_4000;
     
     model ManyEvents_N_8000
       extends Models.ManyEvents(N=8000);
-      annotation(experiment(StopTime = 800, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 800, Tolerance = 1e-6),
+        __OpenModelica_simulationFlags(s = "rungekuttaSsc"));
     end ManyEvents_N_8000;
   
     model ManyEventsManyConditions_N_1000
       extends Models.ManyEventsManyConditions(N = 1000);
-      annotation(experiment(StopTime = 100, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 100, Tolerance = 1e-6),
+        __OpenModelica_simulationFlags(s = "rungekuttaSsc"));
     end ManyEventsManyConditions_N_1000;
     
     model ManyEventsManyConditions_N_2000
       extends Models.ManyEventsManyConditions(N = 2000);
-      annotation(experiment(StopTime = 200, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 200, Tolerance = 1e-6),
+        __OpenModelica_simulationFlags(s = "rungekuttaSsc"));
     end ManyEventsManyConditions_N_2000;
   
     model ManyEventsManyConditions_N_4000
       extends Models.ManyEventsManyConditions(N = 4000);
-      annotation(experiment(StopTime = 400, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 400, Tolerance = 1e-6),
+        __OpenModelica_simulationFlags(s = "rungekuttaSsc"));
     end ManyEventsManyConditions_N_4000;
     
     model ManyEventsManyConditions_N_8000               
       extends Models.ManyEventsManyConditions(N=8000);
-      annotation(experiment(StopTime = 800, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 800, Tolerance = 1e-6),
+        __OpenModelica_simulationFlags(s = "rungekuttaSsc"));
     end ManyEventsManyConditions_N_8000;
   end ScaledExperiments;
 end WhenEvents;
