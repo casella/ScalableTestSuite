@@ -26,47 +26,56 @@ package SimpleODE "Models with simple ODE systems"
   package ScaledExperiments
     model CascadedFirstOrder_N_100
       extends Models.CascadedFirstOrder(N=100);
-    annotation(experiment(StopTime = 2, Tolerance = 1e-6));
+    annotation(experiment(StopTime = 2, Tolerance = 1e-6),
+               __OpenModelica_simulationFlags(s = "ida"));
     end CascadedFirstOrder_N_100;
 
     model CascadedFirstOrder_N_200
       extends Models.CascadedFirstOrder(N=200);
-    annotation(experiment(StopTime = 2, Tolerance = 1e-6));
+    annotation(experiment(StopTime = 2, Tolerance = 1e-6),
+               __OpenModelica_simulationFlags(s = "ida"));
     end CascadedFirstOrder_N_200;
 
     model CascadedFirstOrder_N_400
       extends Models.CascadedFirstOrder(N=400);
-    annotation(experiment(StopTime = 2, Tolerance = 1e-6));
+    annotation(experiment(StopTime = 2, Tolerance = 1e-6),
+               __OpenModelica_simulationFlags(s = "ida"));
     end CascadedFirstOrder_N_400;
 
     model CascadedFirstOrder_N_800
       extends Models.CascadedFirstOrder(N=800);
-    annotation(experiment(StopTime = 2, Tolerance = 1e-6));
+    annotation(experiment(StopTime = 2, Tolerance = 1e-6),
+               __OpenModelica_simulationFlags(s = "ida"));
     end CascadedFirstOrder_N_800;
 
     model CascadedFirstOrder_N_1600
       extends Models.CascadedFirstOrder(N=1600);
-    annotation(experiment(StopTime = 2, Tolerance = 1e-6));
+    annotation(experiment(StopTime = 2, Tolerance = 1e-6),
+               __OpenModelica_simulationFlags(s = "ida"));
     end CascadedFirstOrder_N_1600;
 
     model CascadedFirstOrder_N_3200
       extends Models.CascadedFirstOrder(N=3200);
-    annotation(experiment(StopTime = 2, Tolerance = 1e-6));
+    annotation(experiment(StopTime = 2, Tolerance = 1e-6),
+               __OpenModelica_simulationFlags(s = "ida"));
     end CascadedFirstOrder_N_3200;
 
     model CascadedFirstOrder_N_6400
       extends Models.CascadedFirstOrder(N=6400);
-    annotation(experiment(StopTime = 2, Tolerance = 1e-6));
+    annotation(experiment(StopTime = 2, Tolerance = 1e-6),
+               __OpenModelica_simulationFlags(s = "ida"));
     end CascadedFirstOrder_N_6400;
 
     model CascadedFirstOrder_N_12800
       extends Models.CascadedFirstOrder(N=12800);
-    annotation(experiment(StopTime = 2, Tolerance = 1e-6));
+    annotation(experiment(StopTime = 2, Tolerance = 1e-6),
+               __OpenModelica_simulationFlags(s = "ida"));
     end CascadedFirstOrder_N_12800;
 
     model CascadedFirstOrder_N_25600
       extends Models.CascadedFirstOrder(N=25600);
-    annotation(experiment(StopTime = 2, Tolerance = 1e-6));
+    annotation(experiment(StopTime = 2, Tolerance = 1e-6),
+               __OpenModelica_simulationFlags(s = "ida"));
     end CascadedFirstOrder_N_25600;
   end ScaledExperiments;
 end SimpleODE;

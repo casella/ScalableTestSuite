@@ -207,32 +207,38 @@ package Advection "1D advection models"
 
     model SimpleAdvection_N_400
       extends SimpleAdvection_N_100(N = 400);
-      annotation (experiment(StopTime=20, NumberOfIntervals=5000, Tolerance = 1e-6));
+      annotation (experiment(StopTime=20, NumberOfIntervals=5000, Tolerance = 1e-6),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end SimpleAdvection_N_400;
 
     model SimpleAdvection_N_800
       extends SimpleAdvection_N_100(N = 800);
-      annotation (experiment(StopTime=20, NumberOfIntervals=5000, Tolerance = 1e-6));
+      annotation (experiment(StopTime=20, NumberOfIntervals=5000, Tolerance = 1e-6),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end SimpleAdvection_N_800;
 
     model SimpleAdvection_N_1600
       extends SimpleAdvection_N_100(N = 1600);
-      annotation (experiment(StopTime=20, NumberOfIntervals=5000, Tolerance = 1e-6));
+      annotation (experiment(StopTime=20, NumberOfIntervals=5000, Tolerance = 1e-6),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end SimpleAdvection_N_1600;
 
     model SimpleAdvection_N_3200
       extends SimpleAdvection_N_100(N = 3200);
-      annotation (experiment(StopTime=20, NumberOfIntervals=5000, Tolerance = 1e-6));
+      annotation (experiment(StopTime=20, NumberOfIntervals=5000, Tolerance = 1e-6),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end SimpleAdvection_N_3200;
 
     model SimpleAdvection_N_6400
       extends SimpleAdvection_N_100(N = 6400);
-      annotation (experiment(StopTime=20, NumberOfIntervals=5000, Tolerance = 1e-6));
+      annotation (experiment(StopTime=20, NumberOfIntervals=5000, Tolerance = 1e-6),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end SimpleAdvection_N_6400;
 
     model SimpleAdvection_N_12800
       extends SimpleAdvection_N_100(N = 12800);
-      annotation (experiment(StopTime=20, NumberOfIntervals=5000, Tolerance = 1e-6));
+      annotation (experiment(StopTime=20, NumberOfIntervals=5000, Tolerance = 1e-6),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end SimpleAdvection_N_12800;
 
     model AdvectionReaction_N_100
@@ -253,42 +259,48 @@ package Advection "1D advection models"
       extends Models.AdvectionReaction(
         N = 400,
         mu = 2000);
-      annotation (experiment(StopTime=1, NumberOfIntervals=5000, Tolerance = 1e-6));
+      annotation (experiment(StopTime=1, NumberOfIntervals=5000, Tolerance = 1e-6),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end AdvectionReaction_N_400;
 
     model AdvectionReaction_N_800
       extends Models.AdvectionReaction(
         N = 800,
         mu = 4000);
-      annotation (experiment(StopTime=1, NumberOfIntervals=5000, Tolerance = 1e-6));
+      annotation (experiment(StopTime=1, NumberOfIntervals=5000, Tolerance = 1e-6),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end AdvectionReaction_N_800;
 
     model AdvectionReaction_N_1600
       extends Models.AdvectionReaction(
         N = 1600,
         mu = 8000);
-      annotation (experiment(StopTime=1, NumberOfIntervals=5000, Tolerance = 1e-6));
+      annotation (experiment(StopTime=1, NumberOfIntervals=5000, Tolerance = 1e-6),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end AdvectionReaction_N_1600;
 
     model AdvectionReaction_N_3200
       extends Models.AdvectionReaction(
         N = 3200,
         mu = 16000);
-      annotation (experiment(StopTime=1, NumberOfIntervals=5000, Tolerance = 1e-6));
+      annotation (experiment(StopTime=1, NumberOfIntervals=5000, Tolerance = 1e-6),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end AdvectionReaction_N_3200;
 
     model AdvectionReaction_N_6400
       extends Models.AdvectionReaction(
         N = 6400,
         mu = 32000);
-      annotation (experiment(StopTime=1, NumberOfIntervals=5000, Tolerance = 1e-6));
+      annotation (experiment(StopTime=1, NumberOfIntervals=5000, Tolerance = 1e-6),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end AdvectionReaction_N_6400;
 
     model AdvectionReaction_N_12800
       extends Models.AdvectionReaction(
         N = 12800,
         mu = 64000);
-      annotation (experiment(StopTime=1, NumberOfIntervals=5000, Tolerance = 1e-6));
+      annotation (experiment(StopTime=1, NumberOfIntervals=5000, Tolerance = 1e-6),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end AdvectionReaction_N_12800;
 
     model SteamPipe_N_10

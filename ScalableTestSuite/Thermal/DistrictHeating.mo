@@ -165,42 +165,50 @@ package DistrictHeating
     extends Modelica.Icons.ExamplesPackage;
     model HeatingSystem_N_5
       extends Models.HeatingSystem(N = 5);
-      annotation(experiment(StopTime = 864000, Tolerance = 1e-4));
+      annotation(experiment(StopTime = 864000, Tolerance = 1e-4),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end HeatingSystem_N_5;
 
     model HeatingSystem_N_10
       extends Models.HeatingSystem(N = 10);
-      annotation(experiment(StopTime = 864000, Tolerance = 1e-4));
+      annotation(experiment(StopTime = 864000, Tolerance = 1e-4),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end HeatingSystem_N_10;
 
     model HeatingSystem_N_20
       extends Models.HeatingSystem(N = 20);
-      annotation(experiment(StopTime = 864000, Tolerance = 1e-4));
+      annotation(experiment(StopTime = 864000, Tolerance = 1e-4),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end HeatingSystem_N_20;
 
     model HeatingSystem_N_40
       extends Models.HeatingSystem(N = 40);
-      annotation(experiment(StopTime = 864000, Tolerance = 1e-4));
+      annotation(experiment(StopTime = 864000, Tolerance = 1e-4),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end HeatingSystem_N_40;
 
     model HeatingSystem_N_80
       extends Models.HeatingSystem(N = 80);
-      annotation(experiment(StopTime = 864000, Tolerance = 1e-4));
+      annotation(experiment(StopTime = 864000, Tolerance = 1e-4),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end HeatingSystem_N_80;
 
     model HeatingSystem_N_160
       extends Models.HeatingSystem(N = 160);
-      annotation(experiment(StopTime = 864000, Tolerance = 1e-4));
+      annotation(experiment(StopTime = 864000, Tolerance = 1e-4),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end HeatingSystem_N_160;
 
     model HeatingSystem_N_320
       extends Models.HeatingSystem(N = 320);
-      annotation(experiment(StopTime = 864000, Tolerance = 1e-4));
+      annotation(experiment(StopTime = 864000, Tolerance = 1e-4),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end HeatingSystem_N_320;
 
     model HeatingSystem_N_640
       extends Models.HeatingSystem(N = 640);
-      annotation(experiment(StopTime = 864000, Tolerance = 1e-4));
+      annotation(experiment(StopTime = 864000, Tolerance = 1e-4),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end HeatingSystem_N_640;
 
   end ScaledExperiments;

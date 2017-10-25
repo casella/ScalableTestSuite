@@ -372,85 +372,102 @@ where U is the average overall heat transfer coefficient, A is the area of the h
   end Verification;
 
   package ScaledExperiments
+    model CounterCurrentHeatExchangerEquations_N_10
+      extends Models.CounterCurrentHeatExchangerEquations(L = 10, N = 10, wB = 1, areaA = 5e-5, areaB = 5e-5, rhoA = 1000, rhoB = 1000, cpA = 4200, cpB = 4200, cpW = 2000, gammaA = 4000, gammaB = 10000, omega = 0.1);
+      annotation(experiment(StopTime = 20, Tolerance = 1e-6),
+                 __OpenModelica_simulationFlags(s = "ida"));
+    end CounterCurrentHeatExchangerEquations_N_10;
+
     model CounterCurrentHeatExchangerEquations_N_20
       extends CounterCurrentHeatExchangerEquations_N_10(N = 20);
-      annotation(experiment(StopTime = 20, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 20, Tolerance = 1e-6),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end CounterCurrentHeatExchangerEquations_N_20;
 
     model CounterCurrentHeatExchangerEquations_N_40
       extends CounterCurrentHeatExchangerEquations_N_10(N = 40);
-      annotation(experiment(StopTime = 20, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 20, Tolerance = 1e-6),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end CounterCurrentHeatExchangerEquations_N_40;
 
     model CounterCurrentHeatExchangerEquations_N_80
       extends CounterCurrentHeatExchangerEquations_N_10(N = 80);
-      annotation(experiment(StopTime = 20, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 20, Tolerance = 1e-6),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end CounterCurrentHeatExchangerEquations_N_80;
 
     model CounterCurrentHeatExchangerEquations_N_160
       extends CounterCurrentHeatExchangerEquations_N_10(N = 160);
-      annotation(experiment(StopTime = 20, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 20, Tolerance = 1e-6),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end CounterCurrentHeatExchangerEquations_N_160;
 
     model CounterCurrentHeatExchangerEquations_N_320
       extends CounterCurrentHeatExchangerEquations_N_10(N = 320);
-      annotation(experiment(StopTime = 20, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 20, Tolerance = 1e-6),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end CounterCurrentHeatExchangerEquations_N_320;
 
     model CounterCurrentHeatExchangerEquations_N_640
       extends CounterCurrentHeatExchangerEquations_N_10(N = 640);
-      annotation(experiment(StopTime = 20, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 20, Tolerance = 1e-6),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end CounterCurrentHeatExchangerEquations_N_640;
 
     model CounterCurrentHeatExchangerEquations_N_1280
       extends CounterCurrentHeatExchangerEquations_N_10(N = 1280);
-      annotation(experiment(StopTime = 20, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 20, Tolerance = 1e-6),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end CounterCurrentHeatExchangerEquations_N_1280;
 
     model CocurrentHeatExchangerEquations_N_10
       extends Models.CocurrentHeatExchangerEquations(L = 10, N = 10, wB = 1, areaA = 5e-5, areaB = 5e-5, rhoA = 1000, rhoB = 1000, cpA = 4200, cpB = 4200, cpW = 2000, gammaA = 4000, gammaB = 10000, omega = 0.1);
-      annotation(experiment(StopTime = 20, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 20, Tolerance = 1e-6),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end CocurrentHeatExchangerEquations_N_10;
 
     model CocurrentHeatExchangerEquations_N_20
       extends CocurrentHeatExchangerEquations_N_10(N = 20);
-      annotation(experiment(StopTime = 20, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 20, Tolerance = 1e-6),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end CocurrentHeatExchangerEquations_N_20;
 
     model CocurrentHeatExchangerEquations_N_40
       extends CocurrentHeatExchangerEquations_N_10(N = 40);
-      annotation(experiment(StopTime = 20, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 20, Tolerance = 1e-6),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end CocurrentHeatExchangerEquations_N_40;
 
     model CocurrentHeatExchangerEquations_N_80
       extends CocurrentHeatExchangerEquations_N_10(N = 80);
-      annotation(experiment(StopTime = 20, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 20, Tolerance = 1e-6),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end CocurrentHeatExchangerEquations_N_80;
 
     model CocurrentHeatExchangerEquations_N_160
       extends CocurrentHeatExchangerEquations_N_10(N = 160);
-      annotation(experiment(StopTime = 20, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 20, Tolerance = 1e-6),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end CocurrentHeatExchangerEquations_N_160;
 
     model CocurrentHeatExchangerEquations_N_320
       extends CocurrentHeatExchangerEquations_N_10(N = 320);
-      annotation(experiment(StopTime = 20, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 20, Tolerance = 1e-6),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end CocurrentHeatExchangerEquations_N_320;
 
     model CocurrentHeatExchangerEquations_N_640
       extends CocurrentHeatExchangerEquations_N_10(N = 640);
-      annotation(experiment(StopTime = 20, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 20, Tolerance = 1e-6),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end CocurrentHeatExchangerEquations_N_640;
 
     model CocurrentHeatExchangerEquations_N_1280
       extends CocurrentHeatExchangerEquations_N_10(N = 1280);
-      annotation(experiment(StopTime = 20, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 20, Tolerance = 1e-6),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end CocurrentHeatExchangerEquations_N_1280;
 
-    model CounterCurrentHeatExchangerEquations_N_10
-      extends Models.CounterCurrentHeatExchangerEquations(L = 10, N = 10, wB = 1, areaA = 5e-5, areaB = 5e-5, rhoA = 1000, rhoB = 1000, cpA = 4200, cpB = 4200, cpW = 2000, gammaA = 4000, gammaB = 10000, omega = 0.1);
-      annotation(experiment(StopTime = 20, Tolerance = 1e-6));
-    end CounterCurrentHeatExchangerEquations_N_10;
     annotation(Documentation(info = "<html><p>In this package there are 16 tests for different N values; 8 for the CounterCurrentHeatExchangerEquations, 8 for the CocurrentHeatExchangerEquations.</p><p> The tests for the models are performed according to the N values as shown in the table below:</p><table border=\"1\">
     <tr>
       <th>N</th>

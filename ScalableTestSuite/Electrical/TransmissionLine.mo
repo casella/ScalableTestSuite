@@ -309,82 +309,98 @@ package TransmissionLine "Models of transmission lines"
 
     model TransmissionLineEquations_N_10
       extends Models.TransmissionLineEquations(N = 10, L = 100, res = 48e-6, cap = 101e-12, ind = 253e-9, w = 1 / 2e-7);
-      annotation(experiment(StopTime = 4e-6, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 4e-6, Tolerance = 1e-6),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end TransmissionLineEquations_N_10;
 
-    model TransmissionLineEquations_N_20
+    model TransmissionLineEquations_N_20                                                  
       extends TransmissionLineEquations_N_10(N = 20);
-      annotation(experiment(StopTime = 4e-6, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 4e-6, Tolerance = 1e-6),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end TransmissionLineEquations_N_20;
 
     model TransmissionLineEquations_N_40
       extends TransmissionLineEquations_N_10(N = 40);
-      annotation(experiment(StopTime = 4e-6, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 4e-6, Tolerance = 1e-6),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end TransmissionLineEquations_N_40;
 
     model TransmissionLineEquations_N_80
       extends TransmissionLineEquations_N_10(N = 80);
-      annotation(experiment(StopTime = 4e-6, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 4e-6, Tolerance = 1e-6),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end TransmissionLineEquations_N_80;
 
     model TransmissionLineEquations_N_160
       extends TransmissionLineEquations_N_10(N = 160);
-      annotation(experiment(StopTime = 4e-6, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 4e-6, Tolerance = 1e-6),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end TransmissionLineEquations_N_160;
 
     model TransmissionLineEquations_N_320
       extends TransmissionLineEquations_N_10(N = 320);
-      annotation(experiment(StopTime = 4e-6, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 4e-6, Tolerance = 1e-6),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end TransmissionLineEquations_N_320;
 
     model TransmissionLineEquations_N_640
       extends TransmissionLineEquations_N_10(N = 640);
-      annotation(experiment(StopTime = 4e-6, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 4e-6, Tolerance = 1e-6),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end TransmissionLineEquations_N_640;
 
     model TransmissionLineEquations_N_1280
       extends TransmissionLineEquations_N_10(N = 1280);
-      annotation(experiment(StopTime = 4e-6, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 4e-6, Tolerance = 1e-6),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end TransmissionLineEquations_N_1280;
 
     model TransmissionLineModelica_N_10
       extends Models.TransmissionLineModelica(N = 10, r = 48e-6, c = 101e-12, l = 253e-9, length = 100, w = 1 / 2e-7);
-      annotation(experiment(StopTime = 4e-6, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 4e-6, Tolerance = 1e-6),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end TransmissionLineModelica_N_10;
 
     model TransmissionLineModelica_N_20
       extends TransmissionLineModelica_N_10(N = 20);
-      annotation(experiment(StopTime = 4e-6, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 4e-6, Tolerance = 1e-6),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end TransmissionLineModelica_N_20;
 
     model TransmissionLineModelica_N_40
       extends TransmissionLineModelica_N_10(N = 40);
-      annotation(experiment(StopTime = 4e-6, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 4e-6, Tolerance = 1e-6),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end TransmissionLineModelica_N_40;
 
     model TransmissionLineModelica_N_80
       extends TransmissionLineModelica_N_10(N = 80);
-      annotation(experiment(StopTime = 4e-6, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 4e-6, Tolerance = 1e-6),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end TransmissionLineModelica_N_80;
 
     model TransmissionLineModelica_N_160
       extends TransmissionLineModelica_N_10(N = 160);
-      annotation(experiment(StopTime = 4e-6, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 4e-6, Tolerance = 1e-6),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end TransmissionLineModelica_N_160;
 
     model TransmissionLineModelica_N_320
       extends TransmissionLineModelica_N_10(N = 320);
-      annotation(experiment(StopTime = 4e-6, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 4e-6, Tolerance = 1e-6),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end TransmissionLineModelica_N_320;
 
     model TransmissionLineModelica_N_640
       extends TransmissionLineModelica_N_10(N = 640);
-      annotation(experiment(StopTime = 4e-6, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 4e-6, Tolerance = 1e-6),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end TransmissionLineModelica_N_640;
 
     model TransmissionLineModelica_N_1280
       extends TransmissionLineModelica_N_10(N = 1280);
-      annotation(experiment(StopTime = 4e-6, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 4e-6, Tolerance = 1e-6),
+                 __OpenModelica_simulationFlags(s = "ida"));
     end TransmissionLineModelica_N_1280;
     annotation(Documentation(info = "<html><p>In this package there are 16 tests for different N values; 8 for the TransmissionLineModelica and 8 for the TransmissionLineEquations.</p><p> The tests for the both models are performed according to the N values as shown in the table below:</p><table border=\"1\">
     <tr>
