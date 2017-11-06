@@ -60,20 +60,21 @@ package ParameterArrays "Models containing large parameter arrays"
       annotation(experiment(Interval = 1, StopTime = 1));
     end Table_N_200_M_200;
   
-    model Table_N_400_M_100
-      extends Models.Table(N = 400, M=100);
+    model Table_N_280_M_280
+      extends Models.Table(N = 280, M=280);
       annotation(experiment(Interval = 1, StopTime = 1));
-    end Table_N_400_M_100;
+    end Table_N_280_M_280;
   
-    model Table_N_800_M_50
-      extends Models.Table(N = 800, M=50);
+    model Table_N_400_M_400
+      extends Models.Table(N = 400, M=400);
       annotation(experiment(Interval = 1, StopTime = 1));
-    end Table_N_800_M_50;
+    end Table_N_400_M_400;
+  
+    model Table_N_1600_M_100
+      extends Models.Table(N = 1600, M=100);
+      annotation(experiment(Interval = 1, StopTime = 1));
+    end Table_N_1600_M_100;
+  
   end ScaledExperiments;
-
-
-
-
-
 
 end ParameterArrays;
