@@ -30,7 +30,7 @@ package DistributionSystemAC
         ScalableTestSuite.Electrical.DistributionSystemAC.Models.Internals.Pin p annotation(Placement(visible = true, transformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
       equation
         p.v = Complex(0, 0);
-        annotation(uses(ScalableTestSuite(version = "1.7.1")), Icon(graphics = {Line(origin = {0, -25}, points = {{0, 15}, {0, -15}}), Line(origin = {1, -40}, points = {{-59, 0}, {59, 0}}), Line(origin = {0, -60}, points = {{-40, 0}, {40, 0}}), Line(origin = {0, -79}, points = {{-20, -1}, {20, -1}}), Line(origin = {-1, -100}, points = {{-1, 0}, {3, 0}})}));
+        annotation(Icon(graphics = {Line(origin = {0, -25}, points = {{0, 15}, {0, -15}}), Line(origin = {1, -40}, points = {{-59, 0}, {59, 0}}), Line(origin = {0, -60}, points = {{-40, 0}, {40, 0}}), Line(origin = {0, -79}, points = {{-20, -1}, {20, -1}}), Line(origin = {-1, -100}, points = {{-1, 0}, {3, 0}})}));
       end Ground;
 
       partial model OnePort "Generic one-port model with complex voltage and current"
@@ -70,7 +70,7 @@ package DistributionSystemAC
         i = s.i "Current through load";
         S = v * Modelica.ComplexMath.conj(i) "Complex power";
         P = S.re;
-        annotation(Icon(graphics = {Line(origin = {-79, 0}, points = {{-11, 0}, {9, 0}, {9, 0}}), Line(origin = {80, 1}, points = {{-10, -1}, {10, -1}}), Line(origin = {0, -80}, points = {{0, 10}, {0, -10}, {0, -10}}), Line(origin = {0, 80}, points = {{0, 10}, {0, -8}, {0, -10}})}, coordinateSystem(initialScale = 0.1)), uses(ScalableTestSuite(version = "1.7.1")));
+        annotation(Icon(graphics = {Line(origin = {-79, 0}, points = {{-11, 0}, {9, 0}, {9, 0}}), Line(origin = {80, 1}, points = {{-10, -1}, {10, -1}}), Line(origin = {0, -80}, points = {{0, 10}, {0, -10}, {0, -10}}), Line(origin = {0, 80}, points = {{0, 10}, {0, -8}, {0, -10}})}, coordinateSystem(initialScale = 0.1)));
       end ActivePowerSensor;
 
       partial model PartialImpedance "Generic complex impedance model"
@@ -90,7 +90,7 @@ package DistributionSystemAC
       model VariableResistor "Resistor model with variable resistance"
         extends PartialImpedance(Z_(re = R, im = 0));
         Modelica.Blocks.Interfaces.RealInput R annotation(Placement(visible = true, transformation(origin = {2, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {0, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-        annotation(uses(ScalableTestSuite(version = "1.7.1")), Icon(graphics = {Line(origin = {-75, 0}, points = {{-15, 0}, {13, 0}}), Line(origin = {75, 0}, points = {{15, 0}, {-15, 0}}), Rectangle(origin = {-1, 0}, extent = {{-61, 20}, {61, -20}})}, coordinateSystem(initialScale = 0.1)));
+        annotation(Icon(graphics = {Line(origin = {-75, 0}, points = {{-15, 0}, {13, 0}}), Line(origin = {75, 0}, points = {{15, 0}, {-15, 0}}), Rectangle(origin = {-1, 0}, extent = {{-61, 20}, {61, -20}})}, coordinateSystem(initialScale = 0.1)));
       end VariableResistor;
 
       model VariableActivePowerLoad "Purely active load model with variable consumption"
