@@ -241,7 +241,7 @@ package DistributionSystemAC
       when terminal() then
         printModel();
       end when;
-      annotation(experiment(StopTime = 1, Interval = 1e-3), Documentation(info = "<html>
+      annotation(Documentation(info = "<html>
     <p>This model generates Modelica code of models equivalent to DistributionSystemLinear which don&apos;t use arrays and for loops, but rather declare each model and each connection individually.</p>
     <p>This model can be used to check the overhead of instantiating large numbesr of individual models compared to arrays, and also to check the ability of compilers to factor out the code of instances of the same component.</p>
     </html>"));
