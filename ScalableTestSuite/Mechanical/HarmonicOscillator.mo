@@ -26,7 +26,6 @@ package HarmonicOscillator "Models of N-dimensional 1D spring-mass oscillators"
         v[i] = 0;
       end for;
       annotation(
-        experiment(StopTime = 10),
         Documentation(info = "<html>
     <p>This model represents an N-dimensional mechanical translational system. The masses are not directly connected by springs; rather, a linear network of massless springs connects N massless nodes, which are in turn connected to the masses via other massless springs. As a consequence, a large system of sparse linear equations needs to be solved to compute the accelerations of the masses. </p>
     
