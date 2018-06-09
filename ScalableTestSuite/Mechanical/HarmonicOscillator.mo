@@ -28,11 +28,8 @@ package HarmonicOscillator "Models of N-dimensional 1D spring-mass oscillators"
       annotation(
         Documentation(info = "<html>
     <p>This model represents an N-dimensional mechanical translational system. The masses are not directly connected by springs; rather, a linear network of massless springs connects N massless nodes, which are in turn connected to the masses via other massless springs. As a consequence, a large system of sparse linear equations needs to be solved to compute the accelerations of the masses. </p>
-    
     <p>The most interesting feature of this simple system is that the DAE formulation is sparse, since each system equations refer to at most three nodes at a time, while the ODE formulation is dense, because the acceleration of each point mass depends on the posistion of all other masses.</p>
-    
     <p>This type of coupling is also found in other more complex models, such as multi-body systems with many rigid links (see models in the <a href=\"modelica://ScalableTestSuite.Mechanical.FlexibleBeam\">FlexibleBeam</a> and <a href=\"modelica://ScalableTestSuite.Mechanical.Strings\">Strings</a> packages) and electro-mechanical models of power generation and transmission systems. The present model can be used to demonstrate the effect of this structural property with the minimum amount of overhead.</p>
-    
     <p>The transient is initiated by perturbing the initial condition of the first point mass with respect to the rest equilibrium condition.</p>
     </html>"));
     end HarmonicOscillator;
@@ -65,21 +62,11 @@ package HarmonicOscillator "Models of N-dimensional 1D spring-mass oscillators"
       annotation(
         Documentation(info = "<html>
     <p>This model represents an N-dimensional mechanical translational system. Each mass is connected to the two neighboring masses by two massless springs. </p>
-    
     <p>This system has a sparse DAE formulation, since each system equation refer to at most three nodes at a time; also the ODE formulation is sparse, because the acceleration of each mass only depends on its position and on that of its two neigbours.</p>
-        
     <p>The transient is initiated by perturbing the initial condition of the first point mass with respect to the rest equilibrium condition.</p>
     </html>"));
     end HarmonicOscillatorNetwork;
-
-
-
-
-
-
-
   end Models;
-
 
   package Verification
     model HarmonicOscillatorCheck
@@ -93,25 +80,6 @@ package HarmonicOscillator "Models of N-dimensional 1D spring-mass oscillators"
       annotation(
         experiment(StopTime=10));
     end HarmonicOscillatorNetworkCheck;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   end Verification;
 
   package ScaledExperiments
@@ -157,7 +125,6 @@ package HarmonicOscillator "Models of N-dimensional 1D spring-mass oscillators"
       annotation(
         experiment(StopTime = 10));
     end HarmonicOscillatorNetwork_N_10;
-
   
     model HarmonicOscillatorNetwork_N_20
       extends Models.HarmonicOscillatorNetwork(N = 20);
@@ -165,13 +132,11 @@ package HarmonicOscillator "Models of N-dimensional 1D spring-mass oscillators"
         experiment(StopTime = 10));
     end HarmonicOscillatorNetwork_N_20;
 
-  
     model HarmonicOscillatorNetwork_N_40
       extends Models.HarmonicOscillatorNetwork(N = 40);
       annotation(
         experiment(StopTime = 10));
     end HarmonicOscillatorNetwork_N_40;
-
   
     model HarmonicOscillatorNetwork_N_80
       extends Models.HarmonicOscillatorNetwork(N = 80);
@@ -179,22 +144,16 @@ package HarmonicOscillator "Models of N-dimensional 1D spring-mass oscillators"
         experiment(StopTime = 10));
     end HarmonicOscillatorNetwork_N_80;
 
-  
     model HarmonicOscillatorNetwork_N_160
       extends Models.HarmonicOscillatorNetwork(N = 160);
       annotation(
         experiment(StopTime = 10));
     end HarmonicOscillatorNetwork_N_160;
-
   
     model HarmonicOscillatorNetwork_N_320
       extends Models.HarmonicOscillatorNetwork(N = 320);
       annotation(
         experiment(StopTime = 10));
     end HarmonicOscillatorNetwork_N_320;
-
-  
   end ScaledExperiments;
-
-
 end HarmonicOscillator;
