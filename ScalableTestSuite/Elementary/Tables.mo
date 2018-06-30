@@ -5,8 +5,9 @@ package Tables "Models with tables"
       parameter Integer N = 10 "Order of the system" annotation(Evaluate=true);
       constant Real pi = Modelica.Constants.pi;
       final parameter Real tableX[N] = linspace(0,1,N) "Table axis X";
-      final parameter Real tableY[N] = sin(linspace(20*pi*N/125.0,0,N)) "Table axis Y";
+      final parameter Real tableY[N] = sin(linspace(0, 2*pi,N)) "Table axis Y";
     end TableBase;
+
 
     model TimeTable "Time table"
       extends TableBase;
