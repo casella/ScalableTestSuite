@@ -299,7 +299,7 @@ Energy balance at the each wall segment is modified in terms of temperature vari
       Qcountercur_ss = UA * dTeogCountercur;
       Qcountercur_fluidA = countercur.QtotA;
       Qcountercur_fluidB = countercur.QtotB;
-      annotation(experiment(StartTime = 0, StopTime = 20, Tolerance = 1e-6, Interval = 0.04), Documentation(info = "<html><p>Temperature distributions of the heat exchangers in cocurrent and countercurrent mode are given. T_H and T_c represent the temperature of the hot fluid and the cold fluid, respectively. </p><img src=\"modelica://ScalableTestSuite/Resources/Images/HeatExchanger/tempdistributions.png\"/><p>∆T represents the temperature difference between hot and cold fluids along the heat exchangers. And, x is a point along the channels of the heat exchanger. In the countercurrent mode, ∆T does not vary along the channels as much as the ∆T in the cocurrent mode. Moreover, in cocurrent mode, ∆T is very large at the inlet of the channels and getting smaller progressively. Countercurrent heat exchanger can be evaluated as more efficient with respect to cocurrent heat exchanger since countercurrent mode requires smaller heat transfer area to provide the same heat transfer rate.
+      annotation(experiment(StartTime = 0, StopTime = 20, Tolerance = 1e-7, Interval = 0.04), Documentation(info = "<html><p>Temperature distributions of the heat exchangers in cocurrent and countercurrent mode are given. T_H and T_c represent the temperature of the hot fluid and the cold fluid, respectively. </p><img src=\"modelica://ScalableTestSuite/Resources/Images/HeatExchanger/tempdistributions.png\"/><p>∆T represents the temperature difference between hot and cold fluids along the heat exchangers. And, x is a point along the channels of the heat exchanger. In the countercurrent mode, ∆T does not vary along the channels as much as the ∆T in the cocurrent mode. Moreover, in cocurrent mode, ∆T is very large at the inlet of the channels and getting smaller progressively. Countercurrent heat exchanger can be evaluated as more efficient with respect to cocurrent heat exchanger since countercurrent mode requires smaller heat transfer area to provide the same heat transfer rate.
 </p><p>At the steady state, the total flow rates of Q_A and Q_B is equal to a steady state rate equation and it is used for the verification of the models.
 Steady state heat rate equation for a heat exchanger is written as follows: </p><p>Q=UA∆Teog</p>
 where U is the average overall heat transfer coefficient, A is the area of the heat transfer surface and ∆Teog is the average temperature driving force. UA is described as: <p>UA=Lω(γ_A γ_B)/(γ_A+γ_B )</p><p>where L is the length, ω is the perimeter of the channels, γ_A and γ_B are the heat transfer coefficients of fluid A and B respectively.</p>∆Teog is written as:<p><img src=\"modelica://ScalableTestSuite/Resources/Images/HeatExchanger/Teog.png\"/></p>where ∆T_L is the temperature difference of the fluids A and B at the outlet of the channels and ∆T_o is the temperature difference of the fluids A and B at the inlet of the channels.
@@ -374,97 +374,97 @@ where U is the average overall heat transfer coefficient, A is the area of the h
   package ScaledExperiments
     model CounterCurrentHeatExchangerEquations_N_10
       extends Models.CounterCurrentHeatExchangerEquations(L = 10, N = 10, wB = 1, areaA = 5e-5, areaB = 5e-5, rhoA = 1000, rhoB = 1000, cpA = 4200, cpB = 4200, cpW = 2000, gammaA = 4000, gammaB = 10000, omega = 0.1);
-      annotation(experiment(StopTime = 20, Tolerance = 1e-6),
+      annotation(experiment(StopTime = 20, Tolerance = 1e-7),
                  __OpenModelica_simulationFlags(s = "ida"));
     end CounterCurrentHeatExchangerEquations_N_10;
 
     model CounterCurrentHeatExchangerEquations_N_20
       extends CounterCurrentHeatExchangerEquations_N_10(N = 20);
-      annotation(experiment(StopTime = 20, Tolerance = 1e-6),
+      annotation(experiment(StopTime = 20, Tolerance = 1e-7),
                  __OpenModelica_simulationFlags(s = "ida"));
     end CounterCurrentHeatExchangerEquations_N_20;
 
     model CounterCurrentHeatExchangerEquations_N_40
       extends CounterCurrentHeatExchangerEquations_N_10(N = 40);
-      annotation(experiment(StopTime = 20, Tolerance = 1e-6),
+      annotation(experiment(StopTime = 20, Tolerance = 1e-7),
                  __OpenModelica_simulationFlags(s = "ida"));
     end CounterCurrentHeatExchangerEquations_N_40;
 
     model CounterCurrentHeatExchangerEquations_N_80
       extends CounterCurrentHeatExchangerEquations_N_10(N = 80);
-      annotation(experiment(StopTime = 20, Tolerance = 1e-6),
+      annotation(experiment(StopTime = 20, Tolerance = 1e-7),
                  __OpenModelica_simulationFlags(s = "ida"));
     end CounterCurrentHeatExchangerEquations_N_80;
 
     model CounterCurrentHeatExchangerEquations_N_160
       extends CounterCurrentHeatExchangerEquations_N_10(N = 160);
-      annotation(experiment(StopTime = 20, Tolerance = 1e-6),
+      annotation(experiment(StopTime = 20, Tolerance = 1e-7),
                  __OpenModelica_simulationFlags(s = "ida"));
     end CounterCurrentHeatExchangerEquations_N_160;
 
     model CounterCurrentHeatExchangerEquations_N_320
       extends CounterCurrentHeatExchangerEquations_N_10(N = 320);
-      annotation(experiment(StopTime = 20, Tolerance = 1e-6),
+      annotation(experiment(StopTime = 20, Tolerance = 1e-7),
                  __OpenModelica_simulationFlags(s = "ida"));
     end CounterCurrentHeatExchangerEquations_N_320;
 
     model CounterCurrentHeatExchangerEquations_N_640
       extends CounterCurrentHeatExchangerEquations_N_10(N = 640);
-      annotation(experiment(StopTime = 20, Tolerance = 1e-6),
+      annotation(experiment(StopTime = 20, Tolerance = 1e-7),
                  __OpenModelica_simulationFlags(s = "ida"));
     end CounterCurrentHeatExchangerEquations_N_640;
 
     model CounterCurrentHeatExchangerEquations_N_1280
       extends CounterCurrentHeatExchangerEquations_N_10(N = 1280);
-      annotation(experiment(StopTime = 20, Tolerance = 1e-6),
+      annotation(experiment(StopTime = 20, Tolerance = 1e-7),
                  __OpenModelica_simulationFlags(s = "ida"));
     end CounterCurrentHeatExchangerEquations_N_1280;
 
     model CocurrentHeatExchangerEquations_N_10
       extends Models.CocurrentHeatExchangerEquations(L = 10, N = 10, wB = 1, areaA = 5e-5, areaB = 5e-5, rhoA = 1000, rhoB = 1000, cpA = 4200, cpB = 4200, cpW = 2000, gammaA = 4000, gammaB = 10000, omega = 0.1);
-      annotation(experiment(StopTime = 20, Tolerance = 1e-6),
+      annotation(experiment(StopTime = 20, Tolerance = 1e-7),
                  __OpenModelica_simulationFlags(s = "ida"));
     end CocurrentHeatExchangerEquations_N_10;
 
     model CocurrentHeatExchangerEquations_N_20
       extends CocurrentHeatExchangerEquations_N_10(N = 20);
-      annotation(experiment(StopTime = 20, Tolerance = 1e-6),
+      annotation(experiment(StopTime = 20, Tolerance = 1e-7),
                  __OpenModelica_simulationFlags(s = "ida"));
     end CocurrentHeatExchangerEquations_N_20;
 
     model CocurrentHeatExchangerEquations_N_40
       extends CocurrentHeatExchangerEquations_N_10(N = 40);
-      annotation(experiment(StopTime = 20, Tolerance = 1e-6),
+      annotation(experiment(StopTime = 20, Tolerance = 1e-7),
                  __OpenModelica_simulationFlags(s = "ida"));
     end CocurrentHeatExchangerEquations_N_40;
 
     model CocurrentHeatExchangerEquations_N_80
       extends CocurrentHeatExchangerEquations_N_10(N = 80);
-      annotation(experiment(StopTime = 20, Tolerance = 1e-6),
+      annotation(experiment(StopTime = 20, Tolerance = 1e-7),
                  __OpenModelica_simulationFlags(s = "ida"));
     end CocurrentHeatExchangerEquations_N_80;
 
     model CocurrentHeatExchangerEquations_N_160
       extends CocurrentHeatExchangerEquations_N_10(N = 160);
-      annotation(experiment(StopTime = 20, Tolerance = 1e-6),
+      annotation(experiment(StopTime = 20, Tolerance = 1e-7),
                  __OpenModelica_simulationFlags(s = "ida"));
     end CocurrentHeatExchangerEquations_N_160;
 
     model CocurrentHeatExchangerEquations_N_320
       extends CocurrentHeatExchangerEquations_N_10(N = 320);
-      annotation(experiment(StopTime = 20, Tolerance = 1e-6),
+      annotation(experiment(StopTime = 20, Tolerance = 1e-7),
                  __OpenModelica_simulationFlags(s = "ida"));
     end CocurrentHeatExchangerEquations_N_320;
 
     model CocurrentHeatExchangerEquations_N_640
       extends CocurrentHeatExchangerEquations_N_10(N = 640);
-      annotation(experiment(StopTime = 20, Tolerance = 1e-6),
+      annotation(experiment(StopTime = 20, Tolerance = 1e-7),
                  __OpenModelica_simulationFlags(s = "ida"));
     end CocurrentHeatExchangerEquations_N_640;
 
     model CocurrentHeatExchangerEquations_N_1280
       extends CocurrentHeatExchangerEquations_N_10(N = 1280);
-      annotation(experiment(StopTime = 20, Tolerance = 1e-6),
+      annotation(experiment(StopTime = 20, Tolerance = 1e-7),
                  __OpenModelica_simulationFlags(s = "ida"));
     end CocurrentHeatExchangerEquations_N_1280;
 
