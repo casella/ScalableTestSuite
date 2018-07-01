@@ -170,14 +170,10 @@ package Advection "1D advection models"
     model SteamPipe
       extends Models.SteamPipe(w_in_pipe = 2, N = 100);
       Medium.SpecificEnthalpy h_out_pipe_th = delay(h_in_pipe, tau);
-      annotation (experiment(StopTime=15, Interval=4e-3, Tolerance = 1e-7,
+      annotation (experiment(StopTime=15, Interval=4e-3, Tolerance = 1e-7),
                   Documentation(info="<html>
 <p>After the initial transient has settled down, the step change of the specific enthalpy at the inlet is propagated to the outlet at a velocity roughly equal to that of the fluid. The outlet specific enthalpy is approximately equal to the inlet enthalpy delayed by the ratio tau between the total mass and the mass flow rate. There is a significant effect of numerical diffusion even for large values of N.</p>
-</html>"),
-        experiment(
-          StopTime=20,
-          NumberOfIntervals=5000,
-          Tolerance=1e-007));
+</html>"));
     end SteamPipe;
   end Verification;
 
@@ -197,47 +193,47 @@ package Advection "1D advection models"
         "Temperature increase at inlet";
       parameter Modelica.SIunits.Frequency f = 0.5
         "Frequency of fluid speed oscillations";
-      annotation (experiment(StopTime=20, NumberOfIntervals=5000, Tolerance = 1e-6));
+      annotation (experiment(StopTime=20, Interval=4e-3, Tolerance = 1e-6));
     end SimpleAdvection_N_100;
 
     model SimpleAdvection_N_200
       extends SimpleAdvection_N_100(N = 200);
-      annotation (experiment(StopTime=20, NumberOfIntervals=5000, Tolerance = 1e-6));
+      annotation (experiment(StopTime=20, Interval=4e-3, Tolerance = 1e-6));
     end SimpleAdvection_N_200;
 
     model SimpleAdvection_N_400
       extends SimpleAdvection_N_100(N = 400);
-      annotation (experiment(StopTime=20, NumberOfIntervals=5000, Tolerance = 1e-6),
+      annotation (experiment(StopTime=20, Interval=4e-3, Tolerance = 1e-6),
                  __OpenModelica_simulationFlags(s = "ida"));
     end SimpleAdvection_N_400;
 
     model SimpleAdvection_N_800
       extends SimpleAdvection_N_100(N = 800);
-      annotation (experiment(StopTime=20, NumberOfIntervals=5000, Tolerance = 1e-6),
+      annotation (experiment(StopTime=20, Interval=4e-3, Tolerance = 1e-6),
                  __OpenModelica_simulationFlags(s = "ida"));
     end SimpleAdvection_N_800;
 
     model SimpleAdvection_N_1600
       extends SimpleAdvection_N_100(N = 1600);
-      annotation (experiment(StopTime=20, NumberOfIntervals=5000, Tolerance = 1e-6),
+      annotation (experiment(StopTime=20, Interval=4e-3, Tolerance = 1e-6),
                  __OpenModelica_simulationFlags(s = "ida"));
     end SimpleAdvection_N_1600;
 
     model SimpleAdvection_N_3200
       extends SimpleAdvection_N_100(N = 3200);
-      annotation (experiment(StopTime=20, NumberOfIntervals=5000, Tolerance = 1e-6),
+      annotation (experiment(StopTime=20, Interval=4e-3, Tolerance = 1e-6),
                  __OpenModelica_simulationFlags(s = "ida"));
     end SimpleAdvection_N_3200;
 
     model SimpleAdvection_N_6400
       extends SimpleAdvection_N_100(N = 6400);
-      annotation (experiment(StopTime=20, NumberOfIntervals=5000, Tolerance = 1e-6),
+      annotation (experiment(StopTime=20, Interval=4e-3, Tolerance = 1e-6),
                  __OpenModelica_simulationFlags(s = "ida"));
     end SimpleAdvection_N_6400;
 
     model SimpleAdvection_N_12800
       extends SimpleAdvection_N_100(N = 12800);
-      annotation (experiment(StopTime=20, NumberOfIntervals=5000, Tolerance = 1e-6),
+      annotation (experiment(StopTime=20, Interval=4e-3, Tolerance = 1e-6),
                  __OpenModelica_simulationFlags(s = "ida"));
     end SimpleAdvection_N_12800;
 
@@ -245,21 +241,21 @@ package Advection "1D advection models"
       extends Models.AdvectionReaction(
         N = 100,
         mu = 500);
-      annotation (experiment(StopTime=1, NumberOfIntervals=5000, Tolerance = 1e-6));
+      annotation (experiment(StopTime=1, Interval=4e-3, Tolerance = 1e-6));
     end AdvectionReaction_N_100;
 
     model AdvectionReaction_N_200
       extends Models.AdvectionReaction(
         N = 200,
         mu = 1000);
-      annotation (experiment(StopTime=1, NumberOfIntervals=5000, Tolerance = 1e-6));
+      annotation (experiment(StopTime=1, Interval=4e-3, Tolerance = 1e-6));
     end AdvectionReaction_N_200;
 
     model AdvectionReaction_N_400
       extends Models.AdvectionReaction(
         N = 400,
         mu = 2000);
-      annotation (experiment(StopTime=1, NumberOfIntervals=5000, Tolerance = 1e-6),
+      annotation (experiment(StopTime=1, Interval=4e-3, Tolerance = 1e-6),
                  __OpenModelica_simulationFlags(s = "ida"));
     end AdvectionReaction_N_400;
 
@@ -267,7 +263,7 @@ package Advection "1D advection models"
       extends Models.AdvectionReaction(
         N = 800,
         mu = 4000);
-      annotation (experiment(StopTime=1, NumberOfIntervals=5000, Tolerance = 1e-6),
+      annotation (experiment(StopTime=1, Interval=4e-3, Tolerance = 1e-6),
                  __OpenModelica_simulationFlags(s = "ida"));
     end AdvectionReaction_N_800;
 
@@ -275,7 +271,7 @@ package Advection "1D advection models"
       extends Models.AdvectionReaction(
         N = 1600,
         mu = 8000);
-      annotation (experiment(StopTime=1, NumberOfIntervals=5000, Tolerance = 1e-6),
+      annotation (experiment(StopTime=1, Interval=4e-3, Tolerance = 1e-6),
                  __OpenModelica_simulationFlags(s = "ida"));
     end AdvectionReaction_N_1600;
 
@@ -283,7 +279,7 @@ package Advection "1D advection models"
       extends Models.AdvectionReaction(
         N = 3200,
         mu = 16000);
-      annotation (experiment(StopTime=1, NumberOfIntervals=5000, Tolerance = 1e-6),
+      annotation (experiment(StopTime=1, Interval=4e-3, Tolerance = 1e-6),
                  __OpenModelica_simulationFlags(s = "ida"));
     end AdvectionReaction_N_3200;
 
@@ -291,7 +287,7 @@ package Advection "1D advection models"
       extends Models.AdvectionReaction(
         N = 6400,
         mu = 32000);
-      annotation (experiment(StopTime=1, NumberOfIntervals=5000, Tolerance = 1e-6),
+      annotation (experiment(StopTime=1, Interval=4e-3, Tolerance = 1e-6),
                  __OpenModelica_simulationFlags(s = "ida"));
     end AdvectionReaction_N_6400;
 
@@ -299,7 +295,7 @@ package Advection "1D advection models"
       extends Models.AdvectionReaction(
         N = 12800,
         mu = 64000);
-      annotation (experiment(StopTime=1, NumberOfIntervals=5000, Tolerance = 1e-6),
+      annotation (experiment(StopTime=1, Interval=4e-3, Tolerance = 1e-6),
                  __OpenModelica_simulationFlags(s = "ida"));
     end AdvectionReaction_N_12800;
 
@@ -307,7 +303,7 @@ package Advection "1D advection models"
       extends Models.SteamPipe(N = 10);
       annotation (experiment(
           StopTime=20,
-          NumberOfIntervals=5000,
+          Interval=4e-3,
           Tolerance=1e-007));
     end SteamPipe_N_10;
 
@@ -315,7 +311,7 @@ package Advection "1D advection models"
       extends Models.SteamPipe(N = 20);
       annotation (experiment(
           StopTime=20,
-          NumberOfIntervals=5000,
+          Interval=4e-3,
           Tolerance=1e-007));
     end SteamPipe_N_20;
 
@@ -323,7 +319,7 @@ package Advection "1D advection models"
       extends Models.SteamPipe(N = 40);
       annotation (experiment(
           StopTime=20,
-          NumberOfIntervals=5000,
+          Interval=4e-3,
           Tolerance=1e-007));
     end SteamPipe_N_40;
 
@@ -331,7 +327,7 @@ package Advection "1D advection models"
       extends Models.SteamPipe(N = 80);
       annotation (experiment(
           StopTime=20,
-          NumberOfIntervals=5000,
+          Interval=4e-3,
           Tolerance=1e-007));
     end SteamPipe_N_80;
 
@@ -339,7 +335,7 @@ package Advection "1D advection models"
       extends Models.SteamPipe(N = 160);
       annotation (experiment(
           StopTime=20,
-          NumberOfIntervals=5000,
+          Interval=4e-3,
           Tolerance=1e-007));
     end SteamPipe_N_160;
 
@@ -347,7 +343,7 @@ package Advection "1D advection models"
       extends Models.SteamPipe(N = 320);
       annotation (experiment(
           StopTime=20,
-          NumberOfIntervals=5000,
+          Interval=4e-3,
           Tolerance=1e-007));
     end SteamPipe_N_320;
 
@@ -355,7 +351,7 @@ package Advection "1D advection models"
       extends Models.SteamPipe(N = 640);
       annotation (experiment(
           StopTime=20,
-          NumberOfIntervals=5000,
+          Interval=4e-3,
           Tolerance=1e-007));
     end SteamPipe_N_640;
 
@@ -363,7 +359,7 @@ package Advection "1D advection models"
       extends Models.SteamPipe(N = 1280);
       annotation (experiment(
           StopTime=20,
-          NumberOfIntervals=5000,
+          Interval=4e-3,
           Tolerance=1e-007));
     end SteamPipe_N_1280;
 
@@ -371,7 +367,7 @@ package Advection "1D advection models"
       extends Models.SteamPipe(N = 2560);
       annotation (experiment(
           StopTime=20,
-          NumberOfIntervals=5000,
+          Interval=4e-3,
           Tolerance=1e-007));
     end SteamPipe_N_2560;
   end ScaledExperiments;
