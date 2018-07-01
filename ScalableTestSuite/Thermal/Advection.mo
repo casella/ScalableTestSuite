@@ -170,14 +170,14 @@ package Advection "1D advection models"
     model SteamPipe
       extends Models.SteamPipe(w_in_pipe = 2, N = 100);
       Medium.SpecificEnthalpy h_out_pipe_th = delay(h_in_pipe, tau);
-      annotation (experiment(StopTime=15, Interval=4e-3, Tolerance = 1e-6),
+      annotation (experiment(StopTime=15, Interval=4e-3, Tolerance = 1e-7,
                   Documentation(info="<html>
 <p>After the initial transient has settled down, the step change of the specific enthalpy at the inlet is propagated to the outlet at a velocity roughly equal to that of the fluid. The outlet specific enthalpy is approximately equal to the inlet enthalpy delayed by the ratio tau between the total mass and the mass flow rate. There is a significant effect of numerical diffusion even for large values of N.</p>
 </html>"),
         experiment(
           StopTime=20,
           NumberOfIntervals=5000,
-          Tolerance=1e-006));
+          Tolerance=1e-007));
     end SteamPipe;
   end Verification;
 
@@ -308,7 +308,7 @@ package Advection "1D advection models"
       annotation (experiment(
           StopTime=20,
           NumberOfIntervals=5000,
-          Tolerance=1e-006));
+          Tolerance=1e-007));
     end SteamPipe_N_10;
 
     model SteamPipe_N_20
@@ -316,7 +316,7 @@ package Advection "1D advection models"
       annotation (experiment(
           StopTime=20,
           NumberOfIntervals=5000,
-          Tolerance=1e-006));
+          Tolerance=1e-007));
     end SteamPipe_N_20;
 
     model SteamPipe_N_40
@@ -324,7 +324,7 @@ package Advection "1D advection models"
       annotation (experiment(
           StopTime=20,
           NumberOfIntervals=5000,
-          Tolerance=1e-006));
+          Tolerance=1e-007));
     end SteamPipe_N_40;
 
     model SteamPipe_N_80
@@ -332,7 +332,7 @@ package Advection "1D advection models"
       annotation (experiment(
           StopTime=20,
           NumberOfIntervals=5000,
-          Tolerance=1e-006));
+          Tolerance=1e-007));
     end SteamPipe_N_80;
 
     model SteamPipe_N_160
@@ -340,7 +340,7 @@ package Advection "1D advection models"
       annotation (experiment(
           StopTime=20,
           NumberOfIntervals=5000,
-          Tolerance=1e-006));
+          Tolerance=1e-007));
     end SteamPipe_N_160;
 
     model SteamPipe_N_320
@@ -348,7 +348,7 @@ package Advection "1D advection models"
       annotation (experiment(
           StopTime=20,
           NumberOfIntervals=5000,
-          Tolerance=1e-006));
+          Tolerance=1e-007));
     end SteamPipe_N_320;
 
     model SteamPipe_N_640
@@ -356,7 +356,7 @@ package Advection "1D advection models"
       annotation (experiment(
           StopTime=20,
           NumberOfIntervals=5000,
-          Tolerance=1e-006));
+          Tolerance=1e-007));
     end SteamPipe_N_640;
 
     model SteamPipe_N_1280
@@ -364,7 +364,7 @@ package Advection "1D advection models"
       annotation (experiment(
           StopTime=20,
           NumberOfIntervals=5000,
-          Tolerance=1e-006));
+          Tolerance=1e-007));
     end SteamPipe_N_1280;
 
     model SteamPipe_N_2560
@@ -372,7 +372,7 @@ package Advection "1D advection models"
       annotation (experiment(
           StopTime=20,
           NumberOfIntervals=5000,
-          Tolerance=1e-006));
+          Tolerance=1e-007));
     end SteamPipe_N_2560;
   end ScaledExperiments;
 end Advection;
