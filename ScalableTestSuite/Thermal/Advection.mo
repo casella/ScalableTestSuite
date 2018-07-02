@@ -304,7 +304,7 @@ package Advection "1D advection models"
       annotation (experiment(
           StopTime=20,
           Interval=4e-3,
-          Tolerance=1e-007));
+          Tolerance=1e-008));
     end SteamPipe_N_10;
 
     model SteamPipe_N_20
@@ -312,7 +312,7 @@ package Advection "1D advection models"
       annotation (experiment(
           StopTime=20,
           Interval=4e-3,
-          Tolerance=1e-007));
+          Tolerance=1e-008));
     end SteamPipe_N_20;
 
     model SteamPipe_N_40
@@ -320,7 +320,7 @@ package Advection "1D advection models"
       annotation (experiment(
           StopTime=20,
           Interval=4e-3,
-          Tolerance=1e-007));
+          Tolerance=1e-008));
     end SteamPipe_N_40;
 
     model SteamPipe_N_80
@@ -328,7 +328,7 @@ package Advection "1D advection models"
       annotation (experiment(
           StopTime=20,
           Interval=4e-3,
-          Tolerance=1e-007));
+          Tolerance=1e-008));
     end SteamPipe_N_80;
 
     model SteamPipe_N_160
@@ -336,7 +336,7 @@ package Advection "1D advection models"
       annotation (experiment(
           StopTime=20,
           Interval=4e-3,
-          Tolerance=1e-007));
+          Tolerance=1e-008));
     end SteamPipe_N_160;
 
     model SteamPipe_N_320
@@ -344,7 +344,7 @@ package Advection "1D advection models"
       annotation (experiment(
           StopTime=20,
           Interval=4e-3,
-          Tolerance=1e-007));
+          Tolerance=1e-008));
     end SteamPipe_N_320;
 
     model SteamPipe_N_640
@@ -352,7 +352,7 @@ package Advection "1D advection models"
       annotation (experiment(
           StopTime=20,
           Interval=4e-3,
-          Tolerance=1e-007));
+          Tolerance=1e-008));
     end SteamPipe_N_640;
 
     model SteamPipe_N_1280
@@ -360,7 +360,7 @@ package Advection "1D advection models"
       annotation (experiment(
           StopTime=20,
           Interval=4e-3,
-          Tolerance=1e-007));
+          Tolerance=1e-008));
     end SteamPipe_N_1280;
 
     model SteamPipe_N_2560
@@ -368,7 +368,7 @@ package Advection "1D advection models"
       annotation (experiment(
           StopTime=20,
           Interval=4e-3,
-          Tolerance=1e-007));
+          Tolerance=1e-008));
     end SteamPipe_N_2560;
   end ScaledExperiments;
 end Advection;
