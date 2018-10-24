@@ -54,32 +54,32 @@ The main body of the string is created by body boxes and revolute joints coupled
 
     model StringModelica_N_2
       extends Models.StringModelica(N = 2, L = 0.5, damping = 1e-5, W = 0.001, H = 0.001, D = 2000);
-      annotation(experiment(StopTime = 0.8, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 2, Tolerance = 3e-8, Interval = 1e-3));
     end StringModelica_N_2;
 
     model StringModelica_N_4
       extends StringModelica_N_2(N = 4);
-      annotation(experiment(StopTime = 0.8, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 2, Tolerance = 3e-8, Interval = 1e-3));
     end StringModelica_N_4;
 
     model StringModelica_N_8
       extends StringModelica_N_2(N = 8);
-      annotation(experiment(StopTime = 0.8, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 2, Tolerance = 3e-8, Interval = 1e-3));
     end StringModelica_N_8;
 
     model StringModelica_N_16
       extends StringModelica_N_2(N = 16);
-      annotation(experiment(StopTime = 0.8, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 2, Tolerance = 3e-8, Interval = 1e-3));
     end StringModelica_N_16;
 
     model StringModelica_N_32
       extends StringModelica_N_2(N = 32);
-      annotation(experiment(StopTime = 0.8, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 2, Tolerance = 3e-8, Interval = 1e-3));
     end StringModelica_N_32;
 
     model StringModelica_N_64
       extends StringModelica_N_2(N = 64);
-      annotation(experiment(StopTime = 0.8, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 2, Tolerance = 3e-8, Interval = 1e-3));
     end StringModelica_N_64;
     annotation(Documentation(info = "<html><p>In this package there are 6 tests for StringModelica for different N values.</p><p> The tests are performed according to the N values as shown in the table below:</p><table border=\"1\">
     <tr>

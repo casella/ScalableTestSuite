@@ -189,7 +189,7 @@ The flexible beam is discretized into elements, and a single element is consider
         "displacement of the free end of the flexible beam";
       beam_exact = f(time, F, W * H * D, L, E, J)
         "displacement of the free end of the analytical solution";
-      annotation(experiment(StopTime = 0.15, Tolerance = 1e-6), Documentation(info = "<html><p>In the model, FlexibleBeamModelica is verified by an analytical solution in terms of the vibration frequency of the free end of the flexible beam. In this model, vibration of the free end of FlexibleBeamModelica and analytical solution are implemented.
+      annotation(experiment(StopTime = 0.04, Tolerance = 3e-8, Interval = 2e-5), Documentation(info = "<html><p>In the model, FlexibleBeamModelica is verified by an analytical solution in terms of the vibration frequency of the free end of the flexible beam. In this model, vibration of the free end of FlexibleBeamModelica and analytical solution are implemented.
 <p>ANALYTICAL SOLUTION:</p><p>The partial differential equation describing the motion of the infinitesimal element is:</p><img src=\"modelica://ScalableTestSuite/Resources/Images/FlexibleBeam/PDE.png\"/></p>where m is the linear mass, w is the displacement, E is the young’s modulus and J is the area moment of inertia.<p>Assuming a stationary solution of the bending motion in the form:</p><p><img src=\"modelica://ScalableTestSuite/Resources/Images/FlexibleBeam/stationarysol.png\"/></p><p>where α(x) is a function of space alone describing the waveform of the stationary vibration and β(x) is a time dependent vibration amplitude coefficient.</p><p>By placing the stationary solution w(x,t) into the PDE and later defining:</p><p><img src=\"modelica://ScalableTestSuite/Resources/Images/FlexibleBeam/naturalfreq.png\"/></p><p>The natural frequencies and the modes of vibration of a beam in bending depend on physical parameters such as length, section, material and also boundary conditions. For the cantilever beam, there are four boundary conditions, two for the clamped end x=0 and two for the free end x=l.</p><img src=\"modelica://ScalableTestSuite/Resources/Images/FlexibleBeam/boundary.png\"/><p>The general solution becomes a linear combination of trigonometric equations:</p><img src=\"modelica://ScalableTestSuite/Resources/Images/FlexibleBeam/generalsol.png\"/><p>and after placing the boundary conditions into the function α(x), we reduce the function into a new form. Moreover, from the boundary conditions it is obtained: A=C=0 and;</p><img src=\"modelica://ScalableTestSuite/Resources/Images/FlexibleBeam/coeff.png\"/><p>Thus, it can be written in the form:</p><img src=\"modelica://ScalableTestSuite/Resources/Images/FlexibleBeam/generalsol1.png\"/><p>where B=1/2. Moreover, with the boundary conditions, we obtain the frequency equation for the cantilever beam:<p><img src=\"modelica://ScalableTestSuite/Resources/Images/FlexibleBeam/freqeq.png\"/></p>We have infinite number of solutions for<img src=\"modelica://ScalableTestSuite/Resources/Images/FlexibleBeam/naturalfreq1.png\"/>. And, we obtain the natural frequencies by using the equation:</p><p><img src=\"modelica://ScalableTestSuite/Resources/Images/FlexibleBeam/naturalfreq2.png\"/></p><p>By solving the frequency equation, obtained values for the first 6 modes are given in the table below:</p><img src=\"modelica://ScalableTestSuite/Resources/Images/FlexibleBeam/table.png\"/><p>Therefore, for each frequency, there is a characteristic vibration:</p><p><img src=\"modelica://ScalableTestSuite/Resources/Images/FlexibleBeam/characteristic.png\"/></p><p>An approximation for Ak is given below according to P which is force. It is calculated as if the beam starts vibration at t=0.</p><img src=\"modelica://ScalableTestSuite/Resources/Images/FlexibleBeam/Ak.png\"/>
 <table border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
     <tr>
@@ -242,32 +242,32 @@ The flexible beam is discretized into elements, and a single element is consider
 
     model FlexibleBeamModelica_N_2
       extends Models.FlexibleBeamModelica(N = 2, L = 0.5, W = 0.05, H = 0.02, D = 2700, E = 6.9e10, DampCoeff = 0.00001, F = -100);
-      annotation(experiment(StopTime = 0.15, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 0.04, Tolerance = 3e-8, Interval = 2e-5));
     end FlexibleBeamModelica_N_2;
 
     model FlexibleBeamModelica_N_4
       extends FlexibleBeamModelica_N_2(N = 4);
-      annotation(experiment(StopTime = 0.15, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 0.04, Tolerance = 3e-8, Interval = 2e-5));
     end FlexibleBeamModelica_N_4;
 
     model FlexibleBeamModelica_N_8
       extends FlexibleBeamModelica_N_2(N = 8);
-      annotation(experiment(StopTime = 0.15, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 0.04, Tolerance = 3e-8, Interval = 2e-5));
     end FlexibleBeamModelica_N_8;
 
     model FlexibleBeamModelica_N_16
       extends FlexibleBeamModelica_N_2(N = 16);
-      annotation(experiment(StopTime = 0.15, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 0.04, Tolerance = 3e-8, Interval = 2e-5));
     end FlexibleBeamModelica_N_16;
 
     model FlexibleBeamModelica_N_32
       extends FlexibleBeamModelica_N_2(N = 32);
-      annotation(experiment(StopTime = 0.15, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 0.04, Tolerance = 3e-8, Interval = 2e-5));
     end FlexibleBeamModelica_N_32;
 
     model FlexibleBeamModelica_N_64
       extends FlexibleBeamModelica_N_2(N = 64);
-      annotation(experiment(StopTime = 0.15, Tolerance = 1e-6));
+      annotation(experiment(StopTime = 0.04, Tolerance = 3e-8, Interval = 2e-5));
     end FlexibleBeamModelica_N_64;
     annotation(Documentation(info = "<html><p>In this package there are 6 tests for FlexibleBeamModelica for different N values.</p><p> The tests are performed according to the N values as shown in the table below:</p><table border=\"1\">
     <tr>
