@@ -15,7 +15,7 @@ if you want to contribute to the library.
 <li>Francesco Casella</li>
 <li>Thomas Beutlich</li>
 </ul>
-<p>Copyright  &copy; 2015-2017 Politecnico di Milano, ESI Group</p>
+<p>Copyright  &copy; 2015-2017 Francesco Casella, Kaan Sezginer, ESI Group</p>
 <p>All rights reserved.</p>
 
 <p>Redistribution and use in source and binary forms, with or without modification,
