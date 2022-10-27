@@ -13,7 +13,7 @@ doi:[10.3384/ecp15118459][1]
 
 ## Current release
 
-1.11.5
+2.0.0
 
 ## Development and contribution
 The library was developed by Politecnico di Milano and ESI 
