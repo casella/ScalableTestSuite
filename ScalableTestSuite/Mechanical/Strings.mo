@@ -2,7 +2,8 @@ within ScalableTestSuite.Mechanical;
 package Strings "Models of strings suspended in a gravitational field"
   package Models
     model StringModelica
-      import Modelica.SIunits;
+      import SIunits =
+             Modelica.Units.SI;
       parameter Integer N = 1 "number of joints";
       parameter SIunits.Length L "length of the string";
       final parameter SIunits.Length l = L / (N + 1) "length of each bodbox";

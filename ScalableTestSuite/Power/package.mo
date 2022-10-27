@@ -1,4 +1,4 @@
 within ScalableTestSuite;
 package Power 
-  import SI = Modelica.SIunits;
+  import      Modelica.Units.SI;
 end Power;

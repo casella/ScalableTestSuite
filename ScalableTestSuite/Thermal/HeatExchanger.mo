@@ -1,9 +1,10 @@
-within ScalableTestSuite.Thermal;
+﻿within ScalableTestSuite.Thermal;
 package HeatExchanger "Models of heat exchangers"
   package Models
     model CounterCurrentHeatExchangerEquations
       "countercurrent heat exchanger implemented by equations"
-      import Modelica.SIunits;
+      import SIunits =
+             Modelica.Units.SI;
       parameter SIunits.Length L "length of the channels";
       parameter Integer N "number of nodes";
       parameter SIunits.MassFlowRate wB "mass flow rate of fluid B";
@@ -120,7 +121,8 @@ package HeatExchanger "Models of heat exchangers"
 
     model CocurrentHeatExchangerEquations
       "cocurrent heat exchanger implemented by equations"
-      import Modelica.SIunits;
+      import SIunits =
+             Modelica.Units.SI;
       parameter SIunits.Length L "length of the channels";
       parameter Integer N "number of nodes";
       parameter SIunits.MassFlowRate wB "mass flow rate of fluid B";
@@ -240,7 +242,8 @@ Energy balance at the each wall segment is modified in terms of temperature vari
 
   package Verification
     model SteadyStateAnalysis "steady state analysis for heat exchangers"
-      import Modelica.SIunits;
+      import SIunits =
+             Modelica.Units.SI;
       parameter SIunits.Length L = 10 "length of the channels";
       parameter Integer N = 20 "number of nodes";
       parameter SIunits.MassFlowRate wB = 1 "mass flow rate of fluid B";

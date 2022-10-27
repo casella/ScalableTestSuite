@@ -1,6 +1,6 @@
 within ScalableTestSuite.Electrical;
 package DistributionSystemAC
-  import SI = Modelica.SIunits;
+  import      Modelica.Units.SI;
 
   package Models
     package Internals
@@ -54,7 +54,7 @@ package DistributionSystemAC
       end VoltageSource;
 
       model ActivePowerSensor
-        extends Modelica.Icons.RotationalSensor;
+        extends Modelica.Icons.RoundSensor;
         PositivePin s "Connect to the power source" annotation(Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
         PositivePin p "Connect to the load positive pin" annotation(Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
         NegativePin n "Connect to the load negative pin" annotation(Placement(visible = true, transformation(origin = {0, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -156,7 +156,7 @@ package DistributionSystemAC
       parameter SI.Resistance R_l = 100 "Resistance of a single load";
       parameter SI.Resistance R_d2 = R_l / (M ^ 2 * alpha) "Resistance of a secondary distribution segment";
       parameter SI.Resistance R_d1 = R_l / (M ^ 2 * N ^ 2 * alpha) "Resistance of a primary distribution segment";
-      parameter Modelica.SIunits.Voltage V_ref = 600 "Reference source voltage";
+      parameter Modelica.Units.SI.Voltage V_ref=600 "Reference source voltage";
       Internals.Impedance primary[N](each Z(re = R_d1, im = R_d1 * beta)) "Primary distribution line segments";
       Internals.Impedance secondary[N, M](each Z(re = R_d2, im = R_d2 * beta)) "Secondary distribution line segments";
       Internals.LinearControlledLoad load[N, M](each V_nom = V_ref, each P_nom = V_ref ^ 2 / R_l) "Individual load resistors";
@@ -197,7 +197,7 @@ package DistributionSystemAC
         Integer M = N "Number of segments of each secondary distribution line";
         Real alpha = 10 "Distribution line oversizing factor";
         Real beta = 2 "Ratio between line inductance and line resistance";
-        Modelica.SIunits.Resistance R_l = 100 "Resistance of a single load";
+        Modelica.Units.SI.Resistance R_l=100 "Resistance of a single load";
       algorithm
         Modelica.Utilities.Files.removeFile("code.mo");
         print("model DistributionSystemLinearIndividual_N_" + String(N) + "_M_" + String(M));
@@ -259,11 +259,14 @@ package DistributionSystemAC
       parameter Integer M = 2 "Number of segments of each secondary distribution line";
       parameter Real alpha = 10 "Distribution line oversizing factor";
       parameter Real beta = 2 "Ratio between line inductance and line resistance";
-      parameter Modelica.SIunits.Resistance R_l = 100 "Resistance of a single load";
-      parameter Modelica.SIunits.Resistance R_d2 = R_l/(M^2*alpha) "Resistance of a secondary distribution segment";
-      parameter Modelica.SIunits.Resistance R_d1 = R_l/(M^2*N^2*alpha) "Resistance of a primary distribution segment";
-      parameter Modelica.SIunits.Voltage V_ref = 600 "Reference source voltage";
-    
+      parameter Modelica.Units.SI.Resistance R_l=100
+        "Resistance of a single load";
+      parameter Modelica.Units.SI.Resistance R_d2=R_l/(M^2*alpha)
+        "Resistance of a secondary distribution segment";
+      parameter Modelica.Units.SI.Resistance R_d1=R_l/(M^2*N^2*alpha)
+        "Resistance of a primary distribution segment";
+      parameter Modelica.Units.SI.Voltage V_ref=600 "Reference source voltage";
+
       Models.Internals.Impedance primary_1(Z(re = R_d1, im = R_d1 * beta)) "Primary distribution line segment";
       Models.Internals.Impedance secondary_1_1(Z(re = R_d2, im = R_d2 * beta)) "Secondary distribution line segment";
       Models.Internals.LinearControlledLoad load_1_1(V_nom = V_ref, P_nom = V_ref^2/R_l) "Individual load resistor";
@@ -290,25 +293,53 @@ package DistributionSystemAC
       connect(secondary_2_2.n, load_2_2.p);
       annotation(experiment(StopTime = 1, Interval = 1e-3));
     end DistributionSystemLinearIndividual_N_2_M_2;
-  
-  
+
+
     model LinearControlledLoad
       Models.Internals.LinearControlledLoad linearControlledLoad(P_nom = 3600)  annotation(Placement(visible = true, transformation(origin = {0, 8.88178e-16}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Models.Internals.VoltageSource voltageSource(V = 650)  annotation(Placement(visible = true, transformation(origin = {-50, 3.55271e-15}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
-  Models.Internals.Ground ground annotation(Placement(visible = true, transformation(origin = {-50, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-      equation
+      Models.Internals.VoltageSource voltageSource(V=650) annotation(Placement(
+            visible=true, transformation(
+            origin={-50,3.55271e-15},
+            extent={{-20,-20},{20,20}},
+            rotation=-90)));
+      Models.Internals.Ground ground annotation(Placement(visible=true,
+            transformation(
+            origin={-50,-40},
+            extent={{-20,-20},{20,20}},
+            rotation=0)));
+    equation
       connect(voltageSource.p, linearControlledLoad.p) annotation(Line(points = {{-50, 20}, {-50, 40}, {0, 40}, {0, 20}}, color = {0, 0, 255}));
       connect(ground.p, voltageSource.n) annotation(Line(points = {{-50, -40}, {-50, -40}, {-50, -20}, {-50, -20}}, color = {0, 0, 255}));
       annotation(Documentation(info="<html>Test of the Linear Controlled Load Model. The applied voltage is slightly higher than the nominal one, so the controller reacts by adapting the resistance to restore the nominal power consumption</html>"));
     end LinearControlledLoad;
 
     model VariableResistor "Checks the behaviour of the variable resistor and power flow sensor"
-  Models.Internals.Ground ground annotation(Placement(visible = true, transformation(origin = {1.77636e-15, -56}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Models.Internals.VariableResistor resistor annotation(Placement(visible = true, transformation(origin = {3.55271e-15, -16}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
-  Models.Internals.VoltageSource voltageSource(V = 600) annotation(Placement(visible = true, transformation(origin = {40, 4}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
-  Modelica.Blocks.Sources.RealExpression resistance(y = 300.0) annotation(Placement(visible = true, transformation(origin = {-52, -16}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Models.Internals.ActivePowerSensor sensor annotation(Placement(visible = true, transformation(origin = {7.10543e-15, 44}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
-      equation
+      Models.Internals.Ground ground annotation(Placement(visible=true,
+            transformation(
+            origin={1.77636e-15,-56},
+            extent={{-20,-20},{20,20}},
+            rotation=0)));
+      Models.Internals.VariableResistor resistor annotation(Placement(visible=
+              true, transformation(
+            origin={3.55271e-15,-16},
+            extent={{-20,-20},{20,20}},
+            rotation=-90)));
+      Models.Internals.VoltageSource voltageSource(V=600) annotation(Placement(
+            visible=true, transformation(
+            origin={40,4},
+            extent={{-20,-20},{20,20}},
+            rotation=-90)));
+      Modelica.Blocks.Sources.RealExpression resistance(y=300.0) annotation(
+          Placement(visible=true, transformation(
+            origin={-52,-16},
+            extent={{-10,-10},{10,10}},
+            rotation=0)));
+      Models.Internals.ActivePowerSensor sensor annotation(Placement(visible=
+              true, transformation(
+            origin={7.10543e-15,44},
+            extent={{-20,-20},{20,20}},
+            rotation=-90)));
+    equation
       connect(sensor.n, resistor.n) annotation(Line(points = {{20, 44}, {22, 44}, {22, 44}, {24, 44}, {24, 44}, {28, 44}, {28, -36}, {1.49012e-07, -36}, {1.49012e-07, -36}, {1.49012e-07, -36}, {1.49012e-07, -36}}, color = {0, 0, 255}));
       connect(voltageSource.p, sensor.s) annotation(Line(points = {{40, 24}, {40, 24}, {40, 24}, {40, 24}, {40, 24}, {40, 24}, {40, 64}, {0, 64}, {0, 64}, {0, 64}, {0, 64}}, color = {0, 0, 255}));
       connect(resistor.p, sensor.p) annotation(Line(points = {{3.55271e-15, 4}, {3.55271e-15, 24}}, color = {0, 0, 255}));
@@ -372,10 +403,13 @@ package DistributionSystemAC
       parameter Integer M = 10 "Number of segments of each secondary distribution line";
       parameter Real alpha = 10 "Distribution line oversizing factor";
       parameter Real beta = 2 "Ratio between line inductance and line resistance";
-      parameter Modelica.SIunits.Resistance R_l = 100 "Resistance of a single load";
-      parameter Modelica.SIunits.Resistance R_d2 = R_l / (M ^ 2 * alpha) "Resistance of a secondary distribution segment";
-      parameter Modelica.SIunits.Resistance R_d1 = R_l / (M ^ 2 * N ^ 2 * alpha) "Resistance of a primary distribution segment";
-      parameter Modelica.SIunits.Voltage V_ref = 600 "Reference source voltage";
+      parameter Modelica.Units.SI.Resistance R_l=100
+        "Resistance of a single load";
+      parameter Modelica.Units.SI.Resistance R_d2=R_l/(M^2*alpha)
+        "Resistance of a secondary distribution segment";
+      parameter Modelica.Units.SI.Resistance R_d1=R_l/(M^2*N^2*alpha)
+        "Resistance of a primary distribution segment";
+      parameter Modelica.Units.SI.Voltage V_ref=600 "Reference source voltage";
       Models.Internals.Impedance primary_1(Z(re = R_d1, im = R_d1 * beta)) "Primary distribution line segment";
       Models.Internals.Impedance secondary_1_1(Z(re = R_d2, im = R_d2 * beta)) "Secondary distribution line segment";
       Models.Internals.LinearControlledLoad load_1_1(V_nom = V_ref, P_nom = V_ref ^ 2 / R_l) "Individual load resistor";
@@ -808,10 +842,13 @@ package DistributionSystemAC
       parameter Integer M = 14 "Number of segments of each secondary distribution line";
       parameter Real alpha = 10 "Distribution line oversizing factor";
       parameter Real beta = 2 "Ratio between line inductance and line resistance";
-      parameter Modelica.SIunits.Resistance R_l = 100 "Resistance of a single load";
-      parameter Modelica.SIunits.Resistance R_d2 = R_l / (M ^ 2 * alpha) "Resistance of a secondary distribution segment";
-      parameter Modelica.SIunits.Resistance R_d1 = R_l / (M ^ 2 * N ^ 2 * alpha) "Resistance of a primary distribution segment";
-      parameter Modelica.SIunits.Voltage V_ref = 600 "Reference source voltage";
+      parameter Modelica.Units.SI.Resistance R_l=100
+        "Resistance of a single load";
+      parameter Modelica.Units.SI.Resistance R_d2=R_l/(M^2*alpha)
+        "Resistance of a secondary distribution segment";
+      parameter Modelica.Units.SI.Resistance R_d1=R_l/(M^2*N^2*alpha)
+        "Resistance of a primary distribution segment";
+      parameter Modelica.Units.SI.Voltage V_ref=600 "Reference source voltage";
       Models.Internals.Impedance primary_1(Z(re = R_d1, im = R_d1 * beta)) "Primary distribution line segment";
       Models.Internals.Impedance secondary_1_1(Z(re = R_d2, im = R_d2 * beta)) "Secondary distribution line segment";
       Models.Internals.LinearControlledLoad load_1_1(V_nom = V_ref, P_nom = V_ref ^ 2 / R_l) "Individual load resistor";
@@ -1636,10 +1673,13 @@ package DistributionSystemAC
       parameter Integer M = 20 "Number of segments of each secondary distribution line";
       parameter Real alpha = 10 "Distribution line oversizing factor";
       parameter Real beta = 2 "Ratio between line inductance and line resistance";
-      parameter Modelica.SIunits.Resistance R_l = 100 "Resistance of a single load";
-      parameter Modelica.SIunits.Resistance R_d2 = R_l / (M ^ 2 * alpha) "Resistance of a secondary distribution segment";
-      parameter Modelica.SIunits.Resistance R_d1 = R_l / (M ^ 2 * N ^ 2 * alpha) "Resistance of a primary distribution segment";
-      parameter Modelica.SIunits.Voltage V_ref = 600 "Reference source voltage";
+      parameter Modelica.Units.SI.Resistance R_l=100
+        "Resistance of a single load";
+      parameter Modelica.Units.SI.Resistance R_d2=R_l/(M^2*alpha)
+        "Resistance of a secondary distribution segment";
+      parameter Modelica.Units.SI.Resistance R_d1=R_l/(M^2*N^2*alpha)
+        "Resistance of a primary distribution segment";
+      parameter Modelica.Units.SI.Voltage V_ref=600 "Reference source voltage";
       Models.Internals.Impedance primary_1(Z(re = R_d1, im = R_d1 * beta)) "Primary distribution line segment";
       Models.Internals.Impedance secondary_1_1(Z(re = R_d2, im = R_d2 * beta)) "Secondary distribution line segment";
       Models.Internals.LinearControlledLoad load_1_1(V_nom = V_ref, P_nom = V_ref ^ 2 / R_l) "Individual load resistor";
@@ -3292,10 +3332,13 @@ package DistributionSystemAC
       parameter Integer M = 28 "Number of segments of each secondary distribution line";
       parameter Real alpha = 10 "Distribution line oversizing factor";
       parameter Real beta = 2 "Ratio between line inductance and line resistance";
-      parameter Modelica.SIunits.Resistance R_l = 100 "Resistance of a single load";
-      parameter Modelica.SIunits.Resistance R_d2 = R_l / (M ^ 2 * alpha) "Resistance of a secondary distribution segment";
-      parameter Modelica.SIunits.Resistance R_d1 = R_l / (M ^ 2 * N ^ 2 * alpha) "Resistance of a primary distribution segment";
-      parameter Modelica.SIunits.Voltage V_ref = 600 "Reference source voltage";
+      parameter Modelica.Units.SI.Resistance R_l=100
+        "Resistance of a single load";
+      parameter Modelica.Units.SI.Resistance R_d2=R_l/(M^2*alpha)
+        "Resistance of a secondary distribution segment";
+      parameter Modelica.Units.SI.Resistance R_d1=R_l/(M^2*N^2*alpha)
+        "Resistance of a primary distribution segment";
+      parameter Modelica.Units.SI.Voltage V_ref=600 "Reference source voltage";
       Models.Internals.Impedance primary_1(Z(re = R_d1, im = R_d1 * beta)) "Primary distribution line segment";
       Models.Internals.Impedance secondary_1_1(Z(re = R_d2, im = R_d2 * beta)) "Secondary distribution line segment";
       Models.Internals.LinearControlledLoad load_1_1(V_nom = V_ref, P_nom = V_ref ^ 2 / R_l) "Individual load resistor";
@@ -6500,11 +6543,14 @@ package DistributionSystemAC
       parameter Integer M = 40 "Number of segments of each secondary distribution line";
       parameter Real alpha = 10 "Distribution line oversizing factor";
       parameter Real beta = 2 "Ratio between line inductance and line resistance";
-      parameter Modelica.SIunits.Resistance R_l = 100 "Resistance of a single load";
-      parameter Modelica.SIunits.Resistance R_d2 = R_l/(M^2*alpha) "Resistance of a secondary distribution segment";
-      parameter Modelica.SIunits.Resistance R_d1 = R_l/(M^2*N^2*alpha) "Resistance of a primary distribution segment";
-      parameter Modelica.SIunits.Voltage V_ref = 600 "Reference source voltage";
-    
+      parameter Modelica.Units.SI.Resistance R_l=100
+        "Resistance of a single load";
+      parameter Modelica.Units.SI.Resistance R_d2=R_l/(M^2*alpha)
+        "Resistance of a secondary distribution segment";
+      parameter Modelica.Units.SI.Resistance R_d1=R_l/(M^2*N^2*alpha)
+        "Resistance of a primary distribution segment";
+      parameter Modelica.Units.SI.Voltage V_ref=600 "Reference source voltage";
+
       Models.Internals.Impedance primary_1(Z(re = R_d1, im = R_d1 * beta)) "Primary distribution line segment";
       Models.Internals.Impedance secondary_1_1(Z(re = R_d2, im = R_d2 * beta)) "Secondary distribution line segment";
       Models.Internals.LinearControlledLoad load_1_1(V_nom = V_ref, P_nom = V_ref^2/R_l) "Individual load resistor";
@@ -12997,11 +13043,14 @@ package DistributionSystemAC
       parameter Integer M = 56 "Number of segments of each secondary distribution line";
       parameter Real alpha = 10 "Distribution line oversizing factor";
       parameter Real beta = 2 "Ratio between line inductance and line resistance";
-      parameter Modelica.SIunits.Resistance R_l = 100 "Resistance of a single load";
-      parameter Modelica.SIunits.Resistance R_d2 = R_l/(M^2*alpha) "Resistance of a secondary distribution segment";
-      parameter Modelica.SIunits.Resistance R_d1 = R_l/(M^2*N^2*alpha) "Resistance of a primary distribution segment";
-      parameter Modelica.SIunits.Voltage V_ref = 600 "Reference source voltage";
-    
+      parameter Modelica.Units.SI.Resistance R_l=100
+        "Resistance of a single load";
+      parameter Modelica.Units.SI.Resistance R_d2=R_l/(M^2*alpha)
+        "Resistance of a secondary distribution segment";
+      parameter Modelica.Units.SI.Resistance R_d1=R_l/(M^2*N^2*alpha)
+        "Resistance of a primary distribution segment";
+      parameter Modelica.Units.SI.Voltage V_ref=600 "Reference source voltage";
+
       Models.Internals.Impedance primary_1(Z(re = R_d1, im = R_d1 * beta)) "Primary distribution line segment";
       Models.Internals.Impedance secondary_1_1(Z(re = R_d2, im = R_d2 * beta)) "Secondary distribution line segment";
       Models.Internals.LinearControlledLoad load_1_1(V_nom = V_ref, P_nom = V_ref^2/R_l) "Individual load resistor";

@@ -2,7 +2,8 @@ within ScalableTestSuite.Electrical;
 package TransmissionLine "Models of transmission lines"
   package Models
     model TransmissionLine "Modular model of an electrical transmission line"
-      import Modelica.SIunits;
+      import SIunits =
+             Modelica.Units.SI;
       import Modelica.Electrical.Analog;
       SIunits.Voltage vpg "voltage of pin p of the transmission line";
       SIunits.Voltage vng "voltage of pin n of the transmission line";
@@ -43,8 +44,8 @@ package TransmissionLine "Models of transmission lines"
       end for;
       connect(L[N].n, pin_n);
       connect(pin_ground, ground.p);
-      annotation (Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, grid = {2, 2}), graphics={  Rectangle(origin=  {-0.17, -0.18}, fillColor=  {0, 0, 255},
-                fillPattern=                                                                                                    FillPattern.HorizontalCylinder, extent=  {{-99.82, 99.82}, {99.82, -99.82}}), Text(origin=  {0.76, 7.01}, lineColor=  {170, 0, 0}, fillColor=  {0, 170, 0}, extent=  {{-72.61, 47.88}, {72.61, -47.88}}, textString=  "Transmission Line")}), Documentation(info = "<html><p>In the figure, it is given an example of the transmission line that is implemented which consists of a resistor, an inductor and a capacitor within each segment. Moreover, transmission line is implemented by connecting each segment together. In the figure, resistor1, inductor1 and capacitor1 describes the first segment and it is connected to second segment which has the same components as the first segment and so on. It transmits the electrical signal from a source to a load.</p><img src=\"modelica://ScalableTestSuite/Resources/Images/TransmissionLine/TransmissionLine.png\"/><table border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
+      annotation(Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}}, preserveAspectRatio = true, grid = {2, 2}), graphics={  Rectangle(origin = {-0.17, -0.18}, fillColor = {0, 0, 255},
+                fillPattern =                                                                                                   FillPattern.HorizontalCylinder, extent = {{-99.82, 99.82}, {99.82, -99.82}}), Text(origin = {0.76, 7.01}, lineColor = {170, 0, 0}, fillColor = {0, 170, 0}, extent = {{-72.61, 47.88}, {72.61, -47.88}}, textString = "Transmission Line")}), Documentation(info = "<html><p>In the figure, it is given an example of the transmission line that is implemented which consists of a resistor, an inductor and a capacitor within each segment. Moreover, transmission line is implemented by connecting each segment together. In the figure, resistor1, inductor1 and capacitor1 describes the first segment and it is connected to second segment which has the same components as the first segment and so on. It transmits the electrical signal from a source to a load.</p><img src=\"modelica://ScalableTestSuite/Resources/Images/TransmissionLine/TransmissionLine.png\"/><table border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
     <tr>
       <th>Parameters</th>
       <th>Comment</th>
@@ -75,7 +76,8 @@ package TransmissionLine "Models of transmission lines"
 
     model TransmissionLineEquations
       "Transmission line circuit - Direct implementation by equations"
-      import Modelica.SIunits;
+      import SIunits =
+             Modelica.Units.SI;
       parameter Integer N = 1 "number of segments";
       parameter SIunits.Length L "length of the transmission line";
       final parameter SIunits.Length l = L / N "length of the each segment";
@@ -159,7 +161,8 @@ package TransmissionLine "Models of transmission lines"
 
     model TransmissionLineModelica
       "Transmission line circuit - Implementation using the Modelica Standard Library"
-      import Modelica.SIunits;
+      import SIunits =
+             Modelica.Units.SI;
       parameter Integer N = 1 "number of segments of the transmission line";
       parameter SIunits.Resistance r "resistance per meter";
       parameter SIunits.Inductance l "inductance per meter";
@@ -236,7 +239,8 @@ package TransmissionLine "Models of transmission lines"
   package Verification
     model TransmissionLineCheck
       "Verification of the transmission line circuits by using time delay"
-      import Modelica.SIunits;
+      import SIunits =
+             Modelica.Units.SI;
       parameter Integer N = 30 "number of segments";
       parameter SIunits.Length L = 100 "length of the transmission line";
       parameter SIunits.Resistance res = 48e-6 "resistance per meter";
@@ -313,7 +317,7 @@ package TransmissionLine "Models of transmission lines"
                  __OpenModelica_simulationFlags(s = "ida"));
     end TransmissionLineEquations_N_10;
 
-    model TransmissionLineEquations_N_20                                                  
+    model TransmissionLineEquations_N_20
       extends TransmissionLineEquations_N_10(N = 20);
       annotation(experiment(StopTime = 4e-6, Interval=2e-9, Tolerance = 1e-8),
                  __OpenModelica_simulationFlags(s = "ida"));

@@ -7,13 +7,13 @@ package DistributionSystemDC
       parameter Integer M = N
         "Number of segments of each secondary distribution line";
       parameter Real alpha = 2 "Distribution line oversizing factor";
-      parameter Modelica.SIunits.Resistance R_l = 1
+      parameter Modelica.Units.SI.Resistance R_l=1
         "Resistance of a single load";
-      parameter Modelica.SIunits.Resistance R_d2 = R_l/(M^2*alpha)
+      parameter Modelica.Units.SI.Resistance R_d2=R_l/(M^2*alpha)
         "Resistance of a secondary distribution segment";
-      parameter Modelica.SIunits.Resistance R_d1 = R_l/(M^2*N^2*alpha)
+      parameter Modelica.Units.SI.Resistance R_d1=R_l/(M^2*N^2*alpha)
         "Resistance of a primary distribution segment";
-      parameter Modelica.SIunits.Voltage V_ref = 600 "Reference source voltage";
+      parameter Modelica.Units.SI.Voltage V_ref=600 "Reference source voltage";
 
       Modelica.Electrical.Analog.Basic.Resistor primary[N](each R = R_d1)
         "Primary distribution line segments";
@@ -43,7 +43,7 @@ package DistributionSystemDC
         end for;
       end for;
 
-      annotation (Documentation(info="<html>
+      annotation(Documentation(info="<html>
   <p>This model represents a DC current distribution system, whose complexity depends on two parameters
   N and M. A voltage source is connected to primary resistive distribution line which is split into
   N segments, each with a resistance R_d1. At the end of each segment, a secondary distribution
@@ -58,7 +58,7 @@ package DistributionSystemDC
       parameter Integer M = N
         "Number of segments of each secondary distribution line";
       parameter Real alpha = 2 "Distribution line oversizing factor";
-      parameter Modelica.SIunits.Resistance R_l = 1
+      parameter Modelica.Units.SI.Resistance R_l=1
         "Resistance of a single load";
       function print = Modelica.Utilities.Streams.print;
     algorithm
@@ -139,7 +139,7 @@ equation
     end for;
   end for;
 */
-      annotation (Documentation(info="<html>
+      annotation(Documentation(info="<html>
 <p>This model generates Modelica code of models equivalent to DistributionSystemModelica which don&apos;t use arrays and for loops, but rather declare each model and each connection individually.</p>
 <p>This model can be used to check the overhead of instantiating large numbesr of individual models compared to arrays, and also to check the ability of compilers to factor out the code of instances of the same component.</p>
 </html>"));
@@ -153,7 +153,7 @@ equation
         connect(activeLoad[i].p, secondary[i,M].n);
       end for;
 
-      annotation (Documentation(info="<html>
+      annotation(Documentation(info="<html>
   <p>This model is similar to DistributionSystemModelica, but it adds active
   loads driven by simple linear dynamic systems, in order to introduce some
   states in the model.</p>
@@ -162,12 +162,12 @@ equation
 
     model ActiveLoad
       "Model of an active load, with ramp-shaped current consumption"
-      parameter Modelica.SIunits.Current I_max;
-      parameter Modelica.SIunits.Time T = 0.1;
+      parameter Modelica.Units.SI.Current I_max;
+      parameter Modelica.Units.SI.Time T=0.1;
 
       Modelica.Electrical.Analog.Basic.Ground ground
-        annotation (Placement(transformation(extent={{54,-26},{74,-6}})));
-      Modelica.Electrical.Analog.Sources.SignalCurrent currentGenerator annotation (
+        annotation(Placement(transformation(extent={{54,-26},{74,-6}})));
+      Modelica.Electrical.Analog.Sources.SignalCurrent currentGenerator annotation(
          Placement(transformation(
             extent={{10,-10},{-10,10}},
             rotation=90,
@@ -176,32 +176,32 @@ equation
         T=T,
         initType=Modelica.Blocks.Types.Init.InitialOutput,
         y_start=0,
-        k=1)       annotation (Placement(transformation(extent={{16,10},{36,30}})));
+        k=1)       annotation(Placement(transformation(extent={{16,10},{36,30}})));
       Modelica.Electrical.Analog.Interfaces.PositivePin p
-        annotation (Placement(transformation(extent={{-10,90},{10,110}})));
+        annotation(Placement(transformation(extent={{-10,90},{10,110}})));
       Modelica.Blocks.Sources.Ramp ramp(
         height=I_max,
         duration=1,
         offset=0,
         startTime=1)
-        annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
+        annotation(Placement(transformation(extent={{-70,10},{-50,30}})));
       Modelica.Blocks.Continuous.FirstOrder firstOrder2(
         T=T,
         initType=Modelica.Blocks.Types.Init.InitialOutput,
         y_start=0,
-        k=1)       annotation (Placement(transformation(extent={{-18,10},{2,30}})));
+        k=1)       annotation(Placement(transformation(extent={{-18,10},{2,30}})));
     equation
       connect(currentGenerator.n, ground.p)
-        annotation (Line(points={{64,10},{64,-6},{64,-6}}, color={0,0,255}));
-      connect(currentGenerator.p, p) annotation (Line(points={{64,30},{64,30},{64,48},
+        annotation(Line(points={{64,10},{64,-6},{64,-6}}, color={0,0,255}));
+      connect(currentGenerator.p, p) annotation(Line(points={{64,30},{64,30},{64,48},
               {2,48},{0,48},{0,100}}, color={0,0,255}));
       connect(firstOrder1.y, currentGenerator.i)
-        annotation (Line(points={{37,20},{57,20}}, color={0,0,127}));
+        annotation(Line(points={{37,20},{57,20}}, color={0,0,127}));
       connect(firstOrder2.y, firstOrder1.u)
-        annotation (Line(points={{3,20},{14,20}},         color={0,0,127}));
+        annotation(Line(points={{3,20},{14,20}},         color={0,0,127}));
       connect(ramp.y, firstOrder2.u)
-        annotation (Line(points={{-49,20},{-20,20}}, color={0,0,127}));
-      annotation ( Icon(coordinateSystem(preserveAspectRatio=false,
+        annotation(Line(points={{-49,20},{-20,20}}, color={0,0,127}));
+      annotation( Icon(coordinateSystem(preserveAspectRatio=false,
               extent={{-100,-100},{100,100}}), graphics={
                                              Rectangle(extent={{-100,100},{100,-100}},
                 lineColor={28,108,200})}));
@@ -265,13 +265,13 @@ equation
       parameter Integer M = 10
         " Number of segments of each secondary distribution line";
       parameter Real alpha = 2 "Distribution line oversizing factor";
-      parameter Modelica.SIunits.Resistance R_l = 1
+      parameter Modelica.Units.SI.Resistance R_l=1
         "Resistance of a single load";
-      parameter Modelica.SIunits.Resistance R_d2 = R_l/(M^2*alpha)
+      parameter Modelica.Units.SI.Resistance R_d2=R_l/(M^2*alpha)
         "Resistance of a secondary distribution segment";
-      parameter Modelica.SIunits.Resistance R_d1 = R_l/(M^2*N^2*alpha)
+      parameter Modelica.Units.SI.Resistance R_d1=R_l/(M^2*N^2*alpha)
         "Resistance of a primary distribution segment";
-      parameter Modelica.SIunits.Voltage V_ref = 600 "Reference source voltage";
+      parameter Modelica.Units.SI.Voltage V_ref=600 "Reference source voltage";
 
       Modelica.Electrical.Analog.Basic.Resistor primary_1(R = R_d1)
         "Primary distribution line segment";
@@ -1217,13 +1217,13 @@ equation
       parameter Integer M = 20
         " Number of segments of each secondary distribution line";
       parameter Real alpha = 2 "Distribution line oversizing factor";
-      parameter Modelica.SIunits.Resistance R_l = 1
+      parameter Modelica.Units.SI.Resistance R_l=1
         "Resistance of a single load";
-      parameter Modelica.SIunits.Resistance R_d2 = R_l/(M^2*alpha)
+      parameter Modelica.Units.SI.Resistance R_d2=R_l/(M^2*alpha)
         "Resistance of a secondary distribution segment";
-      parameter Modelica.SIunits.Resistance R_d1 = R_l/(M^2*N^2*alpha)
+      parameter Modelica.Units.SI.Resistance R_d1=R_l/(M^2*N^2*alpha)
         "Resistance of a primary distribution segment";
-      parameter Modelica.SIunits.Voltage V_ref = 600 "Reference source voltage";
+      parameter Modelica.Units.SI.Voltage V_ref=600 "Reference source voltage";
 
       Modelica.Electrical.Analog.Basic.Resistor primary_1(R = R_d1)
         "Primary distribution line segment";
@@ -4899,13 +4899,13 @@ equation
       parameter Integer M = 40
         " Number of segments of each secondary distribution line";
       parameter Real alpha = 2 "Distribution line oversizing factor";
-      parameter Modelica.SIunits.Resistance R_l = 1
+      parameter Modelica.Units.SI.Resistance R_l=1
         "Resistance of a single load";
-      parameter Modelica.SIunits.Resistance R_d2 = R_l/(M^2*alpha)
+      parameter Modelica.Units.SI.Resistance R_d2=R_l/(M^2*alpha)
         "Resistance of a secondary distribution segment";
-      parameter Modelica.SIunits.Resistance R_d1 = R_l/(M^2*N^2*alpha)
+      parameter Modelica.Units.SI.Resistance R_d1=R_l/(M^2*N^2*alpha)
         "Resistance of a primary distribution segment";
-      parameter Modelica.SIunits.Voltage V_ref = 600 "Reference source voltage";
+      parameter Modelica.Units.SI.Voltage V_ref=600 "Reference source voltage";
 
       Modelica.Electrical.Analog.Basic.Resistor primary_1(R = R_d1)
         "Primary distribution line segment";
@@ -19441,13 +19441,13 @@ equation
       parameter Integer M = 80
         " Number of segments of each secondary distribution line";
       parameter Real alpha = 2 "Distribution line oversizing factor";
-      parameter Modelica.SIunits.Resistance R_l = 1
+      parameter Modelica.Units.SI.Resistance R_l=1
         "Resistance of a single load";
-      parameter Modelica.SIunits.Resistance R_d2 = R_l/(M^2*alpha)
+      parameter Modelica.Units.SI.Resistance R_d2=R_l/(M^2*alpha)
         "Resistance of a secondary distribution segment";
-      parameter Modelica.SIunits.Resistance R_d1 = R_l/(M^2*N^2*alpha)
+      parameter Modelica.Units.SI.Resistance R_d1=R_l/(M^2*N^2*alpha)
         "Resistance of a primary distribution segment";
-      parameter Modelica.SIunits.Voltage V_ref = 600 "Reference source voltage";
+      parameter Modelica.Units.SI.Voltage V_ref=600 "Reference source voltage";
 
       Modelica.Electrical.Analog.Basic.Resistor primary_1(R = R_d1)
         "Primary distribution line segment";

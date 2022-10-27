@@ -1,9 +1,9 @@
 within ScalableTestSuite.Mechanical;
-
 package HarmonicOscillator "Models of N-dimensional 1D spring-mass oscillators"
   package Models
     model HarmonicOscillator
-      import Modelica.SIunits;
+      import SIunits =
+             Modelica.Units.SI;
       parameter Integer N = 2 "Number of masses in the system";
       parameter SIunits.Mass m = 1 "Mass of each node";
       parameter SIunits.TranslationalSpringConstant k = 10 "Elastic constant of each spring";
@@ -35,7 +35,8 @@ package HarmonicOscillator "Models of N-dimensional 1D spring-mass oscillators"
     end HarmonicOscillator;
 
     model HarmonicOscillatorNetwork
-      import Modelica.SIunits;
+      import SIunits =
+             Modelica.Units.SI;
       parameter Integer N = 2 "Number of masses in the system";
       parameter SIunits.Mass m = 1 "Mass of each node";
       parameter SIunits.TranslationalSpringConstant k = 10 "Elastic constant of each spring";
@@ -89,43 +90,43 @@ package HarmonicOscillator "Models of N-dimensional 1D spring-mass oscillators"
       annotation(
         experiment(StopTime = 10));
     end HarmonicOscillator_N_100;
-  
+
     model HarmonicOscillator_N_200
       extends Models.HarmonicOscillator(N = 200);
       annotation(
         experiment(StopTime = 10));
     end HarmonicOscillator_N_200;
-  
+
     model HarmonicOscillator_N_400
       extends Models.HarmonicOscillator(N = 400);
       annotation(
         experiment(StopTime = 10));
     end HarmonicOscillator_N_400;
-  
+
     model HarmonicOscillator_N_800
       extends Models.HarmonicOscillator(N = 800);
       annotation(
         experiment(StopTime = 10));
     end HarmonicOscillator_N_800;
-  
+
     model HarmonicOscillator_N_1600
       extends Models.HarmonicOscillator(N = 1600);
       annotation(
         experiment(StopTime = 10));
     end HarmonicOscillator_N_1600;
-  
+
     model HarmonicOscillator_N_3200
       extends Models.HarmonicOscillator(N = 3200);
       annotation(
         experiment(StopTime = 10));
     end HarmonicOscillator_N_3200;
-  
+
     model HarmonicOscillatorNetwork_N_10
       extends Models.HarmonicOscillatorNetwork(N = 10);
       annotation(
         experiment(StopTime = 10));
     end HarmonicOscillatorNetwork_N_10;
-  
+
     model HarmonicOscillatorNetwork_N_20
       extends Models.HarmonicOscillatorNetwork(N = 20);
       annotation(
@@ -137,7 +138,7 @@ package HarmonicOscillator "Models of N-dimensional 1D spring-mass oscillators"
       annotation(
         experiment(StopTime = 10));
     end HarmonicOscillatorNetwork_N_40;
-  
+
     model HarmonicOscillatorNetwork_N_80
       extends Models.HarmonicOscillatorNetwork(N = 80);
       annotation(
@@ -149,7 +150,7 @@ package HarmonicOscillator "Models of N-dimensional 1D spring-mass oscillators"
       annotation(
         experiment(StopTime = 10));
     end HarmonicOscillatorNetwork_N_160;
-  
+
     model HarmonicOscillatorNetwork_N_320
       extends Models.HarmonicOscillatorNetwork(N = 320);
       annotation(

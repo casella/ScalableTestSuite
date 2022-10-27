@@ -1,9 +1,10 @@
-within ScalableTestSuite.Thermal;
+﻿within ScalableTestSuite.Thermal;
 package HeatConduction "Models of 1-D heat conduction in solids"
   package Models
     model OneDHeatTransferTI_FD
       "One end at a fixed temperature, one end is insulated; implemented by FD method"
-      import Modelica.SIunits;
+      import SIunits =
+             Modelica.Units.SI;
       parameter SIunits.Length L "Length";
       parameter Integer N = 2 "number of nodes";
       parameter SIunits.Temperature T0 "Initial temperature";
@@ -11,8 +12,8 @@ package HeatConduction "Models of 1-D heat conduction in solids"
       parameter SIunits.SpecificHeatCapacity cp "Material Heat Capacity";
       parameter SIunits.ThermalConductivity lambda
         "Material thermal conductivity";
-      parameter Modelica.SIunits.Density rho "Material Density";
-      final parameter Modelica.SIunits.Length dx = L / (N - 1) "Element length";
+      parameter Modelica.Units.SI.Density rho "Material Density";
+      final parameter Modelica.Units.SI.Length dx=L/(N - 1) "Element length";
       SIunits.Temperature T[N] "temperature of the nodes";
     initial equation
       for i in 1:N - 1 loop
@@ -67,7 +68,8 @@ package HeatConduction "Models of 1-D heat conduction in solids"
 
     model OneDHeatTransferTI_Modelica
       "one end at a fixed temperature, one end is insulated; implemented by MSL"
-      import Modelica.SIunits;
+      import SIunits =
+             Modelica.Units.SI;
       import Modelica.Thermal;
       parameter SIunits.Length L "Length";
       parameter Integer N = 2 "Number of nodes";
@@ -149,7 +151,8 @@ package HeatConduction "Models of 1-D heat conduction in solids"
 
     model OneDHeatTransferTT_FD
       "Both ends are exposed to a fixed temperature, implemented by FD method"
-      import Modelica.SIunits;
+      import SIunits =
+             Modelica.Units.SI;
       parameter SIunits.Length L "length";
       parameter Integer N = 2 "number of nodes";
       parameter SIunits.Temperature T0 "Initial temperature";
@@ -159,7 +162,7 @@ package HeatConduction "Models of 1-D heat conduction in solids"
       parameter SIunits.ThermalConductivity lambda
         "Material thermal conductivity";
       parameter SIunits.Density rho "Material Density";
-      final parameter Modelica.SIunits.Length dx = L / (N - 1) "Element length";
+      final parameter Modelica.Units.SI.Length dx=L/(N - 1) "Element length";
       SIunits.Temperature T[N] "temperature of the nodes";
     initial equation
       for i in 2:N - 1 loop
@@ -218,12 +221,13 @@ package HeatConduction "Models of 1-D heat conduction in solids"
 
     model OneDHeatTransferTT_Modelica
       "both ends at a fixed temperature implemented by MSL"
-      import Modelica.SIunits;
+      import SIunits =
+             Modelica.Units.SI;
       import Modelica.Thermal;
       parameter SIunits.Length L "Length";
       parameter Integer N = 3 "Number of nodes";
       parameter SIunits.SpecificHeatCapacity cp "Material Heat Capacity";
-      parameter Modelica.SIunits.Density rho "Material Density";
+      parameter Modelica.Units.SI.Density rho "Material Density";
       parameter SIunits.Area A "area";
       final parameter SIunits.Mass m = rho * v "Mass";
       final parameter SIunits.Volume v = L * A;
@@ -310,7 +314,8 @@ package HeatConduction "Models of 1-D heat conduction in solids"
 
   package Verification
     model OneDHeatTransferTI_Check "analytical solution for TI models"
-      import Modelica.SIunits;
+      import SIunits =
+             Modelica.Units.SI;
       parameter SIunits.Length L = 0.2 "Length of the rod";
       parameter Integer N = 30 "Number of nodes";
       parameter SIunits.Temperature TN = 330
@@ -341,9 +346,9 @@ package HeatConduction "Models of 1-D heat conduction in solids"
         y := T_l + y;
       end f;
 
-      Modelica.SIunits.Temperature T_mid_exact;
-      Modelica.SIunits.Temperature T_mid_numerical;
-      Modelica.SIunits.Temperature T_mid_modelica;
+      Modelica.Units.SI.Temperature T_mid_exact;
+      Modelica.Units.SI.Temperature T_mid_numerical;
+      Modelica.Units.SI.Temperature T_mid_modelica;
       Models.OneDHeatTransferTI_FD example(L = L, N = N, T0 = T0, TN = TN, cp = cp, lambda = lambda, rho = rho);
       Models.OneDHeatTransferTI_Modelica example2(L = L, N = N, cp = cp, rho = rho, lambda = lambda, A = A, T0 = T0, TN = TN);
     equation
@@ -393,7 +398,8 @@ The following conditions are prescribed for the model:<p><img src=\"modelica://S
     end OneDHeatTransferTI_Check;
 
     model OneDHeatTransferTT_Check "analytical solution for TT models"
-      import Modelica.SIunits;
+      import SIunits =
+             Modelica.Units.SI;
       parameter SIunits.Length L = 0.2 "Length of the rod";
       parameter Integer N = 30 "Number of nodes";
       parameter SIunits.Temperature T0 = 273.15 "Initial temperature";
@@ -404,7 +410,7 @@ The following conditions are prescribed for the model:<p><img src=\"modelica://S
       parameter SIunits.ThermalConductivity lambda = 237
         "Material thermal conductivity";
       parameter SIunits.Area A = 0.05 "Area";
-      parameter Modelica.SIunits.Density rho = 2712 "Material Density";
+      parameter Modelica.Units.SI.Density rho=2712 "Material Density";
 
       function f
         input Real t "Time";
@@ -426,11 +432,11 @@ The following conditions are prescribed for the model:<p><img src=\"modelica://S
         y := T_0 + (T_l - T_0) * x / l + y;
       end f;
 
-      Modelica.SIunits.Temperature T_mid_exact
+      Modelica.Units.SI.Temperature T_mid_exact
         "Temperature value that function returns";
-      Modelica.SIunits.Temperature T_mid_numerical
+      Modelica.Units.SI.Temperature T_mid_numerical
         "Temperature value that discretized equation returns";
-      Modelica.SIunits.Temperature T_mid_modelica
+      Modelica.Units.SI.Temperature T_mid_modelica
         "Temperature value that heat capacitor returns";
       Models.OneDHeatTransferTT_FD example(L = L, N = N, T0 = T0, T1 = T1, TN = TN, cp = cp, lambda = lambda, rho = rho);
       Models.OneDHeatTransferTT_Modelica example2(L = L, N = N, cp = cp, rho = rho, A = A, lambda = lambda, T0 = T0, T1 = T1, TN = TN);

@@ -1,9 +1,10 @@
-within ScalableTestSuite.Mechanical;
+﻿within ScalableTestSuite.Mechanical;
 package FlexibleBeam "Models of flexible beams"
   package Models
     model FlexibleBeamModelica
       "Cantilever beam implementation by the Modelica Standard Library"
-      import Modelica.SIunits;
+      import SIunits =
+             Modelica.Units.SI;
       inner Modelica.Mechanics.MultiBody.World world(gravityType = Modelica.Mechanics.MultiBody.Types.GravityTypes.NoGravity);
       parameter Integer N = 1 "number of elements";
       parameter SIunits.Length L "length of the beam";
@@ -104,7 +105,8 @@ The flexible beam is discretized into elements, and a single element is consider
 
   package Verification
     model FlexibleBeamCheck "cantilever beam analytical solution"
-      import Modelica.SIunits;
+      import SIunits =
+             Modelica.Units.SI;
       parameter Integer N = 10 "number of elements";
       parameter SIunits.Length L = 0.5 "length of the beam";
       parameter SIunits.Length W = 0.05 "width of the beam";

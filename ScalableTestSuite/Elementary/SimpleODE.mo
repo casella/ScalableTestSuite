@@ -4,9 +4,9 @@ package SimpleODE "Models with simple ODE systems"
     model CascadedFirstOrder
       "N cascaded first order systems, approximating a pure delay"
       parameter Integer N = 10 "Order of the system";
-      parameter Modelica.SIunits.Time T = 1 "System delay";
-      final parameter Modelica.SIunits.Time tau = T/N "Individual time constant";
-      Real x[N] (each start = 0, each fixed = true);
+      parameter Modelica.Units.SI.Time T=1 "System delay";
+      final parameter Modelica.Units.SI.Time tau=T/N "Individual time constant";
+      Real x[N]( each start = 0, each fixed = true);
     equation
       tau*der(x[1]) = 1 - x[1];
       for i in 2:N loop
@@ -23,6 +23,7 @@ package SimpleODE "Models with simple ODE systems"
         differential equations.</p></html>"));
     end CascadedFirstOrder;
   end Models;
+
   package ScaledExperiments
     model CascadedFirstOrder_N_100
       extends Models.CascadedFirstOrder(N=100);

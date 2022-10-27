@@ -23,7 +23,8 @@ package Tables "Models with tables"
       extends TableBase;
       Modelica.Blocks.Sources.CombiTimeTable combiTimeTable(
         final table=[tableX, tableY],
-        final smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments /* force time events to have it comparable with TimeTable */) annotation(Placement(transformation(extent={{-95,-15},{-75,5}})));
+        final smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)                                                              annotation(Placement(transformation(extent={{-95,-15},{-75,5}})));
+                                                                           /* force time events to have it comparable with TimeTable */
       annotation(
         experiment(StopTime = 1),
         Documentation(info = "<html><p>This model is meant to try out the tool performance on large arrays passed to external objects.</p>
@@ -71,7 +72,7 @@ package Tables "Models with tables"
       extends Models.TimeTable(final N=16000);
     annotation(experiment(StopTime = 1));
     end TimeTable_N_16000;
-/*
+    /*
     model TimeTable_N_32000
       extends Models.TimeTable(final N=32000);
     annotation(experiment(StopTime = 1));
@@ -141,7 +142,7 @@ package Tables "Models with tables"
       extends Models.CombiTimeTable(final N=16000);
     annotation(experiment(StopTime = 1));
     end CombiTimeTable_N_16000;
-/*
+    /*
     model CombiTimeTable_N_32000
       extends Models.CombiTimeTable(final N=32000);
     annotation(experiment(StopTime = 1));
