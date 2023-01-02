@@ -15,16 +15,20 @@ package HeatConduction "Models of 1-D heat conduction in solids"
       parameter Modelica.Units.SI.Density rho "Material Density";
       final parameter Modelica.Units.SI.Length dx=L/(N - 1) "Element length";
       SIunits.Temperature T[N] "temperature of the nodes";
+      SIunits.Temperature Ttilde[N - 1] "state variables";
     initial equation
       for i in 1:N - 1 loop
-        T[i] = T0;
+        Ttilde[i] = T0;
       end for;
     equation
+      for i in 1:N - 1 loop
+        T[i] = Ttilde[i];
+      end for;
       T[N] = TN;
       for i in 2:N - 1 loop
-        der(T[i]) = lambda * ((T[i + 1] - T[i]) / dx + ((-T[i]) + T[i - 1]) / dx) / cp / rho / dx;
+        der(Ttilde[i]) = lambda * ((T[i + 1] - T[i]) / dx + ((-T[i]) + T[i - 1]) / dx) / cp / rho / dx;
       end for;
-      der(T[1]) = lambda * ((T[2] - T[1]) / dx) / cp / rho / dx;
+      der(Ttilde[1]) = lambda * ((T[2] - T[1]) / dx) / cp / rho / dx;
       annotation(Documentation(info = "<html><p><img src=\"modelica://ScalableTestSuite/Resources/Images/HeatConduction/uniformrod.png\"/></p>A uniform rod has the length L, density ρ, specific heat capacity cp and thermal conductivity λ which are all assumed to be constant. Moreover, the sides of the rod are assumed to be insulated. In HeatConductionTI, one end is exposed to a fixed temperature while the other end is insulated. We considered a small portion of the rod which has a width of dx from a distance x, and by considering the conservation of energy the equations are defined. According to the conservation of energy, difference between the heat in from left boundary and heat out from the right boundary has to be equal to the heat change at the portion at Δx in time Δt.</p><p>The discretized equations are described in the following form:</p><img src=\"modelica://ScalableTestSuite/Resources/Images/HeatConduction/HeatConductionEq.png\"/><p>where i = 2,..,N−1 and they correspond to the temperature nodes along the rod excluding the temperature variables at the ends. In HeatConductionTI, TN has a constant temperature value and T1 is insulated. T1 has a boundary condition defined as:</p><img src=\"modelica://ScalableTestSuite/Resources/Images/HeatConduction/T1boundary.png\"/><p>The parameters for HeatConductionTI_FD are:</p><table border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
     <tr>
       <th>Parameters</th>
@@ -164,15 +168,19 @@ package HeatConduction "Models of 1-D heat conduction in solids"
       parameter SIunits.Density rho "Material Density";
       final parameter Modelica.Units.SI.Length dx=L/(N - 1) "Element length";
       SIunits.Temperature T[N] "temperature of the nodes";
+      SIunits.Temperature Ttilde[N - 2] "state variables";
     initial equation
-      for i in 2:N - 1 loop
-        T[i] = T0;
+      for i in 1:N - 2 loop
+        Ttilde[i] = T0;
       end for;
     equation
       T[1] = T1;
-      T[N] = TN;
       for i in 2:N - 1 loop
-        der(T[i]) = lambda * ((T[i - 1] - T[i]) / dx + ((-T[i]) + T[i + 1]) / dx) / cp / rho / dx;
+        T[i] = Ttilde[i - 1];
+      end for;
+      T[N] = TN;
+      for i in 1:N - 2 loop
+        der(Ttilde[i]) = lambda * ((T[i] - T[i + 1]) / dx + ((-T[i + 1]) + T[i + 2]) / dx) / cp / rho / dx;
       end for;
       annotation(Documentation(info = "<html><p><img src=\"modelica://ScalableTestSuite/Resources/Images/HeatConduction/uniformrod.png\"/></p>A uniform rod has the length L, density ρ, specific heat capacity cp and thermal conductivity λ which are all assumed to be constant. Moreover, the sides of the rod are assumed to be insulated. In HeatConductionTT, both ends are exposed to a fixed temperature. We considered a small portion of the rod which has a width of dx from a distance x, and by considering the conservation of energy the equations are defined. According to the conservation of energy, difference between the heat in from left boundary and heat out from the right boundary has to be equal to the heat change at the portion at Δx in time Δt.</p><p>The discretized equations are described in the following form:</p><img src=\"modelica://ScalableTestSuite/Resources/Images/HeatConduction/HeatConductionEq.png\"/><p>where i = 2,..,N−1 and they correspond to the temperature nodes along the rod excluding the temperature variables at the ends. In HeatConductionTT, T1 and TN have constant temperature values.</p><p>The parameters for HeatConductionTT_FD are:</p><table border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
     <tr>
