@@ -6,7 +6,7 @@ package HeatExchanger "Models of heat exchangers"
       import SIunits =
              Modelica.Units.SI;
       parameter SIunits.Length L "length of the channels";
-      parameter Integer N "number of nodes";
+      parameter Integer N = 2 "number of nodes";
       parameter SIunits.MassFlowRate wB "mass flow rate of fluid B";
       parameter SIunits.Area areaA "cross sectional area of channel A";
       parameter SIunits.Area areaB "cross sectional area of channel B";
@@ -32,22 +32,30 @@ package HeatExchanger "Models of heat exchangers"
         "heat flow rate of fluid B in the segments";
       SIunits.Temperature TA[N] "temperature nodes on channel A";
       SIunits.Temperature TB[N] "temperature nodes on channel B";
+      SIunits.Temperature TAtilde[N - 1] "temperature states on channel A";
+      SIunits.Temperature TBtilde[N - 1] "temperature states on channel B";
       SIunits.Temperature TW[N - 1] "temperatures on the wall segments";
       SIunits.HeatFlowRate QtotA "total heat flow rate of fluid A";
       SIunits.HeatFlowRate QtotB "total heat flow rate of fluid B";
     initial equation
-      for i in 2:N loop
-        TA[i] = 300;
-        TB[i - 1] = 300;
-        TW[i - 1] = 300;
+      for i in 1:N - 1 loop
+        TAtilde[i] = 300;
+        TBtilde[i] = 300;
+        TW[i] = 300;
       end for;
     equation
       TA[1] = if time < 8 then 300 else 301;
+      for i in 2:N loop
+        TA[i] = TAtilde[i - 1];
+      end for;
       TB[N] = 310;
+      for i in 1:N - 1 loop
+        TB[i] = TBtilde[i];
+      end for;
       wA = if time < 15 then 1 else 1.1;
       for i in 1:N - 1 loop
-        rhoA * l * areaA * cpA * der(TA[i + 1]) = wA * cpA * TA[i] - wA * cpA * TA[i + 1] + QA[i];
-        rhoB * l * areaB * cpB * der(TB[N - i]) = wB * cpB * TB[N - i + 1] - wB * cpB * TB[N - i] - QB[N - i];
+        rhoA * l * areaA * cpA * der(TAtilde[i]) = wA * cpA * TA[i] - wA * cpA * TA[i + 1] + QA[i];
+        rhoB * l * areaB * cpB * der(TBtilde[N - i]) = wB * cpB * TB[N - i + 1] - wB * cpB * TB[N - i] - QB[N - i];
         QA[i] = (TW[i] - (TA[i] + TA[i + 1]) / 2) * gammaA * omega * l;
         QB[N - i] = ((TB[N - i + 1] + TB[N - i]) / 2 - TW[N - i]) * gammaB * omega * l;
         cpW / (N - 1) * der(TW[i]) = (-QA[i]) + QB[i];
@@ -67,7 +75,7 @@ package HeatExchanger "Models of heat exchangers"
       <td valign=\"top\">N</td>
       <td valign=\"top\">number of nodes</td>
     </tr>
-   <tr>
+    <tr>
       <td valign=\"top\">wB</td>
       <td valign=\"top\">mass flow rate of B</td>
     </tr>
@@ -115,8 +123,8 @@ package HeatExchanger "Models of heat exchangers"
       <td valign=\"top\">l</td>
       <td valign=\"top\">length of each wall segment</td>
     </tr>
-</table>
-</html>"));
+    </table>
+    </html>"));
     end CounterCurrentHeatExchangerEquations;
 
     model CocurrentHeatExchangerEquations
@@ -124,7 +132,7 @@ package HeatExchanger "Models of heat exchangers"
       import SIunits =
              Modelica.Units.SI;
       parameter SIunits.Length L "length of the channels";
-      parameter Integer N "number of nodes";
+      parameter Integer N = 2 "number of nodes";
       parameter SIunits.MassFlowRate wB "mass flow rate of fluid B";
       parameter SIunits.Area areaA "cross sectional area of channel A";
       parameter SIunits.Area areaB "cross sectional area of channel B";
@@ -150,22 +158,28 @@ package HeatExchanger "Models of heat exchangers"
         "heat flow rate of fluid B in the segments";
       SIunits.Temperature TA[N] "temperature nodes on channel A";
       SIunits.Temperature TB[N] "temperature nodes on channel B";
+      SIunits.Temperature TAtilde[N - 1] "temperature states on channel A";
+      SIunits.Temperature TBtilde[N - 1] "temperature states on channel B";
       SIunits.Temperature TW[N - 1] "temperatures on the wall segments";
       SIunits.HeatFlowRate QtotA "total heat flow rate of fluid A";
       SIunits.HeatFlowRate QtotB "total heat flow rate of fluid B";
     initial equation
-      for i in 2:N loop
-        TA[i] = 300;
-        TB[i] = 300;
-        TW[i - 1] = 300;
+      for i in 1:N - 1 loop
+        TAtilde[i] = 300;
+        TBtilde[i] = 300;
+        TW[i] = 300;
       end for;
     equation
       TA[1] = if time < 8 then 300 else 301;
       TB[1] = 310;
+      for i in 2:N loop
+        TA[i] = TAtilde[i - 1];
+        TB[i] = TBtilde[i - 1];
+      end for;
       wA = if time < 15 then 1 else 1.1;
       for i in 1:N - 1 loop
-        rhoA * l * cpA * areaA * der(TA[i + 1]) = wA * cpA * TA[i] - wA * cpA * TA[i + 1] + QA[i];
-        rhoB * l * cpB * areaB * der(TB[i + 1]) = wB * cpB * TB[i] - wB * cpB * TB[i + 1] - QB[i];
+        rhoA * l * cpA * areaA * der(TAtilde[i]) = wA * cpA * TA[i] - wA * cpA * TA[i + 1] + QA[i];
+        rhoB * l * cpB * areaB * der(TBtilde[i]) = wB * cpB * TB[i] - wB * cpB * TB[i + 1] - QB[i];
         QA[i] = (TW[i] - (TA[i] + TA[i + 1]) / 2) * gammaA * omega * l;
         QB[i] = ((TB[i] + TB[i + 1]) / 2 - TW[i]) * gammaB * omega * l;
         cpW / (N - 1) * der(TW[i]) = (-QA[i]) + QB[i];
