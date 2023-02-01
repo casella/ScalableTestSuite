@@ -67,10 +67,10 @@ package DistributionSystemDC
         print("  parameter Integer N = "+String(N)+"\" Number of segments of the primary distribution line\";");
         print("  parameter Integer M = "+String(M)+"\" Number of segments of each secondary distribution line\";");
         print("  parameter Real alpha = "+String(alpha)+" \"Distribution line oversizing factor\";");
-        print("  parameter Modelica.SIunits.Resistance R_l = "+String(R_l)+ " \"Resistance of a single load\";");
-        print("  parameter Modelica.SIunits.Resistance R_d2 = R_l/(M^2*alpha) \"Resistance of a secondary distribution segment\";");
-        print("  parameter Modelica.SIunits.Resistance R_d1 = R_l/(M^2*N^2*alpha) \"Resistance of a primary distribution segment\";");
-        print("  parameter Modelica.SIunits.Voltage V_ref = 600 \"Reference source voltage\";");
+        print("  parameter Modelica.Units.SI.Resistance R_l = "+String(R_l)+ " \"Resistance of a single load\";");
+        print("  parameter Modelica.Units.SI.Resistance R_d2 = R_l/(M^2*alpha) \"Resistance of a secondary distribution segment\";");
+        print("  parameter Modelica.Units.SI.Resistance R_d1 = R_l/(M^2*N^2*alpha) \"Resistance of a primary distribution segment\";");
+        print("  parameter Modelica.Units.SI.Voltage V_ref = 600 \"Reference source voltage\";");
         print("");
         for i in 1:N loop
           print("  Modelica.Electrical.Analog.Basic.Resistor primary_"+String(i)+"(R = R_d1) \"Primary distribution line segment\";");
@@ -106,10 +106,10 @@ package DistributionSystemDC
   parameter Integer M = N
     "Number of segments of each secondary distribution line";
   parameter Real alpha = 2 "Distribution line oversizing factor";
-  parameter Modelica.SIunits.Resistance R_l = 1 "Resistance of a single load";
-  parameter Modelica.SIunits.Resistance R_d2 = R_l/(M^2*alpha)
+  parameter Modelica.Units.SI.Resistance R_l = 1 "Resistance of a single load";
+  parameter Modelica.Units.SI.Resistance R_d2 = R_l/(M^2*alpha)
     "Resistance of a secondary distribution segment";
-  parameter Modelica.SIunits.Resistance R_d1 = R_l/(M^2*N^2*alpha)
+  parameter Modelica.Units.SI.Resistance R_d1 = R_l/(M^2*N^2*alpha)
     "Resistance of a primary distribution segment";
 
   Modelica.Electrical.Analog.Basic.Resistor primary[N](each R = R_d1)
