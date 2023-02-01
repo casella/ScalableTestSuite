@@ -957,12 +957,6 @@ package DistributionSystemDC
            __OpenModelica_simulationFlags(s = "euler"));
   end DistributionSystemModelicaIndividual_N_10_M_10;
 
-  model DistributionSystemModelicaIndividual_N_80_M_80
-    extends ScalableTestSuite.Electrical.DistributionSystemDC.ScaledExperiments.DistributionSystemModelicaIndividual_N_80_M_80;
-  annotation(experiment(StopTime = 1, Interval=1e-3),
-             __OpenModelica_simulationFlags(s = "euler"));
-  end DistributionSystemModelicaIndividual_N_80_M_80;
-
   model DistributionSystemModelica_N_80_M_80
     extends ScalableTestSuite.Electrical.DistributionSystemDC.ScaledExperiments.DistributionSystemModelica_N_10_M_10(N = 80, M = 80);
   annotation(experiment(StopTime = 1, Interval=1e-3),
