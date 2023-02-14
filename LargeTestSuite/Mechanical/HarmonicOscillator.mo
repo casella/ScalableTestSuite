@@ -58,4 +58,11 @@ package HarmonicOscillator
       experiment(StopTime = 10, Tolerance = 1e-4),
              __OpenModelica_simulationFlags(s = "gbode", gbm = "dopri45"));
   end HarmonicOscillator_N_409600;
+
+  model HarmonicOscillator_N_819200
+    extends HarmonicOscillator_N_3200(N = 819200);
+    annotation(
+      experiment(StopTime = 10, Tolerance = 1e-4),
+             __OpenModelica_simulationFlags(s = "gbode", gbm = "dopri45"));
+  end HarmonicOscillator_N_819200;
 end HarmonicOscillator;
