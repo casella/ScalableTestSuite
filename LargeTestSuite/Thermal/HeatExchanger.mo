@@ -27,6 +27,24 @@ package HeatExchanger
                __OpenModelica_simulationFlags(s = "ida"));
   end CounterCurrentHeatExchangerEquations_N_10240;
 
+  model CounterCurrentHeatExchangerEquations_N_20480
+    extends CounterCurrentHeatExchangerEquations_N_1280(N = 20480);
+    annotation(experiment(StopTime = 20, Tolerance = 1e-6),
+               __OpenModelica_simulationFlags(s = "ida"));
+  end CounterCurrentHeatExchangerEquations_N_20480;
+
+  model CounterCurrentHeatExchangerEquations_N_40960
+    extends CounterCurrentHeatExchangerEquations_N_1280(N = 40960);
+    annotation(experiment(StopTime = 20, Tolerance = 1e-6),
+               __OpenModelica_simulationFlags(s = "ida"));
+  end CounterCurrentHeatExchangerEquations_N_40960;
+
+  model CounterCurrentHeatExchangerEquations_N_81920
+    extends CounterCurrentHeatExchangerEquations_N_1280(N = 81920);
+    annotation(experiment(StopTime = 20, Tolerance = 1e-6),
+               __OpenModelica_simulationFlags(s = "ida"));
+  end CounterCurrentHeatExchangerEquations_N_81920;
+
   model CocurrentHeatExchangerEquations_N_1280
     extends  ScalableTestSuite.Thermal.HeatExchanger.ScaledExperiments.CocurrentHeatExchangerEquations_N_10(N = 1280);
     annotation(experiment(StopTime = 20, Tolerance = 1e-6),
@@ -50,5 +68,23 @@ package HeatExchanger
     annotation(experiment(StopTime = 20, Tolerance = 1e-6),
                __OpenModelica_simulationFlags(s = "ida"));
   end CocurrentHeatExchangerEquations_N_10240;
+
+  model CocurrentHeatExchangerEquations_N_20480
+    extends CocurrentHeatExchangerEquations_N_1280(N = 20480);
+    annotation(experiment(StopTime = 20, Tolerance = 1e-6),
+               __OpenModelica_simulationFlags(s = "ida"));
+  end CocurrentHeatExchangerEquations_N_20480;
+
+  model CocurrentHeatExchangerEquations_N_40960
+    extends CocurrentHeatExchangerEquations_N_1280(N = 40960);
+    annotation(experiment(StopTime = 20, Tolerance = 1e-6),
+               __OpenModelica_simulationFlags(s = "ida"));
+  end CocurrentHeatExchangerEquations_N_40960;
+
+  model CocurrentHeatExchangerEquations_N_81920
+    extends CocurrentHeatExchangerEquations_N_1280(N = 81920);
+    annotation(experiment(StopTime = 20, Tolerance = 1e-6),
+               __OpenModelica_simulationFlags(s = "ida"));
+  end CocurrentHeatExchangerEquations_N_81920;
 
 end HeatExchanger;
