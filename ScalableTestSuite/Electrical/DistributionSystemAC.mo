@@ -205,10 +205,10 @@ package DistributionSystemAC
         print("  parameter Integer M = " + String(M) + " \"Number of segments of each secondary distribution line\";");
         print("  parameter Real alpha = " + String(alpha) + " \"Distribution line oversizing factor\";");
         print("  parameter Real beta = " + String(beta) + " \"Ratio between line inductance and line resistance\";");
-        print("  parameter Modelica.SIunits.Resistance R_l = " + String(R_l) + " \"Resistance of a single load\";");
-        print("  parameter Modelica.SIunits.Resistance R_d2 = R_l/(M^2*alpha) \"Resistance of a secondary distribution segment\";");
-        print("  parameter Modelica.SIunits.Resistance R_d1 = R_l/(M^2*N^2*alpha) \"Resistance of a primary distribution segment\";");
-        print("  parameter Modelica.SIunits.Voltage V_ref = 600 \"Reference source voltage\";");
+        print("  parameter Modelica.Units.SI.Resistance R_l = " + String(R_l) + " \"Resistance of a single load\";");
+        print("  parameter Modelica.Units.SI.Resistance R_d2 = R_l/(M^2*alpha) \"Resistance of a secondary distribution segment\";");
+        print("  parameter Modelica.Units.SI.Resistance R_d1 = R_l/(M^2*N^2*alpha) \"Resistance of a primary distribution segment\";");
+        print("  parameter Modelica.Units.SI.Voltage V_ref = 600 \"Reference source voltage\";");
         print("");
         for i in 1:N loop
           print("  Models.Internals.Impedance primary_" + String(i) + "(Z(re = R_d1, im = R_d1 * beta)) \"Primary distribution line segment\";");
