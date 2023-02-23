@@ -6,9 +6,10 @@ package SimpleODE "Models with simple ODE systems"
       parameter Integer N = 10 "Order of the system";
       parameter Modelica.Units.SI.Time T=1 "System delay";
       final parameter Modelica.Units.SI.Time tau=T/N "Individual time constant";
-      Real x[N]( each start = 0, each fixed = true);
+      Real x[N]( each start = 0, each fixed = true) "State array";
+      Real u = 1 "Cascaded system input";
     equation
-      tau*der(x[1]) = 1 - x[1];
+      tau*der(x[1]) = u - x[1];
       for i in 2:N loop
         tau*der(x[i]) = x[i-1] - x[i];
       end for;
