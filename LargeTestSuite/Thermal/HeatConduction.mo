@@ -51,6 +51,18 @@ package HeatConduction
                __OpenModelica_simulationFlags(s = "ida"));
   end OneDHeatTransferTT_FD_N_163840;
 
+  model OneDHeatTransferTT_FD_N_327680
+    extends  OneDHeatTransferTT_FD_N_1280(N = 327680);
+    annotation(experiment(StopTime = 350, Tolerance = 1e-4),
+               __OpenModelica_simulationFlags(s = "ida"));
+  end OneDHeatTransferTT_FD_N_327680;
+
+  model OneDHeatTransferTT_FD_N_655360
+    extends  OneDHeatTransferTT_FD_N_1280(N = 655360);
+    annotation(experiment(StopTime = 350, Tolerance = 1e-4),
+               __OpenModelica_simulationFlags(s = "ida"));
+  end OneDHeatTransferTT_FD_N_655360;
+
   model OneDHeatTransferTT_Modelica_N_1280
     extends  ScalableTestSuite.Thermal.HeatConduction.ScaledExperiments.OneDHeatTransferTT_Modelica_N_10(N = 1280);
     annotation(experiment(StopTime = 350, Tolerance = 1e-4),
@@ -116,6 +128,18 @@ package HeatConduction
     annotation(experiment(StopTime = 350, Tolerance = 1e-4),
                __OpenModelica_simulationFlags(s = "ida"));
   end OneDHeatTransferTI_FD_N_163840;
+
+  model OneDHeatTransferTI_FD_N_327680
+    extends  OneDHeatTransferTI_FD_N_1280(N = 327680);
+    annotation(experiment(StopTime = 350, Tolerance = 1e-4),
+               __OpenModelica_simulationFlags(s = "ida"));
+  end OneDHeatTransferTI_FD_N_327680;
+
+  model OneDHeatTransferTI_FD_N_655360
+    extends  OneDHeatTransferTI_FD_N_1280(N = 655360);
+    annotation(experiment(StopTime = 350, Tolerance = 1e-4),
+               __OpenModelica_simulationFlags(s = "ida"));
+  end OneDHeatTransferTI_FD_N_655360;
 
   model OneDHeatTransferTI_Modelica_N_1280
     extends  ScalableTestSuite.Thermal.HeatConduction.ScaledExperiments.OneDHeatTransferTI_Modelica_N_10(N = 1280);
