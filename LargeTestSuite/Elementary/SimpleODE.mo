@@ -9,7 +9,7 @@ package SimpleODE
     input Real b = 10;
     output Real y;
   algorithm
-    y := (1 + tanh(time - a*b)/a)/2;
+    y := (1 + tanh((u - a*b)/a))/2;
   annotation(Inline = true);
   end smoothStep;
 
