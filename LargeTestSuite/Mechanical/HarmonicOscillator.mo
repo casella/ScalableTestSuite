@@ -3,6 +3,27 @@ within LargeTestSuite.Mechanical;
 package HarmonicOscillator
   extends Modelica.Icons.ExamplesPackage;
 
+  model HarmonicOscillator_N_400
+    extends ScalableTestSuite.Mechanical.HarmonicOscillator.ScaledExperiments.HarmonicOscillator_N_100(N = 400);
+    annotation(
+      experiment(StopTime = 10, Tolerance = 1e-4),
+             __OpenModelica_simulationFlags(s = "gbode", gbm = "dopri45"));
+  end HarmonicOscillator_N_400;
+
+  model HarmonicOscillator_N_800
+    extends ScalableTestSuite.Mechanical.HarmonicOscillator.ScaledExperiments.HarmonicOscillator_N_100(N = 800);
+    annotation(
+      experiment(StopTime = 10, Tolerance = 1e-4),
+             __OpenModelica_simulationFlags(s = "gbode", gbm = "dopri45"));
+  end HarmonicOscillator_N_800;
+
+  model HarmonicOscillator_N_1600
+    extends ScalableTestSuite.Mechanical.HarmonicOscillator.ScaledExperiments.HarmonicOscillator_N_100(N = 1600);
+    annotation(
+      experiment(StopTime = 10, Tolerance = 1e-4),
+             __OpenModelica_simulationFlags(s = "gbode", gbm = "dopri45"));
+  end HarmonicOscillator_N_1600;
+
   model HarmonicOscillator_N_3200
     extends ScalableTestSuite.Mechanical.HarmonicOscillator.ScaledExperiments.HarmonicOscillator_N_100(N = 3200);
     annotation(

@@ -13,6 +13,27 @@ package SimpleODE
   annotation(Inline = true);
   end smoothStep;
 
+  model CascadedFirstOrder_N_1600
+    extends ScalableTestSuite.Elementary.SimpleODE.Models.CascadedFirstOrder(
+      N=1600, u = smoothStep(time));
+  annotation(experiment(StopTime = 2, Tolerance = 1e-5),
+             __OpenModelica_simulationFlags(s = "ida"));
+  end CascadedFirstOrder_N_1600;
+
+  model CascadedFirstOrder_N_3200
+    extends ScalableTestSuite.Elementary.SimpleODE.Models.CascadedFirstOrder(
+      N=3200, u = smoothStep(time));
+  annotation(experiment(StopTime = 2, Tolerance = 1e-5),
+             __OpenModelica_simulationFlags(s = "ida"));
+  end CascadedFirstOrder_N_3200;
+
+  model CascadedFirstOrder_N_6400
+    extends ScalableTestSuite.Elementary.SimpleODE.Models.CascadedFirstOrder(
+      N=6400, u = smoothStep(time));
+  annotation(experiment(StopTime = 2, Tolerance = 1e-5),
+             __OpenModelica_simulationFlags(s = "ida"));
+  end CascadedFirstOrder_N_6400;
+
   model CascadedFirstOrder_N_12800
     extends ScalableTestSuite.Elementary.SimpleODE.Models.CascadedFirstOrder(
       N=12800, u = smoothStep(time));
