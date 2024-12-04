@@ -7,6 +7,7 @@ package HarmonicOscillator
     extends ScalableTestSuite.Mechanical.HarmonicOscillator.ScaledExperiments.HarmonicOscillator_N_100(N = 400);
     annotation(
       experiment(StopTime = 10, Tolerance = 1e-4),
+             __OpenModelica_commandLineOptions = "--generateDynamicJacobian=none",
              __OpenModelica_simulationFlags(s = "gbode", gbm = "dopri45"));
   end HarmonicOscillator_N_400;
 
@@ -14,6 +15,7 @@ package HarmonicOscillator
     extends ScalableTestSuite.Mechanical.HarmonicOscillator.ScaledExperiments.HarmonicOscillator_N_100(N = 800);
     annotation(
       experiment(StopTime = 10, Tolerance = 1e-4),
+             __OpenModelica_commandLineOptions = "--generateDynamicJacobian=none",
              __OpenModelica_simulationFlags(s = "gbode", gbm = "dopri45"));
   end HarmonicOscillator_N_800;
 
@@ -21,6 +23,7 @@ package HarmonicOscillator
     extends ScalableTestSuite.Mechanical.HarmonicOscillator.ScaledExperiments.HarmonicOscillator_N_100(N = 1600);
     annotation(
       experiment(StopTime = 10, Tolerance = 1e-4),
+             __OpenModelica_commandLineOptions = "--generateDynamicJacobian=none",
              __OpenModelica_simulationFlags(s = "gbode", gbm = "dopri45"));
   end HarmonicOscillator_N_1600;
 
@@ -28,6 +31,7 @@ package HarmonicOscillator
     extends ScalableTestSuite.Mechanical.HarmonicOscillator.ScaledExperiments.HarmonicOscillator_N_100(N = 3200);
     annotation(
       experiment(StopTime = 10, Tolerance = 1e-4),
+             __OpenModelica_commandLineOptions = "--generateDynamicJacobian=none",
              __OpenModelica_simulationFlags(s = "gbode", gbm = "dopri45"));
   end HarmonicOscillator_N_3200;
 
@@ -35,6 +39,7 @@ package HarmonicOscillator
     extends HarmonicOscillator_N_3200(N = 6400);
     annotation(
       experiment(StopTime = 10, Tolerance = 1e-4),
+             __OpenModelica_commandLineOptions = "--generateDynamicJacobian=none",
              __OpenModelica_simulationFlags(s = "gbode", gbm = "dopri45"));
   end HarmonicOscillator_N_6400;
   
@@ -42,6 +47,7 @@ package HarmonicOscillator
     extends HarmonicOscillator_N_3200(N = 12800);
     annotation(
       experiment(StopTime = 10, Tolerance = 1e-4),
+             __OpenModelica_commandLineOptions = "--generateDynamicJacobian=none",
              __OpenModelica_simulationFlags(s = "gbode", gbm = "dopri45"));
   end HarmonicOscillator_N_12800;
   
@@ -49,6 +55,7 @@ package HarmonicOscillator
     extends HarmonicOscillator_N_3200(N = 25600);
     annotation(
       experiment(StopTime = 10, Tolerance = 1e-4),
+             __OpenModelica_commandLineOptions = "--generateDynamicJacobian=none",
              __OpenModelica_simulationFlags(s = "gbode", gbm = "dopri45"));
   end HarmonicOscillator_N_25600;
   
@@ -56,6 +63,7 @@ package HarmonicOscillator
     extends HarmonicOscillator_N_3200(N = 51200);
     annotation(
       experiment(StopTime = 10, Tolerance = 1e-4),
+             __OpenModelica_commandLineOptions = "--generateDynamicJacobian=none",
              __OpenModelica_simulationFlags(s = "gbode", gbm = "dopri45"));
   end HarmonicOscillator_N_51200;
 
@@ -63,6 +71,7 @@ package HarmonicOscillator
     extends HarmonicOscillator_N_3200(N = 102400);
     annotation(
       experiment(StopTime = 10, Tolerance = 1e-4),
+             __OpenModelica_commandLineOptions = "--generateDynamicJacobian=none",
              __OpenModelica_simulationFlags(s = "gbode", gbm = "dopri45"));
   end HarmonicOscillator_N_102400;
 
@@ -70,6 +79,7 @@ package HarmonicOscillator
     extends HarmonicOscillator_N_3200(N = 204800);
     annotation(
       experiment(StopTime = 10, Tolerance = 1e-4),
+             __OpenModelica_commandLineOptions = "--generateDynamicJacobian=none",
              __OpenModelica_simulationFlags(s = "gbode", gbm = "dopri45"));
   end HarmonicOscillator_N_204800;
   
@@ -77,6 +87,7 @@ package HarmonicOscillator
     extends HarmonicOscillator_N_3200(N = 409600);
     annotation(
       experiment(StopTime = 10, Tolerance = 1e-4),
+             __OpenModelica_commandLineOptions = "--generateDynamicJacobian=none",
              __OpenModelica_simulationFlags(s = "gbode", gbm = "dopri45"));
   end HarmonicOscillator_N_409600;
 
@@ -84,6 +95,7 @@ package HarmonicOscillator
     extends HarmonicOscillator_N_3200(N = 819200);
     annotation(
       experiment(StopTime = 10, Tolerance = 1e-4),
+             __OpenModelica_commandLineOptions = "--generateDynamicJacobian=none",
              __OpenModelica_simulationFlags(s = "gbode", gbm = "dopri45"));
   end HarmonicOscillator_N_819200;
 
@@ -91,6 +103,7 @@ package HarmonicOscillator
     extends HarmonicOscillator_N_3200(N = 1638400);
     annotation(
       experiment(StopTime = 10, Tolerance = 1e-4),
+             __OpenModelica_commandLineOptions = "--generateDynamicJacobian=none",
              __OpenModelica_simulationFlags(s = "gbode", gbm = "dopri45"));
   end HarmonicOscillator_N_1638400;
 end HarmonicOscillator;
