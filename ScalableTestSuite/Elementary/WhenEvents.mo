@@ -64,73 +64,73 @@ package WhenEvents "Models large number of when statements and events"
     model ManyEvents_N_1000_M_10
       extends Models.ManyEvents(N = 1000, M = 10);
       annotation(experiment(StopTime = 1, Tolerance = 1e-6),
-        __OpenModelica_simulationFlags(s = "rungekuttaSsc"));
+        __OpenModelica_simulationFlags(s = "gbode", gbm = "rungekuttaSsc"));
     end ManyEvents_N_1000_M_10;
 
     model ManyEvents_N_1000_M_100
       extends Models.ManyEvents(N = 1000, M = 100);
       annotation(experiment(StopTime = 1, Tolerance = 1e-6),
-        __OpenModelica_simulationFlags(s = "rungekuttaSsc"));
+        __OpenModelica_simulationFlags(s = "gbode", gbm = "rungekuttaSsc"));
     end ManyEvents_N_1000_M_100;
 
     model ManyEvents_N_1000_M_1000
       extends Models.ManyEvents(N = 1000, M = 1000);
       annotation(experiment(StopTime = 1, Tolerance = 1e-6),
-        __OpenModelica_simulationFlags(s = "rungekuttaSsc"));
+        __OpenModelica_simulationFlags(s = "gbode", gbm = "rungekuttaSsc"));
     end ManyEvents_N_1000_M_1000;
 
     model ManyEvents_N_2000_M_10
       extends Models.ManyEvents(N = 2000, M = 10);
       annotation(experiment(StopTime = 1, Tolerance = 1e-6),
-        __OpenModelica_simulationFlags(s = "rungekuttaSsc"));
+        __OpenModelica_simulationFlags(s = "gbode", gbm = "rungekuttaSsc"));
     end ManyEvents_N_2000_M_10;
 
     model ManyEvents_N_4000_M_10
       extends Models.ManyEvents(N = 4000, M = 10);
       annotation(experiment(StopTime = 1, Tolerance = 1e-6),
-        __OpenModelica_simulationFlags(s = "rungekuttaSsc"));
+        __OpenModelica_simulationFlags(s = "gbode", gbm = "rungekuttaSsc"));
     end ManyEvents_N_4000_M_10;
 
     model ManyEvents_N_8000_M_10
       extends Models.ManyEvents(N=8000, M = 10);
       annotation(experiment(StopTime = 1, Tolerance = 1e-6),
-        __OpenModelica_simulationFlags(s = "rungekuttaSsc"));
+        __OpenModelica_simulationFlags(s = "gbode", gbm = "rungekuttaSsc"));
     end ManyEvents_N_8000_M_10;
 
     model ManyEventsManyConditions_N_1000_M_10
       extends Models.ManyEventsManyConditions(N = 1000, M = 10);
       annotation(experiment(StopTime = 1, Tolerance = 1e-6),
-        __OpenModelica_simulationFlags(s = "rungekuttaSsc"));
+        __OpenModelica_simulationFlags(s = "gbode", gbm = "rungekuttaSsc"));
     end ManyEventsManyConditions_N_1000_M_10;
 
     model ManyEventsManyConditions_N_1000_M_100
       extends Models.ManyEventsManyConditions(N = 1000, M = 100);
       annotation(experiment(StopTime = 1, Tolerance = 1e-6),
-        __OpenModelica_simulationFlags(s = "rungekuttaSsc"));
+        __OpenModelica_simulationFlags(s = "gbode", gbm = "rungekuttaSsc"));
     end ManyEventsManyConditions_N_1000_M_100;
 
     model ManyEventsManyConditions_N_1000_M_1000
       extends Models.ManyEventsManyConditions(N = 1000, M = 1000);
       annotation(experiment(StopTime = 1, Tolerance = 1e-6),
-        __OpenModelica_simulationFlags(s = "rungekuttaSsc"));
+        __OpenModelica_simulationFlags(s = "gbode", gbm = "rungekuttaSsc"));
     end ManyEventsManyConditions_N_1000_M_1000;
 
     model ManyEventsManyConditions_N_2000_M_10
       extends Models.ManyEventsManyConditions(N = 2000, M = 10);
       annotation(experiment(StopTime = 1, Tolerance = 1e-6),
-        __OpenModelica_simulationFlags(s = "rungekuttaSsc"));
+        __OpenModelica_simulationFlags(s = "gbode", gbm = "rungekuttaSsc"));
     end ManyEventsManyConditions_N_2000_M_10;
 
     model ManyEventsManyConditions_N_4000_M_10
       extends Models.ManyEventsManyConditions(N = 4000, M = 10);
       annotation(experiment(StopTime = 1, Tolerance = 1e-6),
-        __OpenModelica_simulationFlags(s = "rungekuttaSsc"));
+        __OpenModelica_simulationFlags(s = "gbode", gbm = "rungekuttaSsc"));
     end ManyEventsManyConditions_N_4000_M_10;
 
     model ManyEventsManyConditions_N_8000_M_10
       extends Models.ManyEventsManyConditions(N=8000, M = 10);
       annotation(experiment(StopTime = 1, Tolerance = 1e-6),
-        __OpenModelica_simulationFlags(s = "rungekuttaSsc"));
+        __OpenModelica_simulationFlags(s = "gbode", gbm = "rungekuttaSsc"));
     end ManyEventsManyConditions_N_8000_M_10;
   end ScaledExperiments;
 end WhenEvents;
