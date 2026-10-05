@@ -11,15 +11,27 @@ package TransmissionLine
 
   model TransmissionLineEquations_N_2560
     extends TransmissionLineEquations_N_1280(N = 2560);
+    annotation(experiment(StopTime = 4e-6, Interval=2e-9, Tolerance = 1e-8),
+               __OpenModelica_simulationFlags(s = "ida"));
   end TransmissionLineEquations_N_2560;
 
   model TransmissionLineEquations_N_5120
     extends TransmissionLineEquations_N_1280(N = 5120);
+    annotation(experiment(StopTime = 4e-6, Interval=2e-9, Tolerance = 1e-8),
+               __OpenModelica_simulationFlags(s = "ida"));
   end TransmissionLineEquations_N_5120;
 
   model TransmissionLineEquations_N_10240
     extends TransmissionLineEquations_N_1280(N = 10240);
+    annotation(experiment(StopTime = 4e-6, Interval=2e-9, Tolerance = 1e-8),
+               __OpenModelica_simulationFlags(s = "ida"));
   end TransmissionLineEquations_N_10240;
+
+  model TransmissionLineEquations_N_20480
+    extends TransmissionLineEquations_N_1280(N = 20480);
+      annotation(experiment(StopTime = 4e-6, Interval=2e-9, Tolerance = 1e-8),
+               __OpenModelica_simulationFlags(s = "ida"));
+end TransmissionLineEquations_N_20480;
 
   model TransmissionLineModelica_N_1280
     extends ScalableTestSuite.Electrical.TransmissionLine.Models.TransmissionLineModelica(N = 1280, r = 48e-6, c = 101e-12, l = 253e-9, length = 100, w = 1 / 2e-7);
@@ -27,6 +39,8 @@ package TransmissionLine
                __OpenModelica_simulationFlags(s = "ida"));
   end TransmissionLineModelica_N_1280;
 
+    annotation(experiment(StopTime = 4e-6, Interval=2e-9, Tolerance = 1e-8),
+               __OpenModelica_simulationFlags(s = "ida"));
   model TransmissionLineModelica_N_2560
     extends TransmissionLineModelica_N_1280(N = 2560);
     annotation(experiment(StopTime = 4e-6, Interval=2e-9, Tolerance = 1e-8),
