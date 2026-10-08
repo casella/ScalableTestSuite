@@ -21,7 +21,7 @@ package Advection
   end SimpleAdvection_N_102400;
 
   model AdvectionReaction_N_12800
-    extends ScalableTestSuite.Thermal.Advection.ScaledExperiments.SimpleAdvection_N_100(N = 12800);
+    extends ScalableTestSuite.Thermal.Advection.ScaledExperiments.AdvectionReaction_N_100(N = 12800);
     annotation(experiment(StopTime=1, Interval=4e-3, Tolerance = 1e-6),
                __OpenModelica_simulationFlags(s = "ida"));
   end AdvectionReaction_N_12800;
