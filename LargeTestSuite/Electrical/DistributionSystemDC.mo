@@ -974,4 +974,10 @@ package DistributionSystemDC
   model DistributionSystemModelica_N_224_M_224
     extends ScalableTestSuite.Electrical.DistributionSystemDC.ScaledExperiments.DistributionSystemModelica_N_10_M_10(N = 224, M = 224);
   end DistributionSystemModelica_N_224_M_224;
+
+  model DistributionSystemModelicaActiveLoads_N_80_M_80
+    extends ScalableTestSuite.Electrical.DistributionSystemDC.ScaledExperiments.DistributionSystemModelicaActiveLoads_N_10_M_10(N = 80, M = 80);
+  annotation(experiment(StopTime = 1, Interval=1e-3),
+             __OpenModelica_simulationFlags(s = "euler"));
+  end DistributionSystemModelicaActiveLoads_N_80_M_80;
 end DistributionSystemDC;
