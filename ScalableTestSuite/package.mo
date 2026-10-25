@@ -1,7 +1,7 @@
 within ;
 package ScalableTestSuite "A library of scalable Modelica test models"
-annotation(version="2.2.0",
-             uses(Modelica(version="4.0.0")),
+annotation(version="2.4.0",
+             uses(Modelica(version="4.1.0")),
              Documentation(info= "<html>
 <p>This library contains a collection of Modelica models whose size can be scaled by means of integer parameter(s). This is useful to test the ability of Modelica tools to compile and simulate models of  increasing size efficiently.</p>
 <p>The library contains examples with a physical motivation, which are also verified against known analytical solutions wherever possible, as well as elementary models to stress some specific features of the Modelica tools.</p>
@@ -15,7 +15,7 @@ if you want to contribute to the library.
 <li>Francesco Casella</li>
 <li>Thomas Beutlich</li>
 </ul>
-<p>Copyright  &copy; 2015-2022 Francesco Casella, Kaan Sezginer, ESI Group</p>
+<p>Copyright  &copy; 2015-2026 Francesco Casella, Kaan Sezginer, ESI Group</p>
 <p>All rights reserved.</p>
 
 <p>Redistribution and use in source and binary forms, with or without modification,
