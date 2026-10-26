@@ -30,18 +30,15 @@ package Battery
   model ElectricBattery_nWE_40_nNS_20_nTB_20
     extends .Battery.Examples.ElectricBattery(
       battery(nWE=40, nNS=20, nTB=20));
-  annotation(experiment(StopTime = 1800));
   end ElectricBattery_nWE_40_nNS_20_nTB_20;
 
   model ElectricBattery_nWE_40_nNS_40_nTB_20
     extends .Battery.Examples.ElectricBattery(
       battery(nWE=40, nNS=40, nTB=20));
-  annotation(experiment(StopTime = 1800));
   end ElectricBattery_nWE_40_nNS_40_nTB_20;
 
   model ElectricBattery_nWE_40_nNS_40_nTB_40
     extends .Battery.Examples.ElectricBattery(
       battery(nWE=40, nNS=40, nTB=40));
-  annotation(experiment(StopTime = 1800));
   end ElectricBattery_nWE_40_nNS_40_nTB_40;
 end Battery;
