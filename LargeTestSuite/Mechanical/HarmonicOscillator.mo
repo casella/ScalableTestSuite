@@ -122,4 +122,13 @@ package HarmonicOscillator
              __OpenModelica_commandLineOptions = "--generateDynamicJacobian=none",
              __OpenModelica_simulationFlags(s = "gbode", gbm = "dopri45"));
   end HarmonicOscillator_N_6553600;
+
+  model HarmonicOscillator_N_13107200
+    extends HarmonicOscillator_N_3200(N = 13107200);
+    annotation(
+      experiment(StopTime = 10, Tolerance = 1e-4),
+             __OpenModelica_commandLineOptions = "--generateDynamicJacobian=none",
+             __OpenModelica_simulationFlags(s = "gbode", gbm = "dopri45"));
+  end HarmonicOscillator_N_13107200;
+
 end HarmonicOscillator;
