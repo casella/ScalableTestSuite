@@ -52,4 +52,9 @@ package LSGreenH2Production
     extends Plant_nTrafoEHV_5_nTrafoHV_10(nTrafoEHV = 80, nTrafoHV = 320);
   annotation(experiment(StopTime = 1, Interval = 0.1));
   end Plant_nTrafoEHV_80_nTrafoHV_320;
+
+  model Plant_nTrafoEHV_80_nTrafoHV_640
+    extends Plant_nTrafoEHV_5_nTrafoHV_10(nTrafoEHV = 80, nTrafoHV = 640);
+  annotation(experiment(StopTime = 1, Interval = 0.1));
+  end Plant_nTrafoEHV_80_nTrafoHV_640;
 end LSGreenH2Production;
