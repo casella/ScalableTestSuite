@@ -4,6 +4,7 @@ annotation(uses(Modelica(version="4.1.0"),
                 ScalableTestSuite(version="2.4.0"),
                 LSGreenH2Production,
                 Battery,
-                IDADistricts),
+                IDADistricts,
+                SOFCPoliMi),
            version = "2.4.0");
 end LargeTestSuite;
