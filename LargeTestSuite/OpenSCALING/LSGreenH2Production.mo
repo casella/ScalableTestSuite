@@ -4,7 +4,7 @@ package LSGreenH2Production
   extends Modelica.Icons.ExamplesPackage;
 
   model Plant_nTrafoEHV_5_nTrafoHV_10
-    extends .LSGreenH2Production.Plant(nTrafoEHV = 5, nTrafoHV = 10);
+    extends .LSGreenH2Production.Plant_small(nTrafoEHV = 5, nTrafoHV = 10);
   annotation(experiment(StopTime = 1, Interval = 0.1));
   end Plant_nTrafoEHV_5_nTrafoHV_10;
 
