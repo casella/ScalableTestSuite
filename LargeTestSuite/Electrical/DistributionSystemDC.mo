@@ -952,7 +952,7 @@ package DistributionSystemDC
       connect(load_10_9.n, ground_10_9.p);
       connect(secondary_10_10.n, load_10_10.p);
       connect(load_10_10.n, ground_10_10.p);
-    annotation(experiment(StopTime = 1, Interval = 1e-3),
+    annotation(experiment(StopTime = 1, Interval = 1e-1),
            __OpenModelica_commandLineOptions = "-d=mergeComponents",
            __OpenModelica_simulationFlags(s = "euler"));
     end DistributionSystemModelicaIndividual_N_10_M_10;
@@ -4636,7 +4636,7 @@ package DistributionSystemDC
       connect(load_20_19.n, ground_20_19.p);
       connect(secondary_20_20.n, load_20_20.p);
       connect(load_20_20.n, ground_20_20.p);
-    annotation(experiment(StopTime = 1, Interval = 1e-3),
+    annotation(experiment(StopTime = 1, Interval = 1e-1),
            __OpenModelica_commandLineOptions = "-d=mergeComponents",
            __OpenModelica_simulationFlags(s = "euler"));
     end DistributionSystemModelicaIndividual_N_20_M_20;
@@ -19180,7 +19180,7 @@ package DistributionSystemDC
       connect(load_40_39.n, ground_40_39.p);
       connect(secondary_40_40.n, load_40_40.p);
       connect(load_40_40.n, ground_40_40.p);
-    annotation(experiment(StopTime = 1, Interval = 1e-3),
+    annotation(experiment(StopTime = 1, Interval = 1e-1),
            __OpenModelica_commandLineOptions = "-d=mergeComponents",
            __OpenModelica_simulationFlags(s = "euler"));
     end DistributionSystemModelicaIndividual_N_40_M_40;
@@ -77044,7 +77044,7 @@ package DistributionSystemDC
       connect(load_80_79.n, ground_80_79.p);
       connect(secondary_80_80.n, load_80_80.p);
       connect(load_80_80.n, ground_80_80.p);
-     annotation(experiment(StopTime = 1, Interval = 1e-3),
+     annotation(experiment(StopTime = 1, Interval = 1e-1),
            __OpenModelica_commandLineOptions = "-d=mergeComponents",
            __OpenModelica_simulationFlags(s = "euler"));
     end DistributionSystemModelicaIndividual_N_80_M_80;
@@ -77052,49 +77052,84 @@ package DistributionSystemDC
 
   model DistributionSystemModelica_N_80_M_80
     extends ScalableTestSuite.Electrical.DistributionSystemDC.ScaledExperiments.DistributionSystemModelica_N_10_M_10(N = 80, M = 80);
-  annotation(experiment(StopTime = 1, Interval=1e-3),
+  annotation(experiment(StopTime = 1, Interval = 1e-1),
              __OpenModelica_simulationFlags(s = "euler"));
   end DistributionSystemModelica_N_80_M_80;
   
   model DistributionSystemModelica_N_112_M_112
     extends ScalableTestSuite.Electrical.DistributionSystemDC.ScaledExperiments.DistributionSystemModelica_N_10_M_10(N = 112, M = 112);
-  annotation(experiment(StopTime = 1, Interval=1e-3),
+  annotation(experiment(StopTime = 1, Interval = 1e-1),
              __OpenModelica_simulationFlags(s = "euler"));
   end DistributionSystemModelica_N_112_M_112;
   
   model DistributionSystemModelica_N_160_M_160
     extends ScalableTestSuite.Electrical.DistributionSystemDC.ScaledExperiments.DistributionSystemModelica_N_10_M_10(N = 160, M = 160);
-   annotation(experiment(StopTime = 1, Interval=1e-3),
+   annotation(experiment(StopTime = 1, Interval = 1e-1),
              __OpenModelica_simulationFlags(s = "euler"));
  end DistributionSystemModelica_N_160_M_160;
 
   model DistributionSystemModelica_N_224_M_224
-  annotation(experiment(StopTime = 1, Interval=1e-3),
+  annotation(experiment(StopTime = 1, Interval = 1e-1),
              __OpenModelica_simulationFlags(s = "euler"));
     extends ScalableTestSuite.Electrical.DistributionSystemDC.ScaledExperiments.DistributionSystemModelica_N_10_M_10(N = 224, M = 224);
   end DistributionSystemModelica_N_224_M_224;
 
+  model DistributionSystemModelica_N_320_M_320
+    extends ScalableTestSuite.Electrical.DistributionSystemDC.ScaledExperiments.DistributionSystemModelica_N_10_M_10(N = 320, M = 320);
+  annotation(experiment(StopTime = 1, Interval = 1e-1),
+             __OpenModelica_simulationFlags(s = "euler"));
+  end DistributionSystemModelica_N_320_M_320;
+
+  model DistributionSystemModelica_N_448_M_448ActiveLoads_N_10_M_10(N = 448, M = 448);
+  annotation(experiment(StopTime = 1, Interval = 1e-1),
+             __OpenModelica_simulationFlags(s = "euler"));
+  end DistributionSystemModelica_N_448_M_448;
+
+  model DistributionSystemModelica_N_640_M_640
+    extends ScalableTestSuite.Electrical.DistributionSystemDC.ScaledExperiments.DistributionSystemModelica_N_10_M_10(N = 640, M = 640);
+  annotation(experiment(StopTime = 1, Interval = 1e-1),
+             __OpenModelica_simulationFlags(s = "euler"));
+  end DistributionSystemModelica_N_640_M_640;
+
   model DistributionSystemModelicaActiveLoads_N_80_M_80
     extends ScalableTestSuite.Electrical.DistributionSystemDC.ScaledExperiments.DistributionSystemModelicaActiveLoads_N_10_M_10(N = 80, M = 80);
-  annotation(experiment(StopTime = 1, Interval=1e-3),
+  annotation(experiment(StopTime = 1, Interval = 1e-1),
              __OpenModelica_simulationFlags(s = "euler"));
   end DistributionSystemModelicaActiveLoads_N_80_M_80;
 
   model DistributionSystemModelicaActiveLoads_N_112_M_112
     extends ScalableTestSuite.Electrical.DistributionSystemDC.ScaledExperiments.DistributionSystemModelicaActiveLoads_N_10_M_10(N = 112, M = 112);
-  annotation(experiment(StopTime = 1, Interval=1e-3),
+  annotation(experiment(StopTime = 1, Interval = 1e-1),
              __OpenModelica_simulationFlags(s = "euler"));
   end DistributionSystemModelicaActiveLoads_N_112_M_112;
 
   model DistributionSystemModelicaActiveLoads_N_160_M_160
     extends ScalableTestSuite.Electrical.DistributionSystemDC.ScaledExperiments.DistributionSystemModelicaActiveLoads_N_10_M_10(N = 160, M = 160);
-  annotation(experiment(StopTime = 1, Interval=1e-3),
+  annotation(experiment(StopTime = 1, Interval = 1e-1),
              __OpenModelica_simulationFlags(s = "euler"));
   end DistributionSystemModelicaActiveLoads_N_160_M_160;
 
   model DistributionSystemModelicaActiveLoads_N_224_M_224
     extends ScalableTestSuite.Electrical.DistributionSystemDC.ScaledExperiments.DistributionSystemModelicaActiveLoads_N_10_M_10(N = 224, M = 224);
-  annotation(experiment(StopTime = 1, Interval=1e-3),
+  annotation(experiment(StopTime = 1, Interval = 1e-1),
              __OpenModelica_simulationFlags(s = "euler"));
   end DistributionSystemModelicaActiveLoads_N_224_M_224;
+
+  model DistributionSystemModelicaActiveLoads_N_320_M_320
+    extends ScalableTestSuite.Electrical.DistributionSystemDC.ScaledExperiments.DistributionSystemModelicaActiveLoads_N_10_M_10(N = 320, M = 320);
+  annotation(experiment(StopTime = 1, Interval = 1e-1),
+             __OpenModelica_simulationFlags(s = "euler"));
+  end DistributionSystemModelicaActiveLoads_N_320_M_320;
+
+  model DistributionSystemModelicaActiveLoads_N_448_M_448
+    extends ScalableTestSuite.Electrical.DistributionSystemDC.ScaledExperiments.DistributionSystemModelicaActiveLoads_N_10_M_10(N = 448, M = 448);
+  annotation(experiment(StopTime = 1, Interval = 1e-1),
+             __OpenModelica_simulationFlags(s = "euler"));
+  end DistributionSystemModelicaActiveLoads_N_448_M_448;
+
+  model DistributionSystemModelicaActiveLoads_N_640_M_640
+    extends ScalableTestSuite.Electrical.DistributionSystemDC.ScaledExperiments.DistributionSystemModelicaActiveLoads_N_10_M_10(N = 640, M = 640);
+  annotation(experiment(StopTime = 1, Interval = 1e-1),
+             __OpenModelica_simulationFlags(s = "euler"));
+  end DistributionSystemModelicaActiveLoads_N_640_M_640;
 end DistributionSystemDC;
