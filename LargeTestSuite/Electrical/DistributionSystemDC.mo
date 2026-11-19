@@ -77069,9 +77069,9 @@ package DistributionSystemDC
  end DistributionSystemModelica_N_160_M_160;
 
   model DistributionSystemModelica_N_224_M_224
+    extends ScalableTestSuite.Electrical.DistributionSystemDC.ScaledExperiments.DistributionSystemModelica_N_10_M_10(N = 224, M = 224);
   annotation(experiment(StopTime = 1, Interval = 1e-1),
              __OpenModelica_simulationFlags(s = "euler"));
-    extends ScalableTestSuite.Electrical.DistributionSystemDC.ScaledExperiments.DistributionSystemModelica_N_10_M_10(N = 224, M = 224);
   end DistributionSystemModelica_N_224_M_224;
 
   model DistributionSystemModelica_N_320_M_320
@@ -77080,7 +77080,8 @@ package DistributionSystemDC
              __OpenModelica_simulationFlags(s = "euler"));
   end DistributionSystemModelica_N_320_M_320;
 
-  model DistributionSystemModelica_N_448_M_448ActiveLoads_N_10_M_10(N = 448, M = 448);
+  model DistributionSystemModelica_N_448_M_448
+    extends ScalableTestSuite.Electrical.DistributionSystemDC.ScaledExperiments.DistributionSystemModelica_N_10_M_10(N = 448, M = 448);
   annotation(experiment(StopTime = 1, Interval = 1e-1),
              __OpenModelica_simulationFlags(s = "euler"));
   end DistributionSystemModelica_N_448_M_448;
